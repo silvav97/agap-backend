@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Email Template</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            color: #333;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .email-container {
+            max-width: 600px;
+            margin: 40px auto;
+            background-color: #e0f5e6;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .email-header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 2px 20px;
+            margin: 0 -20px;
+            text-align: center;
+        }
+        .email-body {
+            background-color: white;
+            padding: 30px 25px 10px 25px;
+            border-radius: 8px;
+            color: #333;
+            margin: 25px 25px 10px 25px;    /* Top Right Bottom Left */
+            text-align: center;
+            line-height: 1.8;
+            font-family: 'Georgia', serif;
+        }
+        .email-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            transition: background-color 0.3s ease;
+            font-weight: bold;
+            margin-top: 30px;
+            margin-bottom: 5px;
+        }
+        .email-button:hover {
+            background-color: #369636;
+        }
+        .email-footer {
+            font-size: 12px;
+            text-align: center;
+            padding: 10px;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+<div class="email-container">
+    <div class="email-header">
+        <h1 th:text="${subject}">Subject Placeholder</h1>
+    </div>
+    <div class="email-body">
+        <p th:text="${content}">Content Placeholder</p>
+        <a href="#" th:href="${url}" class="email-button">Verificar Ahora</a>
+    </div>
+    <div class="email-footer">
+        Gracias por ayudarnos a mejorar la gestión de cultivos.<br>
+        El equipo de [Tu Empresa]
+    </div>
+</div>
+</body>
+</html>

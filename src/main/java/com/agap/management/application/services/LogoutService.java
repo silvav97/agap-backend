@@ -1,6 +1,7 @@
 package com.agap.management.application.services;
 
-import com.agap.management.infrastructure.adapters.persistence.TokenRepository;
+import com.agap.management.domain.entities.Token;
+import com.agap.management.infrastructure.adapters.persistence.ITokenRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class LogoutService implements LogoutHandler {
 
-    private final TokenRepository tokenRepository;
+    private final ITokenRepository tokenRepository;
 
     @Override
     public void logout(
@@ -27,7 +28,7 @@ public class LogoutService implements LogoutHandler {
             return;
         }
         jwt = authHeader.substring(7);
-        var storedToken = tokenRepository.findByToken(jwt)
+        Token storedToken = tokenRepository.findByToken(jwt)
                 .orElse(null);
         if (storedToken != null) {
             storedToken.setExpired(true);

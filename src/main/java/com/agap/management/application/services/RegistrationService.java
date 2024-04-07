@@ -1,19 +1,20 @@
 package com.agap.management.application.services;
 
-import com.agap.management.application.ports.RegistrationServiceInterface;
-import com.agap.management.application.ports.ZTokenServiceInterface;
+import com.agap.management.application.ports.IEmailService;
+import com.agap.management.application.ports.IRegistrationService;
+import com.agap.management.application.ports.ITokenService;
 import com.agap.management.domain.dtos.RegisterRequestDTO;
 import com.agap.management.domain.enums.RoleType;
-import com.agap.management.infrastructure.adapters.mail.SendEmailService;
 import com.agap.management.domain.entities.Token;
 import com.agap.management.domain.enums.TokenType;
 import com.agap.management.domain.entities.Role;
-import com.agap.management.infrastructure.adapters.persistence.RoleRepository;
+import com.agap.management.infrastructure.adapters.persistence.IRoleRepository;
 import com.agap.management.domain.entities.User;
-import com.agap.management.infrastructure.adapters.persistence.UserRepository;
+import com.agap.management.infrastructure.adapters.persistence.IUserRepository;
 import com.agap.management.domain.dtos.RegisterResponseDTO;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
+import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,18 +25,18 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class RegistrationServiceImpl implements RegistrationServiceInterface {
+public class RegistrationService implements IRegistrationService {
 
-    private final UserRepository userRepository;
-    private final RoleRepository roleRepository;
-    private final ZTokenServiceInterface tokenService;
-    private final SendEmailService sendEmailService;
-    private final PasswordEncoder        passwordEncoder;
-    private final JwtService jwtService;
+    private final IUserRepository userRepository;
+    private final IRoleRepository roleRepository;
+    private final ITokenService   tokenService;
+    private final IEmailService   emailService;
+    private final PasswordEncoder passwordEncoder;
+    private final JwtService      jwtService;
 
 
     @Override
-    public RegisterResponseDTO register(RegisterRequestDTO request) {
+    public RegisterResponseDTO register(RegisterRequestDTO request) throws MessagingException {
         Role role = roleRepository.findByName(RoleType.FARMER).orElseThrow(() -> new RuntimeException("Error: Role USER is not found."));
         List<Role> roles = new ArrayList<>();
         roles.add(role);
@@ -54,7 +55,7 @@ public class RegistrationServiceImpl implements RegistrationServiceInterface {
     }
 
     @Override
-    public void verifyUser(String token) {
+    public void verifyUser(String token) throws MessagingException {
         try {
             String username = jwtService.extractUsername(token);
 
@@ -72,6 +73,7 @@ public class RegistrationServiceImpl implements RegistrationServiceInterface {
             tokenService.invalidateToken(verificationToken);
 
         } catch (ExpiredJwtException e) {
+            // If token already expired, send email again
             User user = userRepository.findByEmail(e.getClaims().getSubject())
                     .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
@@ -82,11 +84,14 @@ public class RegistrationServiceImpl implements RegistrationServiceInterface {
         }
     }
 
-    private void sendVerificationEmail(User user) {
+    private void sendVerificationEmail(User user) throws MessagingException {
         String jwtToken = jwtService.generateToken(user);
         tokenService.saveUserToken(user, jwtToken, TokenType.VERIFICATION);
+
+        String subject = "Confirmar cuenta";
+        String emailContent = "Por favor, haz click en el botón de abajo para verificar tu cuenta.";
         String verificationLink = "http://localhost:8080/api/v1/auth/verify/" + jwtToken;
-        sendEmailService.sendEmail(user.getEmail(), "Verifica tu cuenta", "Haz click en el enlace para verificar tu cuenta: " + verificationLink);
+        emailService.sendEmail(user.getEmail(), subject, emailContent, verificationLink);
     }
 
 }

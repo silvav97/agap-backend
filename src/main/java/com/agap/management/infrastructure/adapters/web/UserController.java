@@ -2,6 +2,7 @@ package com.agap.management.infrastructure.adapters.web;
 
 import com.agap.management.domain.dtos.ChangePasswordRequestDTO;
 import com.agap.management.application.services.UserService;
+import com.agap.management.domain.dtos.ForgotPasswordDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,6 +23,11 @@ public class UserController {
     public ResponseEntity<?> changePassword(@RequestBody ChangePasswordRequestDTO request, Principal connectedUser) {
         userService.changePassword(request, connectedUser);
         return ResponseEntity.accepted().build();  // 202
+    }
+
+    @PostMapping("/forgot-password")
+    public ResponseEntity<?> forgotPassword(@RequestBody ForgotPasswordDTO request) {
+        return ResponseEntity.ok(userService.forgotPassword(request));
     }
 
 }

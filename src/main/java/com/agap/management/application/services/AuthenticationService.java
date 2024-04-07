@@ -1,12 +1,12 @@
 package com.agap.management.application.services;
 
-import com.agap.management.application.ports.AuthenticationServiceInterface;
-import com.agap.management.application.ports.ZTokenServiceInterface;
+import com.agap.management.application.ports.IAuthenticationService;
+import com.agap.management.application.ports.IJwtService;
+import com.agap.management.application.ports.ITokenService;
 import com.agap.management.domain.dtos.AuthenticationRequestDTO;
 import com.agap.management.domain.enums.TokenType;
-import com.agap.management.domain.entities.Role;
 import com.agap.management.domain.entities.User;
-import com.agap.management.infrastructure.adapters.persistence.UserRepository;
+import com.agap.management.infrastructure.adapters.persistence.IUserRepository;
 import com.agap.management.domain.dtos.AuthenticationResponseDTO;
 import io.jsonwebtoken.io.IOException;
 import lombok.RequiredArgsConstructor;
@@ -19,11 +19,11 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class AuthenticationServiceImpl implements AuthenticationServiceInterface {
+public class AuthenticationService implements IAuthenticationService {
 
-    private final UserRepository userRepository;
-    private final ZTokenServiceInterface tokenService;
-    private final JwtService jwtService;
+    private final IUserRepository       userRepository;
+    private final ITokenService         tokenService;
+    private final IJwtService           jwtService;
     private final AuthenticationManager authenticationManager;
 
     @Override

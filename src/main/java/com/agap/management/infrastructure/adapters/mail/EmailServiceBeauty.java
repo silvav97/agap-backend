@@ -1,8 +1,15 @@
 package com.agap.management.infrastructure.adapters.mail;
 
+import com.agap.management.application.ports.IEmailService;
+import jakarta.mail.MessagingException;
+
 //@Service
 //@RequiredArgsConstructor
-public class EmailServiceBeauty {
+public class EmailServiceBeauty implements IEmailService {
+    @Override
+    public void sendEmail(String to, String subject, String content, String url) throws MessagingException {
+
+    }
 
     /*private final JavaMailSender mailSender;
     private final SpringTemplateEngine templateEngine;

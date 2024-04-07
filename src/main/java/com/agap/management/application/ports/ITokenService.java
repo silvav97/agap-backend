@@ -4,7 +4,7 @@ import com.agap.management.domain.entities.Token;
 import com.agap.management.domain.enums.TokenType;
 import com.agap.management.domain.entities.User;
 
-public interface ZTokenServiceInterface {
+public interface ITokenService {
 
     void revokeAllUserTokens(User user);
 

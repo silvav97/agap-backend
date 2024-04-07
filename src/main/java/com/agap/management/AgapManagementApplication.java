@@ -2,9 +2,9 @@ package com.agap.management;
 
 import com.agap.management.domain.entities.Role;
 import com.agap.management.domain.enums.RoleType;
-import com.agap.management.infrastructure.adapters.persistence.RoleRepository;
+import com.agap.management.infrastructure.adapters.persistence.IRoleRepository;
 import com.agap.management.domain.entities.User;
-import com.agap.management.infrastructure.adapters.persistence.UserRepository;
+import com.agap.management.infrastructure.adapters.persistence.IUserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -21,7 +21,7 @@ public class AgapManagementApplication {
 	}
 
 	@Bean
-	public CommandLineRunner commandLineRunner(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
+	public CommandLineRunner commandLineRunner(IUserRepository userRepository, IRoleRepository roleRepository, PasswordEncoder passwordEncoder) {
 		return args -> {
 			Role roleFarmer = Role.builder().name(RoleType.FARMER).build();
 			Role roleAdmin = Role.builder().name(RoleType.ADMIN).build();
@@ -45,7 +45,7 @@ public class AgapManagementApplication {
 					.enabled(true)
 					.build();
 			userRepository.saveAll(List.of( sebas, admin ));
-			System.out.println("Roles roleFarmer and roleAdmin loaded into the database " +
+			System.out.println("Roles roleFarmer and roleAdmin loaded into the database\n" +
 					"Users sebas and Admin loaded into the database");
 		};
 	}

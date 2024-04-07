@@ -1,12 +1,11 @@
 package com.agap.management.domain.dtos;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-@Getter
-@Setter
+@Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class ChangePasswordRequestDTO {
 
     private String currentPassword;

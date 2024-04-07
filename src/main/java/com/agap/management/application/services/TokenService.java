@@ -1,11 +1,11 @@
 package com.agap.management.application.services;
 
 
-import com.agap.management.application.ports.ZTokenServiceInterface;
+import com.agap.management.application.ports.ITokenService;
 import com.agap.management.domain.entities.Token;
 import com.agap.management.domain.enums.TokenType;
 import com.agap.management.domain.entities.User;
-import com.agap.management.infrastructure.adapters.persistence.TokenRepository;
+import com.agap.management.infrastructure.adapters.persistence.ITokenRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,9 +13,9 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class ZTokenServiceImpl implements ZTokenServiceInterface {
+public class TokenService implements ITokenService {
 
-    private final TokenRepository tokenRepository;
+    private final ITokenRepository tokenRepository;
 
     @Override
     public void revokeAllUserTokens(User user) {
@@ -42,6 +42,7 @@ public class ZTokenServiceImpl implements ZTokenServiceInterface {
         tokenRepository.save(token);
     }
 
+    @Override
     public void invalidateToken(Token verificationToken) {
         verificationToken.setRevoked(true);
         tokenRepository.save(verificationToken);

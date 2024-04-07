@@ -1,12 +1,13 @@
 package com.agap.management.infrastructure.adapters.web;
 
-import com.agap.management.application.ports.AuthenticationServiceInterface;
-import com.agap.management.application.ports.RegistrationServiceInterface;
+import com.agap.management.application.ports.IAuthenticationService;
+import com.agap.management.application.ports.IRegistrationService;
 import com.agap.management.domain.dtos.AuthenticationRequestDTO;
 import com.agap.management.domain.dtos.AuthenticationResponseDTO;
 import com.agap.management.domain.dtos.RegisterRequestDTO;
 import com.agap.management.domain.dtos.RegisterResponseDTO;
 import io.jsonwebtoken.io.IOException;
+import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -16,15 +17,14 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/auth")
-//@CrossOrigin(origins = {"http://localhost:4200"}, originPatterns = {"*"})
 @RequiredArgsConstructor
 public class AuthenticationController {
 
-    private final RegistrationServiceInterface registrationService;
-    private final AuthenticationServiceInterface authenticationService;
+    private final IRegistrationService   registrationService;
+    private final IAuthenticationService authenticationService;
 
     @PostMapping("/register")
-    public ResponseEntity<RegisterResponseDTO> register(@RequestBody RegisterRequestDTO request) {
+    public ResponseEntity<RegisterResponseDTO> register(@RequestBody RegisterRequestDTO request) throws MessagingException {
         return ResponseEntity.ok(registrationService.register(request));
     }
 
@@ -46,7 +46,7 @@ public class AuthenticationController {
         try {
             registrationService.verifyUser(token);
             return ResponseEntity.ok("Account successfully verified.");
-        } catch (RuntimeException e) {
+        } catch (RuntimeException | MessagingException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
