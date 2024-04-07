@@ -1,9 +1,9 @@
 package com.agap.management;
 
-import com.agap.management.user.Role;
-import com.agap.management.user.RoleRepository;
-import com.agap.management.user.User;
-import com.agap.management.user.UserRepository;
+import com.agap.management.domain.entities.Role;
+import com.agap.management.infrastructure.adapters.persistence.RoleRepository;
+import com.agap.management.domain.entities.User;
+import com.agap.management.infrastructure.adapters.persistence.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
