@@ -1,5 +1,6 @@
 package com.agap.management.domain.entities;
 
+import com.agap.management.domain.enums.RoleType;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,17 +15,8 @@ public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String name;
 
-
-    /*public List<SimpleGrantedAuthority> getAuthorities() {
-        var authorities = getPermissions()
-                .stream()
-                .map(permission -> new SimpleGrantedAuthority(permission.getPermission()))
-                .collect(Collectors.toList());
-        authorities.add(new SimpleGrantedAuthority("ROLE_" + this.name()));
-        return authorities;
-    }*/
-
+    @Enumerated(EnumType.STRING)
+    private RoleType name;
 
 }

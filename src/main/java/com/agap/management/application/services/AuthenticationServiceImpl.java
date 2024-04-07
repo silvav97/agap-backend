@@ -78,7 +78,7 @@ public class AuthenticationServiceImpl implements AuthenticationServiceInterface
         userResponseDTO.setEmail(user.getEmail());
         userResponseDTO.setName(user.getFirstName() + " " + user.getLastName());
         userResponseDTO.setActive(user.isEnabled());
-        userResponseDTO.setRoles(user.getRoles().stream().map(Role::getName).collect(Collectors.toList()));
+        userResponseDTO.setRoles(user.getRoles().stream().map(role -> role.getName().name()).collect(Collectors.toList()));
 
         return AuthenticationResponseDTO.builder()
                 .user(userResponseDTO)

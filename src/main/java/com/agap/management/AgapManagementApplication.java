@@ -1,6 +1,7 @@
 package com.agap.management;
 
 import com.agap.management.domain.entities.Role;
+import com.agap.management.domain.enums.RoleType;
 import com.agap.management.infrastructure.adapters.persistence.RoleRepository;
 import com.agap.management.domain.entities.User;
 import com.agap.management.infrastructure.adapters.persistence.UserRepository;
@@ -22,16 +23,16 @@ public class AgapManagementApplication {
 	@Bean
 	public CommandLineRunner commandLineRunner(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
 		return args -> {
-			Role roleUser = Role.builder().name("USER").build();
-			Role roleAdmin = Role.builder().name("ADMIN").build();
-			roleRepository.saveAll(List.of( roleUser, roleAdmin ));
+			Role roleFarmer = Role.builder().name(RoleType.FARMER).build();
+			Role roleAdmin = Role.builder().name(RoleType.ADMIN).build();
+			roleRepository.saveAll(List.of( roleFarmer, roleAdmin ));
 
 			User sebas = User.builder()
 					.firstName("sebastian")
 					.lastName("silva")
 					.email("sebas@gmail.com")
 					.password(passwordEncoder.encode("password"))
-					.roles(List.of(roleUser))
+					.roles(List.of(roleFarmer))
 					.enabled(true)
 					.build();
 
@@ -40,11 +41,11 @@ public class AgapManagementApplication {
 					.lastName("admin")
 					.email("admin@gmail.com")
 					.password(passwordEncoder.encode("password"))
-					.roles(List.of(roleAdmin))
+					.roles(List.of(roleAdmin, roleFarmer))
 					.enabled(true)
 					.build();
 			userRepository.saveAll(List.of( sebas, admin ));
-			System.out.println("Roles roleUser and roleAdmin loaded into the database " +
+			System.out.println("Roles roleFarmer and roleAdmin loaded into the database " +
 					"Users sebas and Admin loaded into the database");
 		};
 	}

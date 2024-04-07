@@ -3,6 +3,7 @@ package com.agap.management.application.services;
 import com.agap.management.application.ports.RegistrationServiceInterface;
 import com.agap.management.application.ports.ZTokenServiceInterface;
 import com.agap.management.domain.dtos.RegisterRequestDTO;
+import com.agap.management.domain.enums.RoleType;
 import com.agap.management.infrastructure.adapters.mail.SendEmailService;
 import com.agap.management.domain.entities.Token;
 import com.agap.management.domain.enums.TokenType;
@@ -35,7 +36,7 @@ public class RegistrationServiceImpl implements RegistrationServiceInterface {
 
     @Override
     public RegisterResponseDTO register(RegisterRequestDTO request) {
-        Role role = roleRepository.findByName("USER").orElseThrow(() -> new RuntimeException("Error: Role USER is not found."));
+        Role role = roleRepository.findByName(RoleType.FARMER).orElseThrow(() -> new RuntimeException("Error: Role USER is not found."));
         List<Role> roles = new ArrayList<>();
         roles.add(role);
 
