@@ -7,7 +7,7 @@ import jakarta.mail.MessagingException;
 //@RequiredArgsConstructor
 public class EmailServiceBeauty implements IEmailService {
     @Override
-    public void sendEmail(String to, String subject, String content, String url) throws MessagingException {
+    public void sendEmail(String to, String subject, String content, String url, String buttonMessage) throws MessagingException {
 
     }
 

@@ -23,14 +23,15 @@ public class EmailService implements IEmailService {
 
     @Override
     @Async
-    public void sendEmail(String to, String subject, String content, String url) throws MessagingException {
+    public void sendEmail(String to, String subject, String bodyMessage, String url, String buttonMessage) throws MessagingException {
         MimeMessage mimeMessage = mailSender.createMimeMessage();
         MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED, StandardCharsets.UTF_8.name());
 
         Context context = new Context();
         context.setVariable("subject", subject);
-        context.setVariable("content", content);
+        context.setVariable("bodyMessage", bodyMessage);
         context.setVariable("url", url);
+        context.setVariable("buttonMessage", buttonMessage);
 
         String html = templateEngine.process("email-template", context);
 

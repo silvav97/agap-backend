@@ -8,6 +8,7 @@ import com.agap.management.domain.enums.RoleType;
 import com.agap.management.domain.entities.Token;
 import com.agap.management.domain.enums.TokenType;
 import com.agap.management.domain.entities.Role;
+import com.agap.management.exceptions.personalizedException.UserAlreadyExistException;
 import com.agap.management.infrastructure.adapters.persistence.IRoleRepository;
 import com.agap.management.domain.entities.User;
 import com.agap.management.infrastructure.adapters.persistence.IUserRepository;
@@ -22,6 +23,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -37,13 +39,17 @@ public class RegistrationService implements IRegistrationService {
 
     @Override
     public RegisterResponseDTO register(RegisterRequestDTO request) throws MessagingException {
+        String email = request.getEmail();
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+        if (optionalUser.isPresent()) throw new UserAlreadyExistException(email);
+
         Role role = roleRepository.findByName(RoleType.FARMER).orElseThrow(() -> new RuntimeException("Error: Role USER is not found."));
         List<Role> roles = new ArrayList<>();
         roles.add(role);
 
         User user = User.builder()
                 .firstName(request.getFirstname()).lastName(request.getLastname())
-                .email(request.getEmail()).password(passwordEncoder.encode(request.getPassword()))
+                .email(email).password(passwordEncoder.encode(request.getPassword()))
                 .roles(roles).enabled(false)
                 .build();
 
@@ -89,9 +95,10 @@ public class RegistrationService implements IRegistrationService {
         tokenService.saveUserToken(user, jwtToken, TokenType.VERIFICATION);
 
         String subject = "Confirmar cuenta";
-        String emailContent = "Por favor, haz click en el botón de abajo para verificar tu cuenta.";
-        String verificationLink = "http://localhost:8080/api/v1/auth/verify/" + jwtToken;
-        emailService.sendEmail(user.getEmail(), subject, emailContent, verificationLink);
+        String bodyContent = "Por favor, haz click en el botón de abajo para verificar tu cuenta.";
+        String url = "http://localhost:8080/api/v1/auth/verify/" + jwtToken;
+        String buttonMessage = "Verificar cuenta";
+        emailService.sendEmail(user.getEmail(), subject, bodyContent, url, buttonMessage);
     }
 
 }

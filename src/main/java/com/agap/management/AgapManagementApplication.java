@@ -30,7 +30,16 @@ public class AgapManagementApplication {
 			User sebas = User.builder()
 					.firstName("sebastian")
 					.lastName("silva")
-					.email("sebas@gmail.com")
+					.email("sebas@yopmail.com")
+					.password(passwordEncoder.encode("password"))
+					.roles(List.of(roleFarmer))
+					.enabled(true)
+					.build();
+
+			User sebas2 = User.builder()
+					.firstName("sebastian")
+					.lastName("silva")
+					.email("sesilvavi@gmail.com")
 					.password(passwordEncoder.encode("password"))
 					.roles(List.of(roleFarmer))
 					.enabled(true)
@@ -39,14 +48,14 @@ public class AgapManagementApplication {
 			User admin = User.builder()
 					.firstName("admin")
 					.lastName("admin")
-					.email("admin@gmail.com")
+					.email("admin@yopmail.com")
 					.password(passwordEncoder.encode("password"))
 					.roles(List.of(roleAdmin, roleFarmer))
 					.enabled(true)
 					.build();
-			userRepository.saveAll(List.of( sebas, admin ));
-			System.out.println("Roles roleFarmer and roleAdmin loaded into the database\n" +
-					"Users sebas and Admin loaded into the database");
+			userRepository.saveAll(List.of( sebas, sebas2, admin ));
+			System.out.println("Roles roleFarmer and roleAdmin loaded into the database");
+			System.out.println("Users sebas, sebas2 and Admin loaded into the database");
 		};
 	}
 }

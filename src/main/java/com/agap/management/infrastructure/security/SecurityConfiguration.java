@@ -49,7 +49,9 @@ public class SecurityConfiguration {
                                 "/swagger-ui/**",
                                 "/webjars/**",
                                 "/swagger-ui.html",
-                                "/static/**", "/css/**", "/js/**", "/images/**"
+                                "/static/**", "/css/**", "/js/**", "/images/**",
+
+                                "/api/v1/users/forgot-password"
 
                         )
                         .permitAll()
