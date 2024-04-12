@@ -28,19 +28,26 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotBlank(message = "First name is required")
+    @NotBlank(message = "El campo Nombre es obligatorio")
+    @Size(max = 50, message = "El campo Nombre debe tener máximo {max} caracteres")
+    @Column(name = "first_name", nullable = false, length = 50)
     private String firstName;
 
-    @NotBlank(message = "Last name is required")
+    @NotBlank(message = "El campo Apellido es obligatorio")
+    @Size(max = 50, message = "El campo Apellido debe tener máximo {max} caracteres")
+    @Column(name = "last_name", nullable = false, length = 50)
     private String lastName;
 
+    @NotBlank(message = "El campo Email es obligatorio")
     @Email(message = "Email should be valid")
-    @NotBlank(message = "Email is required")
-    @Column(unique = true)
+    @Column(unique = true, name = "email", nullable = false)
     private String email;
 
-    @Size(min = 8, message = "Password must be at least 8 characters")
+    @NotBlank(message = "El campo Contraseña es obligatorio")
+    @Size(min=7, max = 255, message = "El campo Contraseña debe tener mínimo {min} caracteres y máximo {max} caracteres")
+    @Column(name = "password", nullable = false)
     private String password;
+
     private boolean enabled;
 
     @ManyToMany(fetch = FetchType.EAGER)
