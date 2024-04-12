@@ -10,6 +10,7 @@ import io.jsonwebtoken.io.IOException;
 import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +25,7 @@ public class AuthenticationController {
     private final IAuthenticationService authenticationService;
 
     @PostMapping("/register")
-    public ResponseEntity<RegisterResponseDTO> register(@RequestBody RegisterRequestDTO request) throws MessagingException {
+    public ResponseEntity<RegisterResponseDTO> register(@RequestBody @Valid RegisterRequestDTO request) throws MessagingException {
         return ResponseEntity.ok(registrationService.register(request));
     }
 

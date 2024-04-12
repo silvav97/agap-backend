@@ -8,6 +8,8 @@ import com.agap.management.domain.dtos.ResetPasswordRequestDTO;
 import com.agap.management.domain.entities.Token;
 import com.agap.management.domain.entities.User;
 import com.agap.management.domain.enums.TokenType;
+import com.agap.management.exceptions.personalizedException.ChangePasswordException;
+import com.agap.management.exceptions.personalizedException.EntityNotFoundByFieldException;
 import com.agap.management.infrastructure.adapters.persistence.IUserRepository;
 import com.agap.management.domain.dtos.ChangePasswordRequestDTO;
 import jakarta.mail.MessagingException;
@@ -34,10 +36,10 @@ public class UserService implements IUserService {
         User user = (User) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
 
         if ( !passwordEncoder.matches(request.getCurrentPassword(), user.getPassword()) ) {
-            throw new IllegalStateException("Wrong password");
+            throw new ChangePasswordException("Wrong password");
         }
         if ( !request.getNewPassword().equals(request.getConfirmationPassword()) ) {
-            throw new IllegalStateException("Passwords are not the same");
+            throw new ChangePasswordException("Passwords are not the same");
         }
         user.setPassword(passwordEncoder.encode(request.getNewPassword()));
         userRepository.save(user);
@@ -46,7 +48,7 @@ public class UserService implements IUserService {
     @Override
     public String forgotPassword(String email) throws MessagingException {
         User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
+                .orElseThrow(() -> new EntityNotFoundByFieldException("User", "email", email));
 
         String jwtToken = jwtService.generateToken(user);
         tokenService.saveUserToken(user, jwtToken, TokenType.VERIFICATION);
@@ -66,10 +68,10 @@ public class UserService implements IUserService {
 
     @Override
     public String resetPassword(String token, ResetPasswordRequestDTO request) {
-        String username = jwtService.extractUsername(token);
+        String email = jwtService.extractUsername(token);
 
-        User user = userRepository.findByEmail(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + username));
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new EntityNotFoundByFieldException("User", "email", email));
 
         Token verificationToken = tokenService.verifyToken(token);
 
@@ -78,7 +80,7 @@ public class UserService implements IUserService {
 
 
         if ( !request.getNewPassword().equals(request.getConfirmationPassword()) ) {
-            throw new IllegalStateException("Passwords are not the same");
+            throw new ChangePasswordException("Passwords are not the same");
         }
         user.setPassword(passwordEncoder.encode(request.getNewPassword()));
         userRepository.save(user);

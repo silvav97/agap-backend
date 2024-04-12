@@ -5,6 +5,7 @@ import com.agap.management.application.ports.ITokenService;
 import com.agap.management.domain.entities.Token;
 import com.agap.management.domain.enums.TokenType;
 import com.agap.management.domain.entities.User;
+import com.agap.management.exceptions.personalizedException.InvalidTokenException;
 import com.agap.management.infrastructure.adapters.persistence.ITokenRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -52,7 +53,7 @@ public class TokenService implements ITokenService {
     public Token verifyToken(String token) {
         Optional<Token> verificationTokenOptional = tokenRepository.findByToken(token);
         if (!verificationTokenOptional.isPresent() || verificationTokenOptional.get().isExpired() || verificationTokenOptional.get().isRevoked()) {
-            throw new RuntimeException("Invalid or expired verification link.");
+            throw new InvalidTokenException("Invalid or expired verification token");
         }
         return verificationTokenOptional.get();
     }

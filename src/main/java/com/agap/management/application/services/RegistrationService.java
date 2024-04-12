@@ -8,7 +8,10 @@ import com.agap.management.domain.enums.RoleType;
 import com.agap.management.domain.entities.Token;
 import com.agap.management.domain.enums.TokenType;
 import com.agap.management.domain.entities.Role;
+import com.agap.management.exceptions.personalizedException.EntityNotFoundByFieldException;
 import com.agap.management.exceptions.personalizedException.UserAlreadyExistException;
+import com.agap.management.exceptions.personalizedException.UserAlreadyVerifiedException;
+import com.agap.management.exceptions.personalizedException.VerificationTokenAlreadyExpiredException;
 import com.agap.management.infrastructure.adapters.persistence.IRoleRepository;
 import com.agap.management.domain.entities.User;
 import com.agap.management.infrastructure.adapters.persistence.IUserRepository;
@@ -43,7 +46,7 @@ public class RegistrationService implements IRegistrationService {
         Optional<User> optionalUser = userRepository.findByEmail(email);
         if (optionalUser.isPresent()) throw new UserAlreadyExistException(email);
 
-        Role role = roleRepository.findByName(RoleType.FARMER).orElseThrow(() -> new RuntimeException("Error: Role USER is not found."));
+        Role role = roleRepository.findByName(RoleType.FARMER).orElseThrow(() -> new EntityNotFoundByFieldException("Role", "name", RoleType.FARMER.name()));
         List<Role> roles = new ArrayList<>();
         roles.add(role);
 
@@ -63,15 +66,15 @@ public class RegistrationService implements IRegistrationService {
     @Override
     public void verifyUser(String token) throws MessagingException {
         try {
-            String username = jwtService.extractUsername(token);
+            String email = jwtService.extractUsername(token);
 
-            User user = userRepository.findByEmail(username)
-                    .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + username));
+            User user = userRepository.findByEmail(email)
+                    .orElseThrow(() -> new EntityNotFoundByFieldException("User", "email", email));
 
             Token verificationToken = tokenService.verifyToken(token);
 
             if (user.isEnabled()) {
-                throw new IllegalStateException("Account is already verified.");
+                throw new UserAlreadyVerifiedException(user.getEmail());
             }
 
             user.setEnabled(true);
@@ -80,11 +83,12 @@ public class RegistrationService implements IRegistrationService {
 
         } catch (ExpiredJwtException e) {
             // If token already expired, send email again
-            User user = userRepository.findByEmail(e.getClaims().getSubject())
-                    .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+            String email = e.getClaims().getSubject();
+            User user = userRepository.findByEmail(email)
+                    .orElseThrow(() -> new EntityNotFoundByFieldException("User", "email", email));
 
             sendVerificationEmail(user);
-            throw new RuntimeException("Verification link has expired. A new verification email has been sent.");
+            throw new VerificationTokenAlreadyExpiredException(email);
         } catch (JwtException e) {
             throw new RuntimeException("Verification failed: " + e.getMessage());
         }

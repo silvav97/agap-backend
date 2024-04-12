@@ -37,8 +37,10 @@ public class SecurityConfiguration {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests( authorize -> authorize
+                        .requestMatchers("/api/v1/auth/register").permitAll()
                         .requestMatchers(
                                 "/api/v1/auth/**",
+
                                 "/v2/api-docs",
                                 "v3/api-docs",
                                 "v3/api-docs/**",
@@ -56,7 +58,7 @@ public class SecurityConfiguration {
                         )
                         .permitAll()
 
-                        /*.requestMatchers("/api/v1/admin/**").hasRole("ADMIN")*/
+                        .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 //.exceptionHandling(exceptionHandling -> exceptionHandling.authenticationEntryPoint(new CustomAuthenticationEntryPoint()))
@@ -67,7 +69,9 @@ public class SecurityConfiguration {
                         .logoutUrl("/api/v1/auth/logout")
                         .addLogoutHandler(logoutHandler)
                         .logoutSuccessHandler(((request, response, authentication) -> SecurityContextHolder.clearContext()))
-                );
+                )
+
+        ;
 
         return http.build();
     }

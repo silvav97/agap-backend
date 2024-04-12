@@ -17,11 +17,17 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException {
 
 
-        response.setStatus(HttpStatus.UNAUTHORIZED.value());
+        //response.setStatus(HttpStatus.UNAUTHORIZED.value());
+        if (authException != null) {
+            response.setStatus(HttpStatus.FORBIDDEN.value()); // Cambiar si es necesario, según el caso
+        } else {
+            response.setStatus(HttpStatus.UNAUTHORIZED.value());
+        }
+
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        //response.getWriter().write("{\"error\": \"Unauthorized\", \"message\": \"Access denied due to invalid credentials\"}");
-        ResponseDTO responseDTO = new ResponseDTO("Unauthorized", "Access denied due to invalid credentials abc");
+
+        ResponseDTO responseDTO = new ResponseDTO("Unauthorized", "Access denied. " + authException.getMessage());
         String jsonResponse = new ObjectMapper().writeValueAsString(responseDTO);
         response.getWriter().write(jsonResponse);
     }
