@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -24,5 +25,10 @@ public class PesticideService implements IPesticideService {
     @Override
     public Page<Pesticide> findAll(Pageable pageable) {
         return pesticideRepository.findAll(pageable);
+    }
+
+    @Override
+    public Optional<Pesticide> findById(Integer id) {
+        return pesticideRepository.findById(id);
     }
 }
