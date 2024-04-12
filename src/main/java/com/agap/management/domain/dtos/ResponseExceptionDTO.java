@@ -1,4 +1,4 @@
-package com.agap.management.exceptions.personalizedException;
+package com.agap.management.domain.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

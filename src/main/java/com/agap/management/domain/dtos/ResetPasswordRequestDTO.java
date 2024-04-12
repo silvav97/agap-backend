@@ -1,5 +1,6 @@
 package com.agap.management.domain.dtos;
 
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,6 +12,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ResetPasswordRequestDTO {
 
+    @Size(min = 8, message = "Password must be at least 8 characters")
     private String newPassword;
+
+    @Size(min = 8, message = "Password must be at least 8 characters")
     private String confirmationPassword;
 }

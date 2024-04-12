@@ -2,6 +2,7 @@ package com.agap.management.domain.entities;
 
 import com.agap.management.domain.enums.TokenType;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,6 +20,7 @@ public class Token {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NotBlank(message = "token is required")
     private String token;
 
     @Enumerated(EnumType.STRING)

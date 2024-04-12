@@ -29,6 +29,16 @@ public class AuthenticationController {
         return ResponseEntity.ok(registrationService.register(request));
     }
 
+    @GetMapping("/verify/{token}")
+    public ResponseEntity<String> verifyUser(@PathVariable String token) {
+        try {
+            registrationService.verifyUser(token);
+            return ResponseEntity.ok("Account successfully verified.");
+        } catch (RuntimeException | MessagingException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponseDTO> authenticate(@RequestBody @Valid AuthenticationRequestDTO request) {
         return ResponseEntity.ok(authenticationService.authenticate(request));
@@ -40,15 +50,5 @@ public class AuthenticationController {
         System.out.println("Mi Refresh Token es: " + refreshToken);
 
         return ResponseEntity.ok(authenticationService.refreshToken(refreshToken));
-    }
-
-    @GetMapping("/verify/{token}")
-    public ResponseEntity<String> verifyUser(@PathVariable String token) {
-        try {
-            registrationService.verifyUser(token);
-            return ResponseEntity.ok("Account successfully verified.");
-        } catch (RuntimeException | MessagingException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
     }
 }

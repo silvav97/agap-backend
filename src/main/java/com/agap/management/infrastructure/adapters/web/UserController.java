@@ -33,10 +33,7 @@ public class UserController {
     }
 
     @PutMapping("/reset-password/{token}")
-    public ResponseEntity<String> resetPassword(
-            @PathVariable String token,
-            //@RequestParam String email,
-            @RequestBody ResetPasswordRequestDTO request) {
+    public ResponseEntity<String> resetPassword(@RequestBody @Valid ResetPasswordRequestDTO request, @PathVariable String token) {
         return ResponseEntity.ok(userService.resetPassword(token, request));
     }
 

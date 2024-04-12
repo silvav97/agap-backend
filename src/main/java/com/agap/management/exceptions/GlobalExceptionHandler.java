@@ -1,5 +1,6 @@
 package com.agap.management.exceptions;
 
+import com.agap.management.domain.dtos.ResponseExceptionDTO;
 import com.agap.management.exceptions.personalizedException.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

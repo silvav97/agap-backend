@@ -2,6 +2,7 @@ package com.agap.management.domain.entities;
 
 import com.agap.management.domain.enums.RoleType;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 @Data
