@@ -125,4 +125,17 @@ public class GlobalExceptionHandler {
     }*/
 
 
+
+
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ResponseExceptionDTO> handleException(Exception exception) {
+        ResponseExceptionDTO response =  ResponseExceptionDTO.builder()
+                .message(exception.getMessage())
+                .description(exception.getLocalizedMessage())
+                .errorCode(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                .build();
+        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
 }

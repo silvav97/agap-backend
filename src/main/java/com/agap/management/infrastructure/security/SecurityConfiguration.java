@@ -41,6 +41,7 @@ public class SecurityConfiguration {
                         .requestMatchers(
                                 "/api/v1/auth/**",
 
+
                                 "/v2/api-docs",
                                 "v3/api-docs",
                                 "v3/api-docs/**",
@@ -58,7 +59,10 @@ public class SecurityConfiguration {
                         )
                         .permitAll()
 
-                        .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
+                        //.requestMatchers("/api/v1/fertilizers").hasRole("ADMIN")
+                        //.requestMatchers("/api/v1/fertilizers/**").hasRole("ADMIN")
+                        //.requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
+
                         .anyRequest().authenticated()
                 )
                 //.exceptionHandling(exceptionHandling -> exceptionHandling.authenticationEntryPoint(new CustomAuthenticationEntryPoint()))

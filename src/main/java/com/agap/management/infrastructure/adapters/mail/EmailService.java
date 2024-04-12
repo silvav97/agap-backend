@@ -3,6 +3,7 @@ package com.agap.management.infrastructure.adapters.mail;
 import com.agap.management.application.ports.IEmailService;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -14,12 +15,11 @@ import org.thymeleaf.spring6.SpringTemplateEngine;
 import java.nio.charset.StandardCharsets;
 
 @Service
+@RequiredArgsConstructor
 public class EmailService implements IEmailService {
 
-    @Autowired
-    private JavaMailSender mailSender;
-    @Autowired
-    private SpringTemplateEngine templateEngine;
+    private final JavaMailSender       mailSender;
+    private final SpringTemplateEngine templateEngine;
 
     @Override
     @Async
