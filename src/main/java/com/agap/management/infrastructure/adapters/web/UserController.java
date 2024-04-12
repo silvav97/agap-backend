@@ -6,6 +6,7 @@ import com.agap.management.application.services.UserService;
 import com.agap.management.domain.dtos.ForgotPasswordDTO;
 import com.agap.management.domain.dtos.ResetPasswordRequestDTO;
 import jakarta.mail.MessagingException;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,13 +22,13 @@ public class UserController {
     private final IUserService userService;
 
     @PostMapping("/change-password")
-    public ResponseEntity<?> changePassword(@RequestBody ChangePasswordRequestDTO request, Principal connectedUser) {
+    public ResponseEntity<?> changePassword(@RequestBody @Valid ChangePasswordRequestDTO request, Principal connectedUser) {
         userService.changePassword(request, connectedUser);
         return ResponseEntity.accepted().build();  // 202
     }
 
     @PostMapping("/forgot-password")
-    public ResponseEntity<String> forgotPassword(@RequestBody ForgotPasswordDTO request) throws MessagingException {
+    public ResponseEntity<String> forgotPassword(@RequestBody @Valid ForgotPasswordDTO request) throws MessagingException {
         return ResponseEntity.ok(userService.forgotPassword(request.getEmail()));
     }
 
