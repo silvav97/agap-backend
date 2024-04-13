@@ -3,14 +3,14 @@ package com.agap.management.application.services;
 import com.agap.management.application.ports.IAuthenticationService;
 import com.agap.management.application.ports.IJwtService;
 import com.agap.management.application.ports.ITokenService;
-import com.agap.management.domain.dtos.AuthenticationRequestDTO;
+import com.agap.management.domain.dtos.LoginRequestDTO;
 import com.agap.management.domain.enums.TokenType;
 import com.agap.management.domain.entities.User;
 import com.agap.management.exceptions.personalizedException.InvalidTokenException;
 import com.agap.management.exceptions.personalizedException.UserNotEnabledYetException;
 import com.agap.management.exceptions.personalizedException.EntityNotFoundByFieldException;
 import com.agap.management.infrastructure.adapters.persistence.IUserRepository;
-import com.agap.management.domain.dtos.AuthenticationResponseDTO;
+import com.agap.management.domain.dtos.LoginResponseDTO;
 import io.jsonwebtoken.io.IOException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -29,7 +29,7 @@ public class AuthenticationService implements IAuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     @Override
-    public AuthenticationResponseDTO authenticate(AuthenticationRequestDTO request) {
+    public LoginResponseDTO login(LoginRequestDTO request) {
         String email = request.getEmail();
         User user = userRepository.findByEmail(request.getEmail()).orElseThrow(() -> new EntityNotFoundByFieldException("User", "email", email));
 
@@ -48,7 +48,7 @@ public class AuthenticationService implements IAuthenticationService {
     }
 
     @Override
-    public AuthenticationResponseDTO refreshToken(String refreshToken) throws IOException {
+    public LoginResponseDTO refreshToken(String refreshToken) throws IOException {
 
         if (refreshToken == null || !refreshToken.startsWith("Bearer ")) {
             throw new InvalidTokenException("Refresh token is missing, empty or malformed");
@@ -73,15 +73,15 @@ public class AuthenticationService implements IAuthenticationService {
     }
 
 
-    private AuthenticationResponseDTO buildAuthenticationResponse(User user, String accessToken, String refreshToken) {
-        AuthenticationResponseDTO.UserResponseDTO userResponseDTO = new AuthenticationResponseDTO.UserResponseDTO();
+    private LoginResponseDTO buildAuthenticationResponse(User user, String accessToken, String refreshToken) {
+        LoginResponseDTO.UserResponseDTO userResponseDTO = new LoginResponseDTO.UserResponseDTO();
         userResponseDTO.setId(user.getId());
         userResponseDTO.setEmail(user.getEmail());
         userResponseDTO.setName(user.getFirstName() + " " + user.getLastName());
         userResponseDTO.setActive(user.isEnabled());
         userResponseDTO.setRoles(user.getRoles().stream().map(role -> role.getName().name()).collect(Collectors.toList()));
 
-        return AuthenticationResponseDTO.builder()
+        return LoginResponseDTO.builder()
                 .user(userResponseDTO)
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)

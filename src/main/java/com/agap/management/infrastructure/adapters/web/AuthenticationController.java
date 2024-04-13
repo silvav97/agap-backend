@@ -2,8 +2,8 @@ package com.agap.management.infrastructure.adapters.web;
 
 import com.agap.management.application.ports.IAuthenticationService;
 import com.agap.management.application.ports.IRegistrationService;
-import com.agap.management.domain.dtos.AuthenticationRequestDTO;
-import com.agap.management.domain.dtos.AuthenticationResponseDTO;
+import com.agap.management.domain.dtos.LoginRequestDTO;
+import com.agap.management.domain.dtos.LoginResponseDTO;
 import com.agap.management.domain.dtos.RegisterRequestDTO;
 import com.agap.management.domain.dtos.RegisterResponseDTO;
 import io.jsonwebtoken.io.IOException;
@@ -39,13 +39,13 @@ public class AuthenticationController {
         }
     }
 
-    @PostMapping("/authenticate")
-    public ResponseEntity<AuthenticationResponseDTO> authenticate(@RequestBody @Valid AuthenticationRequestDTO request) {
-        return ResponseEntity.ok(authenticationService.authenticate(request));
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponseDTO> login(@RequestBody @Valid LoginRequestDTO request) {
+        return ResponseEntity.ok(authenticationService.login(request));
     }
 
     @PostMapping("/refresh-token")
-    public ResponseEntity<AuthenticationResponseDTO> refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public ResponseEntity<LoginResponseDTO> refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String refreshToken = request.getHeader(HttpHeaders.AUTHORIZATION);
         System.out.println("Mi Refresh Token es: " + refreshToken);
 

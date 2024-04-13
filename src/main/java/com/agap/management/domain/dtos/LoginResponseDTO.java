@@ -12,7 +12,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthenticationResponseDTO {
+public class LoginResponseDTO {
 
     @JsonProperty("user")
     private UserResponseDTO user;

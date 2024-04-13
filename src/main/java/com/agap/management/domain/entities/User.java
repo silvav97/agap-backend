@@ -44,7 +44,7 @@ public class User implements UserDetails {
     private String email;
 
     @NotBlank(message = "El campo Contraseña es obligatorio")
-    @Size(min=7, max = 255, message = "El campo Contraseña debe tener mínimo {min} caracteres y máximo {max} caracteres")
+    @Size(min=8, max = 255, message = "El campo Contraseña debe tener mínimo {min} caracteres y máximo {max} caracteres")
     @Column(name = "password", nullable = false)
     private String password;
 

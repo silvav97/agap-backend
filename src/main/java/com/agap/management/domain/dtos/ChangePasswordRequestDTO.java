@@ -9,12 +9,12 @@ import lombok.*;
 @NoArgsConstructor
 public class ChangePasswordRequestDTO {
 
-    @Size(min = 8, message = "Password must be at least 8 characters")
+    @Size(min = 8, message = "Password must be at least {min} characters")
     private String currentPassword;
 
-    @Size(min = 8, message = "Password must be at least 8 characters")
+    @Size(min = 8, message = "Password must be at least {min} characters")
     private String newPassword;
 
-    @Size(min = 8, message = "Password must be at least 8 characters")
+    @Size(min = 8, message = "Password must be at least {min} characters")
     private String confirmationPassword;
 }
