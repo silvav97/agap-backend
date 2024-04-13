@@ -15,26 +15,14 @@ public class MapperConfig {
     @Bean
     public ModelMapper modelMapper() {
         ModelMapper modelMapper = new ModelMapper();
+        modelMapper.getConfiguration().setSkipNullEnabled(true);
+
 
         // Map from FertilizerDTO to Fertilizer
-        modelMapper.addMappings(new PropertyMap<FertilizerDTO, Fertilizer>() {
-            @Override
-            protected void configure() {
-                map().setName(source.getName());
-                map().setBrand(source.getBrand());
-                map().setPricePerGram(source.getPricePerGram());
-            }
-        });
+        // Map from Fertilizer to FertilizerDTO
+        // Map from PesticideDTO to Pesticide    not explicitly necessary
+        // Map from Pesticide to PesticideDTO    not explicitly necessary
 
-        // Map from PesticideDTO to Pesticide
-        modelMapper.addMappings(new PropertyMap<PesticideDTO, Pesticide>() {
-            @Override
-            protected void configure() {
-                map().setName(source.getName());
-                map().setBrand(source.getBrand());
-                map().setPricePerGram(source.getPricePerGram());
-            }
-        });
 
 
         return modelMapper;

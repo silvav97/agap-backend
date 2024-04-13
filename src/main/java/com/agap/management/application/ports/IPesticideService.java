@@ -1,7 +1,6 @@
 package com.agap.management.application.ports;
 
-import com.agap.management.domain.entities.Fertilizer;
-import com.agap.management.domain.entities.Pesticide;
+import com.agap.management.domain.dtos.PesticideDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -10,10 +9,12 @@ import java.util.Optional;
 
 public interface IPesticideService {
 
-    List<Pesticide> findAll();
+    List<PesticideDTO> findAll();
 
-    Page<Pesticide> findAll(Pageable pageable);
+    Page<PesticideDTO> findAll(Pageable pageable);
 
+    Optional<PesticideDTO> findById(Integer id);
 
-    Optional<Pesticide> findById(Integer id);
+    PesticideDTO save(PesticideDTO pesticideDTO);
+
 }

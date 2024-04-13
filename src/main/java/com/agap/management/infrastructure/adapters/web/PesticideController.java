@@ -1,6 +1,8 @@
 package com.agap.management.infrastructure.adapters.web;
 
 import com.agap.management.application.ports.IPesticideService;
+import com.agap.management.domain.dtos.FertilizerDTO;
+import com.agap.management.domain.dtos.PesticideDTO;
 import com.agap.management.domain.entities.Fertilizer;
 import com.agap.management.domain.entities.Pesticide;
 import com.agap.management.exceptions.personalizedException.EntityNotFoundByFieldException;
@@ -22,20 +24,25 @@ public class PesticideController {
     private final IPesticideService pesticideService;
 
     @GetMapping
-    public List<Pesticide> getPesticides() {
+    public List<PesticideDTO> getPesticides() {
         return pesticideService.findAll();
     }
 
     @GetMapping("/page")
-    public Page<Pesticide> getPesticidesPagination(@RequestParam Integer pageNumber, @RequestParam Integer pageSize) {
+    public Page<PesticideDTO> getPesticidesPage(@RequestParam Integer pageNumber, @RequestParam Integer pageSize) {
         Pageable pageable = PageRequest.of(pageNumber, pageSize);
         return pesticideService.findAll(pageable);
     }
 
     @GetMapping("/{id}")
-    public Pesticide getPesticideById(@PathVariable Integer id) {
+    public PesticideDTO getPesticideById(@PathVariable Integer id) {
         return pesticideService.findById(id).orElseThrow(
                 () -> new EntityNotFoundByFieldException("Pesticide", "id", id.toString()));
+    }
+
+    @PostMapping()
+    public PesticideDTO savePesticide(@RequestBody PesticideDTO pesticide) {
+        return pesticideService.save(pesticide);
     }
 
 }

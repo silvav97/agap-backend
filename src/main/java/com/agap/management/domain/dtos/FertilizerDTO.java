@@ -1,6 +1,5 @@
 package com.agap.management.domain.dtos;
 
-import com.agap.management.domain.entities.Fertilizer;
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -15,6 +14,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class FertilizerDTO {
+
+    private Integer id;
 
     @NotBlank(message = "El campo Nombre es obligatorio")
     @Size(max = 100, message = "El campo Nombre no puede tener más de {max} caracteres")

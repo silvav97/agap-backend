@@ -1,7 +1,6 @@
 package com.agap.management.application.ports;
 
 import com.agap.management.domain.dtos.FertilizerDTO;
-import com.agap.management.domain.entities.Fertilizer;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -10,12 +9,20 @@ import java.util.Optional;
 
 public interface IFertilizerService {
 
-    List<Fertilizer> findAll();
+    List<FertilizerDTO> findAll();
 
-    Page<Fertilizer> findAll(Pageable pageable);
+    Page<FertilizerDTO> findAll(Pageable pageable);
 
-    Optional<Fertilizer> findById(Integer id);
+    Optional<FertilizerDTO> findById(Integer id);
 
-    Fertilizer save(FertilizerDTO fertilizerdto);
+    FertilizerDTO save(FertilizerDTO fertilizerDTO);
+
+
+
+
+    FertilizerDTO update(Integer id, FertilizerDTO fertilizerDTO);
+
+    Boolean delete(Integer id);
+
 
 }

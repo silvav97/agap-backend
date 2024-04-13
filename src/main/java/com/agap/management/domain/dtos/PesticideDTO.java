@@ -15,6 +15,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PesticideDTO {
 
+    private Integer id;
+
     @NotBlank(message = "El campo Nombre es obligatorio")
     @Size(max = 100, message = "El campo Nombre no puede tener más de {max} caracteres")
     @Column(name = "name", nullable = false, length = 100)
