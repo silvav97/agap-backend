@@ -54,7 +54,8 @@ public class SecurityConfiguration {
                                 "/swagger-ui.html",
                                 "/static/**", "/css/**", "/js/**", "/images/**",
 
-                                "/api/v1/users/forgot-password"
+                                "/api/v1/users/forgot-password",
+                                "/api/v1/users/reset-password"
 
                         )
                         .permitAll()
@@ -65,7 +66,7 @@ public class SecurityConfiguration {
 
                         .anyRequest().authenticated()
                 )
-                //.exceptionHandling(exceptionHandling -> exceptionHandling.authenticationEntryPoint(new CustomAuthenticationEntryPoint()))
+                .exceptionHandling(exceptionHandling -> exceptionHandling.authenticationEntryPoint(new CustomAuthenticationEntryPoint()))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)

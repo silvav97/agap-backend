@@ -82,7 +82,7 @@ public class AuthenticationService implements IAuthenticationService {
         userResponseDTO.setRoles(user.getRoles().stream().map(role -> role.getName().name()).collect(Collectors.toList()));
 
         return LoginResponseDTO.builder()
-                .user(userResponseDTO)
+                //.user(userResponseDTO)
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
                 .build();

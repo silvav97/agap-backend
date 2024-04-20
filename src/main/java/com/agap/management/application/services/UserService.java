@@ -10,6 +10,7 @@ import com.agap.management.domain.entities.User;
 import com.agap.management.domain.enums.TokenType;
 import com.agap.management.exceptions.personalizedException.ChangePasswordException;
 import com.agap.management.exceptions.personalizedException.EntityNotFoundByFieldException;
+import com.agap.management.exceptions.personalizedException.InvalidTokenException;
 import com.agap.management.infrastructure.adapters.persistence.IUserRepository;
 import com.agap.management.domain.dtos.ChangePasswordRequestDTO;
 import jakarta.mail.MessagingException;
@@ -58,8 +59,8 @@ public class UserService implements IUserService {
 
         // TODO Aquí enrealidad irá una url del frontend que le apuntará a la url de abajo,
         //  el token se pasa porque el frontend lo necesita para acceder a la ruta
-        //String url = "http://localhost:4200/algun-endpoint-que-reciba-esto/" + jwtToken;
-        String url = "http://localhost:8080/api/v1/users/reset-password/" + jwtToken;
+        String url = "http://localhost:4200/auth/reset-password/" + jwtToken;
+        //String url = "http://localhost:8080/api/v1/users/reset-password/" + jwtToken;
 
         String buttonMessage = "Cambiar contraseña";
         emailService.sendEmail(email, subject, content, url, buttonMessage);
@@ -67,7 +68,11 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public String resetPassword(String token, ResetPasswordRequestDTO request) {
+    public String resetPassword(String bearerToken, ResetPasswordRequestDTO request) {
+        if (bearerToken == null || !bearerToken.startsWith("Bearer ")) {
+            throw new InvalidTokenException("Token no present in Header");
+        }
+        String token = bearerToken.replace("Bearer ", "");
         String email = jwtService.extractUsername(token);
 
         User user = userRepository.findByEmail(email)

@@ -8,7 +8,6 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.security.core.AuthenticationException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,7 +15,7 @@ import java.util.Map;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(AuthenticationException.class)
+    /*@ExceptionHandler(AuthenticationException.class)
     public ResponseEntity<ResponseExceptionDTO> handleAuthenticationException(AuthenticationException exception) {
 
         //CustomAuthenticationEntryPoint.ResponseDTO response = new CustomAuthenticationEntryPoint.ResponseDTO("Unauthorized", "Access denied due to invalid credentials xyz");
@@ -26,7 +25,7 @@ public class GlobalExceptionHandler {
         response.setErrorCode(HttpStatus.UNAUTHORIZED.value());
 
         return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
-    }
+    }*/
 
 
 
@@ -117,11 +116,11 @@ public class GlobalExceptionHandler {
     /*@ExceptionHandler(AuthenticationException.class)
     public ResponseEntity<String> handleAuthenticationException(AuthenticationException ex) {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Authentication error: " + ex.getMessage());
-    }
+    }*/
 
-    @ExceptionHandler(AccessDeniedException.class)
+    /*@ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<String> handleAccessDeniedException(AccessDeniedException ex) {
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Access denied: " + ex.getMessage());
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Access denyieded: " + ex.getMessage());
     }*/
 
 

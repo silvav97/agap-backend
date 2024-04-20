@@ -3,6 +3,7 @@ package com.agap.management.application.services;
 import com.agap.management.application.ports.IEmailService;
 import com.agap.management.application.ports.IRegistrationService;
 import com.agap.management.application.ports.ITokenService;
+import com.agap.management.domain.dtos.LoginResponseDTO;
 import com.agap.management.domain.dtos.RegisterRequestDTO;
 import com.agap.management.domain.enums.RoleType;
 import com.agap.management.domain.entities.Token;
@@ -27,6 +28,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -64,7 +66,7 @@ public class RegistrationService implements IRegistrationService {
     }
 
     @Override
-    public void verifyUser(String token) throws MessagingException {
+    public LoginResponseDTO verifyUser(String token) throws MessagingException {
         try {
             String email = jwtService.extractUsername(token);
 
@@ -80,6 +82,12 @@ public class RegistrationService implements IRegistrationService {
             user.setEnabled(true);
             userRepository.save(user);
             tokenService.invalidateToken(verificationToken);
+
+            String accessToken = jwtService.generateToken(user);
+            String refreshToken = jwtService.generateRefreshToken(user);
+            tokenService.revokeAllUserTokens(user);
+            tokenService.saveUserToken(user, accessToken, TokenType.BEARER);
+            return buildAuthenticationResponse(user, accessToken, refreshToken);
 
         } catch (ExpiredJwtException e) {
             // If token already expired, send email again
@@ -100,9 +108,24 @@ public class RegistrationService implements IRegistrationService {
 
         String subject = "Confirmar cuenta";
         String bodyContent = "Por favor, haz click en el botón de abajo para verificar tu cuenta.";
-        String url = "http://localhost:8080/api/v1/auth/verify/" + jwtToken;
+        String url = "http://localhost:4200/auth/verify/" + jwtToken;
         String buttonMessage = "Verificar cuenta";
         emailService.sendEmail(user.getEmail(), subject, bodyContent, url, buttonMessage);
+    }
+
+    private LoginResponseDTO buildAuthenticationResponse(User user, String accessToken, String refreshToken) {
+        LoginResponseDTO.UserResponseDTO userResponseDTO = new LoginResponseDTO.UserResponseDTO();
+        userResponseDTO.setId(user.getId());
+        userResponseDTO.setEmail(user.getEmail());
+        userResponseDTO.setName(user.getFirstName() + " " + user.getLastName());
+        userResponseDTO.setActive(user.isEnabled());
+        userResponseDTO.setRoles(user.getRoles().stream().map(role -> role.getName().name()).collect(Collectors.toList()));
+
+        return LoginResponseDTO.builder()
+                //.user(userResponseDTO)
+                .accessToken(accessToken)
+                .refreshToken(refreshToken)
+                .build();
     }
 
 }

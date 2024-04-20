@@ -18,9 +18,9 @@ application:
   security:
     jwt:
       secret-key: cNYIfqkRXwKcwvywkb0WkkfYX2l7OLLaSvs3ga6NcnY=
-      expiration: 86400000  # a day
+      expiration: 240000              # a day=86400000,  minute=60000
       refresh-token:
-        expiration: 604800000   # 7 days
+        expiration: 600000            # 7 days 604800000
 
 # Java
   #mail:
@@ -42,6 +42,8 @@ application:
 
 logging:
   level:
-    org.springframework.security: DEBUG
-    org.springframework.web: DEBUG
+    com.agap.management.infrastructure.security.JwtAuthenticationFilter: ERROR
+    org.springframework.security: ERROR
+    org.springframework.web: ERROR
+
 

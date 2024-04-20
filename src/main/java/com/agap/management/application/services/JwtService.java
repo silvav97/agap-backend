@@ -1,6 +1,8 @@
 package com.agap.management.application.services;
 
 import com.agap.management.application.ports.IJwtService;
+import com.agap.management.domain.entities.Role;
+import com.agap.management.domain.entities.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -15,6 +17,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 public class JwtService implements IJwtService {
@@ -28,12 +31,20 @@ public class JwtService implements IJwtService {
 
     @Override
     public String extractUsername(String token) {
-        return extractClaim(token, Claims::getSubject);
+            return extractClaim(token, Claims::getSubject);
     }
 
     @Override
     public String generateToken(UserDetails userDetails) {
-        return generateToken(new HashMap<>(), userDetails);
+        //return generateToken(new HashMap<>(), userDetails);
+        Map<String, Object> extraClaims = new HashMap<>();
+        User user = (User) userDetails;
+        //extraClaims.put("email", user.getEmail());
+        //extraClaims.put("isActive", user.isEnabled());
+        extraClaims.put("id", user.getId());
+        extraClaims.put("name", user.getFirstName());
+        extraClaims.put("roles", user.getRoles().stream().map(Role::getName).collect(Collectors.toList()));
+        return buildToken(extraClaims, userDetails, jwtExpiration);
     }
 
     @Override
@@ -75,12 +86,12 @@ public class JwtService implements IJwtService {
     }
 
     private Claims extractAllClaims(String token) {
-        return Jwts
-                .parserBuilder()
-                .setSigningKey(getSignInKey())
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
+            return Jwts
+                    .parserBuilder()
+                    .setSigningKey(getSignInKey())
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody();
     }
 
     private Key getSignInKey() {
