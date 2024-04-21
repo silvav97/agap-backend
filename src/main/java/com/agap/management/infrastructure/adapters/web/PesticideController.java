@@ -1,10 +1,7 @@
 package com.agap.management.infrastructure.adapters.web;
 
 import com.agap.management.application.ports.IPesticideService;
-import com.agap.management.domain.dtos.FertilizerDTO;
 import com.agap.management.domain.dtos.PesticideDTO;
-import com.agap.management.domain.entities.Fertilizer;
-import com.agap.management.domain.entities.Pesticide;
 import com.agap.management.exceptions.personalizedException.EntityNotFoundByFieldException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -17,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/pesticides")
+@RequestMapping("/api/v1/pesticide")
 @PreAuthorize("hasRole('ADMIN')")
 public class PesticideController {
 

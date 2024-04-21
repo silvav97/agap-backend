@@ -3,6 +3,7 @@ package com.agap.management.application.services;
 import com.agap.management.application.ports.IAuthenticationService;
 import com.agap.management.application.ports.IJwtService;
 import com.agap.management.application.ports.ITokenService;
+import com.agap.management.application.services.common.AuthenticationUtil;
 import com.agap.management.domain.dtos.LoginRequestDTO;
 import com.agap.management.domain.enums.TokenType;
 import com.agap.management.domain.entities.User;
@@ -16,8 +17,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
-
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -44,47 +43,33 @@ public class AuthenticationService implements IAuthenticationService {
         tokenService.revokeAllUserTokens(user);
         tokenService.saveUserToken(user, jwtToken, TokenType.BEARER);
 
-        return buildAuthenticationResponse(user, jwtToken, refreshToken);
+        return AuthenticationUtil.buildAuthenticationResponse(jwtToken, refreshToken);
     }
 
     @Override
     public LoginResponseDTO refreshToken(String refreshToken) throws IOException {
 
         if (refreshToken == null || !refreshToken.startsWith("Bearer ")) {
-            throw new InvalidTokenException("Refresh token is missing, empty or malformed");
+            throw new InvalidTokenException("Refresh token no esta presente, ha sido perdido o malformado");
         }
         refreshToken = refreshToken.substring(7);
 
         String userEmail = jwtService.extractUsername(refreshToken);
         if (userEmail == null) {
-            throw new EntityNotFoundByFieldException("User", "token", "****");
+            throw new EntityNotFoundByFieldException("Usuario", "token", "****");
         }
-        User user = this.userRepository.findByEmail(userEmail).orElseThrow(() -> new EntityNotFoundByFieldException("User", "email", userEmail));
+        User user = this.userRepository.findByEmail(userEmail).orElseThrow(()
+                -> new EntityNotFoundByFieldException("Usuario", "correo", userEmail));
 
         if ( !jwtService.isTokenValid(refreshToken, user) ) {
-            throw new InvalidTokenException("Invalid refresh token");
+            throw new InvalidTokenException("Refresh token invalido");
         }
 
         var accessToken = jwtService.generateToken(user);   // tal vez deba cambiar
         tokenService.revokeAllUserTokens(user);                          // de orden estas dos
         tokenService.saveUserToken(user, accessToken, TokenType.BEARER);
 
-        return buildAuthenticationResponse(user, accessToken, refreshToken);
+        return AuthenticationUtil.buildAuthenticationResponse(accessToken, refreshToken);
     }
 
-
-    private LoginResponseDTO buildAuthenticationResponse(User user, String accessToken, String refreshToken) {
-        LoginResponseDTO.UserResponseDTO userResponseDTO = new LoginResponseDTO.UserResponseDTO();
-        userResponseDTO.setId(user.getId());
-        userResponseDTO.setEmail(user.getEmail());
-        userResponseDTO.setName(user.getFirstName() + " " + user.getLastName());
-        userResponseDTO.setActive(user.isEnabled());
-        userResponseDTO.setRoles(user.getRoles().stream().map(role -> role.getName().name()).collect(Collectors.toList()));
-
-        return LoginResponseDTO.builder()
-                //.user(userResponseDTO)
-                .accessToken(accessToken)
-                .refreshToken(refreshToken)
-                .build();
-    }
 }

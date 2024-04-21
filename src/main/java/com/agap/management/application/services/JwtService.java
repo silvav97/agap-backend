@@ -36,11 +36,8 @@ public class JwtService implements IJwtService {
 
     @Override
     public String generateToken(UserDetails userDetails) {
-        //return generateToken(new HashMap<>(), userDetails);
         Map<String, Object> extraClaims = new HashMap<>();
         User user = (User) userDetails;
-        //extraClaims.put("email", user.getEmail());
-        //extraClaims.put("isActive", user.isEnabled());
         extraClaims.put("id", user.getId());
         extraClaims.put("name", user.getFirstName());
         extraClaims.put("roles", user.getRoles().stream().map(Role::getName).collect(Collectors.toList()));
@@ -61,10 +58,6 @@ public class JwtService implements IJwtService {
     private <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
-    }
-
-    private String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
-        return buildToken(extraClaims, userDetails,  jwtExpiration);
     }
 
     private String buildToken(Map<String, Object> extraClaims, UserDetails userDetails, Long expiration) {
