@@ -8,10 +8,7 @@ import jakarta.mail.MessagingException;
 import java.security.Principal;
 
 public interface IUserService {
-
-    void changePassword(ChangePasswordRequestDTO request, Principal connectedUser);
-
+    String changePassword(ChangePasswordRequestDTO request, Principal connectedUser);
     String forgotPassword(String email) throws MessagingException;
-
     String resetPassword(String token, ResetPasswordRequestDTO request);
 }

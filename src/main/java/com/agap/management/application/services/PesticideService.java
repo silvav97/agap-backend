@@ -1,9 +1,7 @@
 package com.agap.management.application.services;
 
 import com.agap.management.application.ports.IPesticideService;
-import com.agap.management.domain.dtos.FertilizerDTO;
 import com.agap.management.domain.dtos.PesticideDTO;
-import com.agap.management.domain.entities.Fertilizer;
 import com.agap.management.domain.entities.Pesticide;
 import com.agap.management.infrastructure.adapters.persistence.IPesticideRepository;
 import lombok.RequiredArgsConstructor;

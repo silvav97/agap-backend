@@ -15,17 +15,17 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class RegisterRequestDTO {
 
-    @NotBlank(message = "First name is required")
+    @NotBlank(message = "Primer nombre es requerido")
     private String firstname;
 
-    @NotBlank(message = "Last name is required")
+    @NotBlank(message = "Apellido es requerido")
     private String lastname;
 
-    @Email(message = "Email should be valid")
-    @NotBlank(message = "Email is required")
+    @Email(message = "El email debe tener un formato valido")
+    @NotBlank(message = "En email no puede estar vacio")
     private String email;
 
-    @Size(min = 8, message = "Password must be at least 8 characters")
+    @Size(min = 8, message = "La contraseña debe tener al menos {min} caracteres")
     private String password;
 
     private Role role;

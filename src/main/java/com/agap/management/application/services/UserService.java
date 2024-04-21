@@ -3,7 +3,6 @@ package com.agap.management.application.services;
 import com.agap.management.application.ports.IEmailService;
 import com.agap.management.application.ports.ITokenService;
 import com.agap.management.application.ports.IUserService;
-import com.agap.management.domain.dtos.ForgotPasswordDTO;
 import com.agap.management.domain.dtos.ResetPasswordRequestDTO;
 import com.agap.management.domain.entities.Token;
 import com.agap.management.domain.entities.User;
@@ -16,7 +15,6 @@ import com.agap.management.domain.dtos.ChangePasswordRequestDTO;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -33,17 +31,18 @@ public class UserService implements IUserService {
     private final JwtService      jwtService;
 
     @Override
-    public void changePassword(ChangePasswordRequestDTO request, Principal connectedUser) {
+    public String changePassword(ChangePasswordRequestDTO request, Principal connectedUser) {
         User user = (User) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
 
         if ( !passwordEncoder.matches(request.getCurrentPassword(), user.getPassword()) ) {
-            throw new ChangePasswordException("Wrong password");
+            throw new ChangePasswordException("Contraseña incorrecta");
         }
         if ( !request.getNewPassword().equals(request.getConfirmationPassword()) ) {
-            throw new ChangePasswordException("Passwords are not the same");
+            throw new ChangePasswordException("Las contraseñas no coinciden");
         }
         user.setPassword(passwordEncoder.encode(request.getNewPassword()));
         userRepository.save(user);
+        return "La contraseña ha sido cambiada exitosamente";
     }
 
     @Override
@@ -54,17 +53,17 @@ public class UserService implements IUserService {
         String jwtToken = jwtService.generateToken(user);
         tokenService.saveUserToken(user, jwtToken, TokenType.VERIFICATION);
 
-        String subject = "Resetear Password";
-        String content = "Para cambiar la contraseña de click en el siguiente botón.";
+        String subject = "Restablecer contraseña";
+        String content = "Para cambiar la contraseña haga click en el siguiente botón.";
 
-        // TODO Aquí enrealidad irá una url del frontend que le apuntará a la url de abajo,
+        // TODO Aquí en realidad irá una url del frontend que le apuntará a la url de abajo,
         //  el token se pasa porque el frontend lo necesita para acceder a la ruta
         String url = "http://localhost:4200/auth/reset-password/" + jwtToken;
         //String url = "http://localhost:8080/api/v1/users/reset-password/" + jwtToken;
 
         String buttonMessage = "Cambiar contraseña";
         emailService.sendEmail(email, subject, content, url, buttonMessage);
-        return "Please check your email to set a new password";
+        return "Por favor revisa tu correo electronico para definir una nueva contraseña";
     }
 
     @Override
@@ -76,19 +75,16 @@ public class UserService implements IUserService {
         String email = jwtService.extractUsername(token);
 
         User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new EntityNotFoundByFieldException("User", "email", email));
+                .orElseThrow(() -> new EntityNotFoundByFieldException("Usuario", "correo", email));
 
         Token verificationToken = tokenService.verifyToken(token);
-
         tokenService.invalidateToken(verificationToken);
 
-
-
         if ( !request.getNewPassword().equals(request.getConfirmationPassword()) ) {
-            throw new ChangePasswordException("Passwords are not the same");
+            throw new ChangePasswordException("Las contraseñas no coinciden");
         }
         user.setPassword(passwordEncoder.encode(request.getNewPassword()));
         userRepository.save(user);
-        return "New password set successfully, login with new password";
+        return "La contraseña ha sido establecida exitosamente, ahora puede logearse con la nueva contraseña";
     }
 }

@@ -2,7 +2,6 @@ package com.agap.management.infrastructure.adapters.web;
 
 import com.agap.management.application.ports.IFertilizerService;
 import com.agap.management.domain.dtos.FertilizerDTO;
-import com.agap.management.domain.entities.Fertilizer;
 import com.agap.management.exceptions.personalizedException.EntityNotFoundByFieldException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/fertilizers")
+@RequestMapping("/api/v1/fertilizer")
 @PreAuthorize("hasRole('ADMIN')")
 public class FertilizerController {
 
@@ -36,7 +35,7 @@ public class FertilizerController {
     @GetMapping("/{id}")
     public FertilizerDTO getFertilizerById(@PathVariable Integer id) {
         return fertilizerService.findById(id).orElseThrow(
-                () -> new EntityNotFoundByFieldException("Fertilizer", "id", id.toString()));
+                () -> new EntityNotFoundByFieldException("Fertilizante", "id", id.toString()));
     }
 
     @PostMapping()

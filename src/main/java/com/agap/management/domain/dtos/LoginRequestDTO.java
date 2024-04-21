@@ -14,10 +14,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class LoginRequestDTO {
 
-    @Email(message = "Email should be valid")
-    @NotBlank(message = "Email is required")
+    @Email(message = "El email debe tener un formato valido")
+    @NotBlank(message = "En email no puede estar vacio")
     private String email;
 
-    @Size(min = 8, message = "Password must be at least 8 characters")
+    @Size(min = 8, message = "La contraseña debe tener al menos {min} caracteres")
     private String password;
 }

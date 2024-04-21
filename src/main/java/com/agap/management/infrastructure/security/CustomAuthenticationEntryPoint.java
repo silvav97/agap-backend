@@ -29,7 +29,6 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
     }
 
     @Data
-    //@Builder
     @NoArgsConstructor
     @AllArgsConstructor
     public static class ResponseDTO {

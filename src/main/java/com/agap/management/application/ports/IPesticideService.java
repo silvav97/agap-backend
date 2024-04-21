@@ -8,13 +8,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface IPesticideService {
-
     List<PesticideDTO> findAll();
-
     Page<PesticideDTO> findAll(Pageable pageable);
-
     Optional<PesticideDTO> findById(Integer id);
-
     PesticideDTO save(PesticideDTO pesticideDTO);
-
 }
