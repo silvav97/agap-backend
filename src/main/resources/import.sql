@@ -15,6 +15,52 @@ INSERT INTO fertilizer (id, name, brand, price_per_gram) VALUES (12, 'fertilizer
 INSERT INTO fertilizer (id, name, brand, price_per_gram) VALUES (13, 'fertilizer13', 'fertilizer13', 34.5);
 INSERT INTO fertilizer (id, name, brand, price_per_gram) VALUES (14, 'fertilizer14', 'fertilizer14', 34.5);
 INSERT INTO fertilizer (id, name, brand, price_per_gram) VALUES (15, 'fertilizer15', 'fertilizer15', 34.5);
+INSERT INTO fertilizer (id, name, brand, price_per_gram) VALUES (16, 'fertilizer16', 'fertilizer16', 34.5);
+INSERT INTO fertilizer (id, name, brand, price_per_gram) VALUES (17, 'fertilizer17', 'fertilizer17', 34.5);
+INSERT INTO fertilizer (id, name, brand, price_per_gram) VALUES (18, 'fertilizer18', 'fertilizer18', 34.5);
+INSERT INTO fertilizer (id, name, brand, price_per_gram) VALUES (19, 'fertilizer19', 'fertilizer19', 34.5);
+INSERT INTO fertilizer (id, name, brand, price_per_gram) VALUES (20, 'fertilizer20', 'fertilizer20', 34.5);
+INSERT INTO fertilizer (id, name, brand, price_per_gram) VALUES (21, 'fertilizer21', 'fertilizer21', 34.5);
+INSERT INTO fertilizer (id, name, brand, price_per_gram) VALUES (22, 'fertilizer22', 'fertilizer22', 34.5);
+INSERT INTO fertilizer (id, name, brand, price_per_gram) VALUES (23, 'fertilizer23', 'fertilizer23', 34.5);
+INSERT INTO fertilizer (id, name, brand, price_per_gram) VALUES (24, 'fertilizer24', 'fertilizer24', 34.5);
+INSERT INTO fertilizer (id, name, brand, price_per_gram) VALUES (25, 'fertilizer25', 'fertilizer25', 34.5);
+INSERT INTO fertilizer (id, name, brand, price_per_gram) VALUES (26, 'fertilizer26', 'fertilizer26', 34.5);
+INSERT INTO fertilizer (id, name, brand, price_per_gram) VALUES (27, 'fertilizer27', 'fertilizer27', 34.5);
+INSERT INTO fertilizer (id, name, brand, price_per_gram) VALUES (28, 'fertilizer28', 'fertilizer28', 34.5);
+INSERT INTO fertilizer (id, name, brand, price_per_gram) VALUES (29, 'fertilizer29', 'fertilizer29', 34.5);
+INSERT INTO fertilizer (id, name, brand, price_per_gram) VALUES (30, 'fertilizer30', 'fertilizer30', 34.5);
+INSERT INTO fertilizer (id, name, brand, price_per_gram) VALUES (31, 'fertilizer31', 'fertilizer31', 34.5);
+INSERT INTO fertilizer (id, name, brand, price_per_gram) VALUES (32, 'fertilizer32', 'fertilizer32', 34.5);
+INSERT INTO fertilizer (id, name, brand, price_per_gram) VALUES (33, 'fertilizer33', 'fertilizer33', 34.5);
+INSERT INTO fertilizer (id, name, brand, price_per_gram) VALUES (34, 'fertilizer34', 'fertilizer34', 34.5);
+INSERT INTO fertilizer (id, name, brand, price_per_gram) VALUES (35, 'fertilizer35', 'fertilizer35', 34.5);
+INSERT INTO fertilizer (id, name, brand, price_per_gram) VALUES (36, 'fertilizer36', 'fertilizer36', 34.5);
+INSERT INTO fertilizer (id, name, brand, price_per_gram) VALUES (37, 'fertilizer37', 'fertilizer37', 34.5);
+INSERT INTO fertilizer (id, name, brand, price_per_gram) VALUES (38, 'fertilizer38', 'fertilizer38', 34.5);
+INSERT INTO fertilizer (id, name, brand, price_per_gram) VALUES (39, 'fertilizer39', 'fertilizer39', 34.5);
+INSERT INTO fertilizer (id, name, brand, price_per_gram) VALUES (40, 'fertilizer40', 'fertilizer40', 34.5);
+INSERT INTO fertilizer (id, name, brand, price_per_gram) VALUES (41, 'fertilizer41', 'fertilizer41', 34.5);
+INSERT INTO fertilizer (id, name, brand, price_per_gram) VALUES (42, 'fertilizer42', 'fertilizer42', 34.5);
+INSERT INTO fertilizer (id, name, brand, price_per_gram) VALUES (43, 'fertilizer43', 'fertilizer43', 34.5);
+INSERT INTO fertilizer (id, name, brand, price_per_gram) VALUES (44, 'fertilizer44', 'fertilizer44', 34.5);
+INSERT INTO fertilizer (id, name, brand, price_per_gram) VALUES (45, 'fertilizer45', 'fertilizer45', 34.5);
+INSERT INTO fertilizer (id, name, brand, price_per_gram) VALUES (46, 'fertilizer46', 'fertilizer46', 34.5);
+INSERT INTO fertilizer (id, name, brand, price_per_gram) VALUES (47, 'fertilizer47', 'fertilizer47', 34.5);
+INSERT INTO fertilizer (id, name, brand, price_per_gram) VALUES (48, 'fertilizer48', 'fertilizer48', 34.5);
+INSERT INTO fertilizer (id, name, brand, price_per_gram) VALUES (49, 'fertilizer49', 'fertilizer49', 34.5);
+INSERT INTO fertilizer (id, name, brand, price_per_gram) VALUES (50, 'fertilizer50', 'fertilizer50', 34.5);
+INSERT INTO fertilizer (id, name, brand, price_per_gram) VALUES (51, 'fertilizer51', 'fertilizer51', 34.5);
+INSERT INTO fertilizer (id, name, brand, price_per_gram) VALUES (52, 'fertilizer52', 'fertilizer52', 34.5);
+INSERT INTO fertilizer (id, name, brand, price_per_gram) VALUES (53, 'fertilizer53', 'fertilizer53', 34.5);
+INSERT INTO fertilizer (id, name, brand, price_per_gram) VALUES (54, 'fertilizer54', 'fertilizer54', 34.5);
+INSERT INTO fertilizer (id, name, brand, price_per_gram) VALUES (55, 'fertilizer55', 'fertilizer55', 34.5);
+INSERT INTO fertilizer (id, name, brand, price_per_gram) VALUES (56, 'fertilizer56', 'fertilizer56', 34.5);
+INSERT INTO fertilizer (id, name, brand, price_per_gram) VALUES (57, 'fertilizer57', 'fertilizer57', 34.5);
+INSERT INTO fertilizer (id, name, brand, price_per_gram) VALUES (58, 'fertilizer58', 'fertilizer58', 34.5);
+INSERT INTO fertilizer (id, name, brand, price_per_gram) VALUES (59, 'fertilizer59', 'fertilizer59', 34.5);
+INSERT INTO fertilizer (id, name, brand, price_per_gram) VALUES (60, 'fertilizer60', 'fertilizer60', 34.5);
+
 
 
 
