@@ -34,6 +34,5 @@ public class LoginResponseDTO {
         @JsonProperty("isActive")
         private boolean isActive;
         private List<String> roles;
-
     }
 }

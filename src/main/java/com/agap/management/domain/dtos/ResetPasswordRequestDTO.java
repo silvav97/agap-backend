@@ -12,9 +12,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ResetPasswordRequestDTO {
 
-    @Size(min = 8, message = "Password must be at least {min} characters")
+    @Size(min = 8, message = "La contraseña debe tener al menos {min} caracteres")
     private String newPassword;
 
-    @Size(min = 8, message = "Password must be at least {min} characters")
+    @Size(min = 8, message = "La contraseña debe tener al menos {min} caracteres")
     private String confirmationPassword;
 }

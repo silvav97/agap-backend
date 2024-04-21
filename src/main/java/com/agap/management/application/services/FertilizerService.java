@@ -50,7 +50,7 @@ public class FertilizerService implements IFertilizerService {
     @Override
     public FertilizerDTO update(Integer id, FertilizerDTO fertilizerDTO) {
         Fertilizer fertilizer = fertilizerRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundByFieldException("Fertilizer", "id", id.toString()));
+                .orElseThrow(() -> new EntityNotFoundByFieldException("Fertilizante", "id", id.toString()));
 
         modelMapper.map(fertilizerDTO, fertilizer);    // Actualiza fertilizer con los campos de fertilizerDTO sin perder el id u otros campos no incluidos en el DTO
         Fertilizer savedFertilizer = fertilizerRepository.save(fertilizer);

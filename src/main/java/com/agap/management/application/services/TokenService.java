@@ -52,8 +52,10 @@ public class TokenService implements ITokenService {
     @Override
     public Token verifyToken(String token) {
         Optional<Token> verificationTokenOptional = tokenRepository.findByToken(token);
-        if (!verificationTokenOptional.isPresent() || verificationTokenOptional.get().isExpired() || verificationTokenOptional.get().isRevoked()) {
-            throw new InvalidTokenException("Invalid or expired verification token");
+        if (verificationTokenOptional.isEmpty()
+                || verificationTokenOptional.get().isExpired()
+                || verificationTokenOptional.get().isRevoked()) {
+            throw new InvalidTokenException("Token de verificación invalido o expirado");
         }
         return verificationTokenOptional.get();
     }

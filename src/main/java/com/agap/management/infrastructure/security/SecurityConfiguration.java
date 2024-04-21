@@ -29,19 +29,17 @@ import java.util.List;
 public class SecurityConfiguration {
 
     private final JwtAuthenticationFilter jwtAuthFilter;
-    private final AuthenticationProvider  authenticationProvider;
-    private final LogoutHandler           logoutHandler;
+    private final AuthenticationProvider authenticationProvider;
+    private final LogoutHandler logoutHandler;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests( authorize -> authorize
+                .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/api/v1/auth/register").permitAll()
                         .requestMatchers(
                                 "/api/v1/auth/**",
-
-
                                 "/v2/api-docs",
                                 "v3/api-docs",
                                 "v3/api-docs/**",
@@ -53,30 +51,24 @@ public class SecurityConfiguration {
                                 "/webjars/**",
                                 "/swagger-ui.html",
                                 "/static/**", "/css/**", "/js/**", "/images/**",
-
-                                "/api/v1/users/forgot-password",
-                                "/api/v1/users/reset-password"
+                                "/api/v1/user/forgot-password",
+                                "/api/v1/user/reset-password"
 
                         )
                         .permitAll()
-
-                        //.requestMatchers("/api/v1/fertilizers").hasRole("ADMIN")
-                        //.requestMatchers("/api/v1/fertilizers/**").hasRole("ADMIN")
-                        //.requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
-
                         .anyRequest().authenticated()
                 )
-                .exceptionHandling(exceptionHandling -> exceptionHandling.authenticationEntryPoint(new CustomAuthenticationEntryPoint()))
+                .exceptionHandling(exceptionHandling -> exceptionHandling.authenticationEntryPoint(
+                        new CustomAuthenticationEntryPoint()))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .logout(logout -> logout
                         .logoutUrl("/api/v1/auth/logout")
                         .addLogoutHandler(logoutHandler)
-                        .logoutSuccessHandler(((request, response, authentication) -> SecurityContextHolder.clearContext()))
-                )
-
-        ;
+                        .logoutSuccessHandler(((request, response, authentication)
+                                -> SecurityContextHolder.clearContext()))
+                );
 
         return http.build();
     }

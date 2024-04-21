@@ -3,6 +3,7 @@ package com.agap.management.application.services;
 import com.agap.management.application.ports.IEmailService;
 import com.agap.management.application.ports.IRegistrationService;
 import com.agap.management.application.ports.ITokenService;
+import com.agap.management.application.services.common.AuthenticationUtil;
 import com.agap.management.domain.dtos.LoginResponseDTO;
 import com.agap.management.domain.dtos.RegisterRequestDTO;
 import com.agap.management.domain.enums.RoleType;
@@ -21,14 +22,12 @@ import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -40,7 +39,6 @@ public class RegistrationService implements IRegistrationService {
     private final IEmailService   emailService;
     private final PasswordEncoder passwordEncoder;
     private final JwtService      jwtService;
-
 
     @Override
     public RegisterResponseDTO register(RegisterRequestDTO request) throws MessagingException {
@@ -87,7 +85,7 @@ public class RegistrationService implements IRegistrationService {
             String refreshToken = jwtService.generateRefreshToken(user);
             tokenService.revokeAllUserTokens(user);
             tokenService.saveUserToken(user, accessToken, TokenType.BEARER);
-            return buildAuthenticationResponse(user, accessToken, refreshToken);
+            return AuthenticationUtil.buildAuthenticationResponse(accessToken, refreshToken);
 
         } catch (ExpiredJwtException e) {
             // If token already expired, send email again
@@ -111,21 +109,6 @@ public class RegistrationService implements IRegistrationService {
         String url = "http://localhost:4200/auth/verify/" + jwtToken;
         String buttonMessage = "Verificar cuenta";
         emailService.sendEmail(user.getEmail(), subject, bodyContent, url, buttonMessage);
-    }
-
-    private LoginResponseDTO buildAuthenticationResponse(User user, String accessToken, String refreshToken) {
-        LoginResponseDTO.UserResponseDTO userResponseDTO = new LoginResponseDTO.UserResponseDTO();
-        userResponseDTO.setId(user.getId());
-        userResponseDTO.setEmail(user.getEmail());
-        userResponseDTO.setName(user.getFirstName() + " " + user.getLastName());
-        userResponseDTO.setActive(user.isEnabled());
-        userResponseDTO.setRoles(user.getRoles().stream().map(role -> role.getName().name()).collect(Collectors.toList()));
-
-        return LoginResponseDTO.builder()
-                //.user(userResponseDTO)
-                .accessToken(accessToken)
-                .refreshToken(refreshToken)
-                .build();
     }
 
 }
