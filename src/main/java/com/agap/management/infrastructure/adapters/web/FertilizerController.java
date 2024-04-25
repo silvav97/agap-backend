@@ -40,6 +40,7 @@ public class FertilizerController {
 
     @PostMapping()
     public FertilizerDTO saveFertilizer(@RequestBody @Valid FertilizerDTO fertilizerDTO) {
+        System.out.println("SaveFertilizer was called: "+ fertilizerDTO.toString());
         return fertilizerService.save(fertilizerDTO);
     }
 
