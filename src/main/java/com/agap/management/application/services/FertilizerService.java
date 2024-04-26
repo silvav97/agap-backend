@@ -47,6 +47,7 @@ public class FertilizerService implements IFertilizerService {
         Fertilizer savedFertilizer = fertilizerRepository.save(fertilizer);
         return modelMapper.map(savedFertilizer, FertilizerDTO.class);
     }
+
     @Override
     public FertilizerDTO update(Integer id, FertilizerDTO fertilizerDTO) {
         Fertilizer fertilizer = fertilizerRepository.findById(id)

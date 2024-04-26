@@ -3,6 +3,7 @@ package com.agap.management.infrastructure.adapters.web;
 import com.agap.management.application.ports.IPesticideService;
 import com.agap.management.domain.dtos.PesticideDTO;
 import com.agap.management.exceptions.personalizedException.EntityNotFoundByFieldException;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -42,4 +43,13 @@ public class PesticideController {
         return pesticideService.save(pesticide);
     }
 
+    @PutMapping("/{id}")
+    public PesticideDTO updatePesticide(@RequestBody @Valid PesticideDTO pesticideDTO, @PathVariable Integer id) {
+        return pesticideService.update(id, pesticideDTO);
+    }
+
+    @DeleteMapping("/{id}")
+    public boolean deletePesticide(@PathVariable Integer id) {
+        return pesticideService.delete(id);
+    }
 }

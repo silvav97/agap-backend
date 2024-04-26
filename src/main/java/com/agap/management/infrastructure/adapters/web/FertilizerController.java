@@ -53,5 +53,4 @@ public class FertilizerController {
         return fertilizerService.delete(id);
     }
 
-
 }
