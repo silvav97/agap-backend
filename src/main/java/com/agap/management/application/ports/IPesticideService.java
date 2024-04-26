@@ -12,4 +12,6 @@ public interface IPesticideService {
     Page<PesticideDTO> findAll(Pageable pageable);
     Optional<PesticideDTO> findById(Integer id);
     PesticideDTO save(PesticideDTO pesticideDTO);
+    PesticideDTO update(Integer id, PesticideDTO pesticideDTO);
+    Boolean delete(Integer id);
 }

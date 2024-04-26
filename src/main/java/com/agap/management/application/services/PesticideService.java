@@ -3,6 +3,7 @@ package com.agap.management.application.services;
 import com.agap.management.application.ports.IPesticideService;
 import com.agap.management.domain.dtos.PesticideDTO;
 import com.agap.management.domain.entities.Pesticide;
+import com.agap.management.exceptions.personalizedException.EntityNotFoundByFieldException;
 import com.agap.management.infrastructure.adapters.persistence.IPesticideRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -46,4 +47,26 @@ public class PesticideService implements IPesticideService {
         Pesticide savedPesticide = pesticideRepository.save(pesticide);
         return modelMapper.map(savedPesticide, PesticideDTO.class);
     }
+
+    @Override
+    public PesticideDTO update(Integer id, PesticideDTO pesticideDTO) {
+        Pesticide pesticide = pesticideRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundByFieldException("Pesticida", "id", id.toString()));
+
+        modelMapper.map(pesticideDTO, pesticide);
+        Pesticide savedPesticide = pesticideRepository.save(pesticide);
+        return modelMapper.map(savedPesticide, PesticideDTO.class);
+    }
+
+    @Override
+    public Boolean delete(Integer id) {
+        try {
+            pesticideRepository.deleteById(id);
+            return true;
+        }
+        catch (Exception e) {
+            return false;
+        }
+    }
+
 }

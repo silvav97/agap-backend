@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class AuthenticationController {
 
-    private final IRegistrationService   registrationService;
+    private final IRegistrationService registrationService;
     private final IAuthenticationService authenticationService;
 
     @PostMapping("/register")
