@@ -8,10 +8,8 @@ import org.springframework.context.annotation.Configuration;
 public class MapperConfig {
 
     /**
-     * Maps from FertilizerDTO to Fertilizer
-     * Maps from Fertilizer to FertilizerDTO
-     * Maps from PesticideDTO to Pesticide not explicitly necessary
-     * Maps from Pesticide to PesticideDTO not explicitly necessary
+     * Maps from EntityDTO to Entity
+     * Maps from Entity to EntityDTO
      * @return ModelMapper
      */
     @Bean
