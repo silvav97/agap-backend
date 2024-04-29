@@ -1,6 +1,5 @@
-package com.agap.management.domain.dtos;
+package com.agap.management.domain.dtos.request;
 
-import com.agap.management.domain.entities.Role;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -13,13 +12,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class RegisterRequestDTO {
-
-    @NotBlank(message = "Primer nombre es requerido")
-    private String firstname;
-
-    @NotBlank(message = "Apellido es requerido")
-    private String lastname;
+public class LoginRequestDTO {
 
     @Email(message = "El email debe tener un formato valido")
     @NotBlank(message = "En email no puede estar vacio")
@@ -27,6 +20,4 @@ public class RegisterRequestDTO {
 
     @Size(min = 8, message = "La contraseña debe tener al menos {min} caracteres")
     private String password;
-
-    private Role role;
 }

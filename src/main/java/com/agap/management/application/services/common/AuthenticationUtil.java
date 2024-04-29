@@ -1,6 +1,6 @@
 package com.agap.management.application.services.common;
 
-import com.agap.management.domain.dtos.LoginResponseDTO;
+import com.agap.management.domain.dtos.response.LoginResponseDTO;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass

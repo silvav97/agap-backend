@@ -1,5 +1,6 @@
-package com.agap.management.domain.dtos;
+package com.agap.management.domain.dtos.response;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,9 +10,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ResponseExceptionDTO {
+public class RegisterResponseDTO {
 
+    @JsonProperty("message")
     private String message;
-    private String description;
-    private int errorCode;
 }

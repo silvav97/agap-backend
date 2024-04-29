@@ -1,4 +1,4 @@
-package com.agap.management.domain.dtos;
+package com.agap.management.domain.dtos.response;
 
 import lombok.AllArgsConstructor;
 

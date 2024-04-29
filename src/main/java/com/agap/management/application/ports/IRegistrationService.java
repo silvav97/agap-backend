@@ -1,8 +1,8 @@
 package com.agap.management.application.ports;
 
-import com.agap.management.domain.dtos.LoginResponseDTO;
-import com.agap.management.domain.dtos.RegisterRequestDTO;
-import com.agap.management.domain.dtos.RegisterResponseDTO;
+import com.agap.management.domain.dtos.response.LoginResponseDTO;
+import com.agap.management.domain.dtos.request.RegisterRequestDTO;
+import com.agap.management.domain.dtos.response.RegisterResponseDTO;
 import jakarta.mail.MessagingException;
 
 public interface IRegistrationService {
