@@ -64,6 +64,8 @@ INSERT INTO fertilizer (id, name, brand, price_per_gram) VALUES (60, 'fertilizer
 
 
 
+
+
 INSERT INTO pesticide (id, name, brand, price_per_gram) VALUES (1, 'pesticide1', 'pesticide1', 34.5);
 INSERT INTO pesticide (id, name, brand, price_per_gram) VALUES (2, 'pesticide2', 'pesticide2', 34.5);
 INSERT INTO pesticide (id, name, brand, price_per_gram) VALUES (3, 'pesticide3', 'pesticide3', 34.5);
@@ -124,3 +126,21 @@ INSERT INTO pesticide (id, name, brand, price_per_gram) VALUES (57, 'pesticide57
 INSERT INTO pesticide (id, name, brand, price_per_gram) VALUES (58, 'pesticide58', 'pesticide58', 34.5);
 INSERT INTO pesticide (id, name, brand, price_per_gram) VALUES (59, 'pesticide59', 'pesticide59', 34.5);
 INSERT INTO pesticide (id, name, brand, price_per_gram) VALUES (60, 'pesticide60', 'pesticide60', 34.5);
+
+
+INSERT INTO crop_type (weather, name, plant_quantity_per_square_meter, harvest_time, fertilizer_quantity_per_plant, fertilizer_frequency, pesticide_quantity_per_plant, pesticide_frequency, fertilizer_id, pesticide_id) VALUES ('Templado', 'Trigo', 100, 120, 2, 30, 1, 45, 1, 1);
+INSERT INTO crop_type (weather, name, plant_quantity_per_square_meter, harvest_time, fertilizer_quantity_per_plant, fertilizer_frequency, pesticide_quantity_per_plant, pesticide_frequency, fertilizer_id, pesticide_id) VALUES ('Templado', 'Banano', 100, 120, 2, 30, 1, 45, 1, 1);
+INSERT INTO crop_type (weather, name, plant_quantity_per_square_meter, harvest_time, fertilizer_quantity_per_plant, fertilizer_frequency, pesticide_quantity_per_plant, pesticide_frequency, fertilizer_id, pesticide_id) VALUES ('Templado', 'Platano', 100, 120, 2, 30, 1, 45, 1, 1);
+INSERT INTO crop_type (weather, name, plant_quantity_per_square_meter, harvest_time, fertilizer_quantity_per_plant, fertilizer_frequency, pesticide_quantity_per_plant, pesticide_frequency, fertilizer_id, pesticide_id) VALUES ('Templado', 'Maiz', 100, 120, 2, 30, 1, 45, 1, 1);
+INSERT INTO crop_type (weather, name, plant_quantity_per_square_meter, harvest_time, fertilizer_quantity_per_plant, fertilizer_frequency, pesticide_quantity_per_plant, pesticide_frequency, fertilizer_id, pesticide_id) VALUES ('Frio', 'Pera', 100, 120, 2, 30, 1, 45, 1, 1);
+INSERT INTO crop_type (weather, name, plant_quantity_per_square_meter, harvest_time, fertilizer_quantity_per_plant, fertilizer_frequency, pesticide_quantity_per_plant, pesticide_frequency, fertilizer_id, pesticide_id) VALUES ('Frio', 'Uva', 100, 120, 2, 30, 1, 45, 1, 1);
+INSERT INTO crop_type (weather, name, plant_quantity_per_square_meter, harvest_time, fertilizer_quantity_per_plant, fertilizer_frequency, pesticide_quantity_per_plant, pesticide_frequency, fertilizer_id, pesticide_id) VALUES ('Frio', 'Fresa', 100, 120, 2, 30, 1, 45, 1, 1);
+INSERT INTO crop_type (weather, name, plant_quantity_per_square_meter, harvest_time, fertilizer_quantity_per_plant, fertilizer_frequency, pesticide_quantity_per_plant, pesticide_frequency, fertilizer_id, pesticide_id) VALUES ('Frio', 'Manzana', 100, 120, 2, 30, 1, 45, 1, 1);
+INSERT INTO crop_type (weather, name, plant_quantity_per_square_meter, harvest_time, fertilizer_quantity_per_plant, fertilizer_frequency, pesticide_quantity_per_plant, pesticide_frequency, fertilizer_id, pesticide_id) VALUES ('Calido', 'Guayaba', 100, 120, 2, 30, 1, 45, 1, 1);
+INSERT INTO crop_type (weather, name, plant_quantity_per_square_meter, harvest_time, fertilizer_quantity_per_plant, fertilizer_frequency, pesticide_quantity_per_plant, pesticide_frequency, fertilizer_id, pesticide_id) VALUES ('Calido', 'Papaya', 100, 120, 2, 30, 1, 45, 1, 1);
+
+
+
+
+
+INSERT INTO project (crop_type_id, name, status, start_date, end_date, municipality, total_budget) VALUES(1, 'Proyecto 1', 'CREATED', '2023-01-01', '2023-12-31', 'Municipio 1', 10000);
