@@ -1,7 +1,5 @@
 package com.agap.management.domain.dtos;
 
-import com.agap.management.domain.entities.Fertilizer;
-import com.agap.management.domain.entities.Pesticide;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -16,8 +14,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CropTypeDTO {
-
-    private Integer id;
 
     @Size(max = 100, message = "El campo Clima no puede tener más de {max} caracteres.")
     @Column(name = "weather", length = 100)
@@ -54,10 +50,10 @@ public class CropTypeDTO {
 
     @ManyToOne
     @JoinColumn(name = "fertilizer_id", insertable = false, updatable = false)
-    private Fertilizer fertilizer;
+    private FertilizerDTO fertilizer;
 
     @ManyToOne
     @JoinColumn(name = "pesticide_id", insertable = false, updatable = false)
-    private Pesticide pesticide;
+    private PesticideDTO pesticide;
 
 }
