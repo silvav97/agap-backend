@@ -2,7 +2,6 @@ package com.agap.management.domain.dtos;
 
 import com.agap.management.domain.enums.ProcessStatus;
 import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -21,13 +20,7 @@ public class CropDTO {
 
     private Integer id;
 
-    @NotBlank(message = "El campo Usuario ID es obligatorio")
-    private String userId;
-
     private UserDTO user;
-
-    @Min(value = 1, message = "El valor debe ser mayor que cero")
-    private Integer projectId;
 
     private ProjectDTO project;
 
