@@ -1,6 +1,6 @@
 package com.agap.management.application.ports;
 
-import com.agap.management.domain.dtos.CropDTO;
+import com.agap.management.domain.dtos.CropRequestDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -8,10 +8,10 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ICropService {
-    List<CropDTO> findAll();
-    Page<CropDTO> findAll(Pageable pageable);
-    Optional<CropDTO> findById(Integer id);
-    CropDTO save(CropDTO cropDTO);
-    CropDTO update(Integer id, CropDTO cropDTO);
+    List<CropRequestDTO> findAll();
+    Page<CropRequestDTO> findAll(Pageable pageable);
+    Optional<CropRequestDTO> findById(Integer id);
+    CropRequestDTO save(CropRequestDTO cropRequestDTO);
+    CropRequestDTO update(Integer id, CropRequestDTO cropRequestDTO);
     Boolean delete(Integer id);
 }
