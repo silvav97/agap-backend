@@ -36,9 +36,8 @@ public class PesticideService implements IPesticideService {
     }
 
     @Override
-    public Optional<PesticideDTO> findById(Integer id) {
-        Optional<Pesticide> optionalPesticide = pesticideRepository.findById(id);
-        return optionalPesticide.map(pesticide -> modelMapper.map(pesticide, PesticideDTO.class));
+    public PesticideDTO findById(Integer id) {
+        return modelMapper.map(getPesticideById(id), PesticideDTO.class);
     }
 
     @Override
@@ -50,8 +49,7 @@ public class PesticideService implements IPesticideService {
 
     @Override
     public PesticideDTO update(Integer id, PesticideDTO pesticideDTO) {
-        Pesticide pesticide = pesticideRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundByFieldException("Pesticida", "id", id.toString()));
+        Pesticide pesticide = getPesticideById(id);
 
         modelMapper.map(pesticideDTO, pesticide);
         Pesticide savedPesticide = pesticideRepository.save(pesticide);
@@ -67,6 +65,12 @@ public class PesticideService implements IPesticideService {
         catch (Exception e) {
             return false;
         }
+    }
+
+    @Override
+    public Pesticide getPesticideById(Integer id) {
+        return pesticideRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundByFieldException("Pesticida", "id", id.toString()));
     }
 
 }

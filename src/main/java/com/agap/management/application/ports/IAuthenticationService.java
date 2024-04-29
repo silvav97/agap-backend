@@ -1,7 +1,7 @@
 package com.agap.management.application.ports;
 
-import com.agap.management.domain.dtos.LoginRequestDTO;
-import com.agap.management.domain.dtos.LoginResponseDTO;
+import com.agap.management.domain.dtos.request.LoginRequestDTO;
+import com.agap.management.domain.dtos.response.LoginResponseDTO;
 import io.jsonwebtoken.io.IOException;
 
 public interface IAuthenticationService {

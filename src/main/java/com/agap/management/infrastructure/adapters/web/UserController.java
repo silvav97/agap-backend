@@ -1,10 +1,10 @@
 package com.agap.management.infrastructure.adapters.web;
 
 import com.agap.management.application.ports.IUserService;
-import com.agap.management.domain.dtos.ChangePasswordRequestDTO;
-import com.agap.management.domain.dtos.ControllerResponseDTO;
+import com.agap.management.domain.dtos.request.ChangePasswordRequestDTO;
+import com.agap.management.domain.dtos.response.ControllerResponseDTO;
 import com.agap.management.domain.dtos.ForgotPasswordDTO;
-import com.agap.management.domain.dtos.ResetPasswordRequestDTO;
+import com.agap.management.domain.dtos.request.ResetPasswordRequestDTO;
 import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

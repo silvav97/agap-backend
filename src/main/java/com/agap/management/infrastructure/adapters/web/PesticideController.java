@@ -34,8 +34,7 @@ public class PesticideController {
 
     @GetMapping("/{id}")
     public PesticideDTO getPesticideById(@PathVariable Integer id) {
-        return pesticideService.findById(id).orElseThrow(
-                () -> new EntityNotFoundByFieldException("Pesticide", "id", id.toString()));
+        return pesticideService.findById(id);
     }
 
     @PostMapping()

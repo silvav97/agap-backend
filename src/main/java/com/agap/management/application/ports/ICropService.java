@@ -1,6 +1,6 @@
 package com.agap.management.application.ports;
 
-import com.agap.management.domain.dtos.CropRequestDTO;
+import com.agap.management.domain.dtos.request.CropRequestDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

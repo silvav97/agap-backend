@@ -1,8 +1,7 @@
 package com.agap.management.application.ports;
 
-import com.agap.management.domain.dtos.ChangePasswordRequestDTO;
-import com.agap.management.domain.dtos.ForgotPasswordDTO;
-import com.agap.management.domain.dtos.ResetPasswordRequestDTO;
+import com.agap.management.domain.dtos.request.ChangePasswordRequestDTO;
+import com.agap.management.domain.dtos.request.ResetPasswordRequestDTO;
 import jakarta.mail.MessagingException;
 
 import java.security.Principal;
