@@ -1,7 +1,5 @@
 package com.agap.management.domain.dtos;
 
-import com.agap.management.domain.entities.Fertilizer;
-import com.agap.management.domain.entities.Pesticide;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -52,10 +50,10 @@ public class CropTypeDTO {
 
     @ManyToOne
     @JoinColumn(name = "fertilizer_id", insertable = false, updatable = false)
-    private Fertilizer fertilizer;
+    private FertilizerDTO fertilizer;
 
     @ManyToOne
     @JoinColumn(name = "pesticide_id", insertable = false, updatable = false)
-    private Pesticide pesticide;
+    private PesticideDTO pesticide;
 
 }

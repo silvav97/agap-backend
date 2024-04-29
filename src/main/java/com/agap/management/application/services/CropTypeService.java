@@ -19,7 +19,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class CropTypeService implements ICropTypeService {
 
-
     private final ICropTypeRepository cropTypeRepository;
     private final ModelMapper modelMapper;
 
