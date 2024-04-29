@@ -1,7 +1,7 @@
 package com.agap.management.application.services;
 
 import com.agap.management.application.ports.ICropService;
-import com.agap.management.domain.dtos.CropDTO;
+import com.agap.management.domain.dtos.CropRequestDTO;
 import com.agap.management.domain.entities.Crop;
 import com.agap.management.exceptions.personalizedException.EntityNotFoundByFieldException;
 import com.agap.management.infrastructure.adapters.persistence.ICropRepository;
@@ -23,39 +23,39 @@ public class CropService implements ICropService {
     private final ModelMapper modelMapper;
 
     @Override
-    public List<CropDTO> findAll() {
+    public List<CropRequestDTO> findAll() {
         return cropRepository.findAll().stream()
-                .map(crop -> modelMapper.map(crop, CropDTO.class))
+                .map(crop -> modelMapper.map(crop, CropRequestDTO.class))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public Page<CropDTO> findAll(Pageable pageable) {
+    public Page<CropRequestDTO> findAll(Pageable pageable) {
         Page<Crop> page = cropRepository.findAll(pageable);
-        return page.map(crop -> modelMapper.map(crop, CropDTO.class));
+        return page.map(crop -> modelMapper.map(crop, CropRequestDTO.class));
     }
 
     @Override
-    public Optional<CropDTO> findById(Integer id) {
+    public Optional<CropRequestDTO> findById(Integer id) {
         Optional<Crop> optionalCrop = cropRepository.findById(id);
-        return optionalCrop.map(crop -> modelMapper.map(crop, CropDTO.class));
+        return optionalCrop.map(crop -> modelMapper.map(crop, CropRequestDTO.class));
     }
 
     @Override
-    public CropDTO save(CropDTO cropDTO) {
-        Crop crop = modelMapper.map(cropDTO, Crop.class);
+    public CropRequestDTO save(CropRequestDTO cropRequestDTO) {
+        Crop crop = modelMapper.map(cropRequestDTO, Crop.class);
         Crop savedCrop = cropRepository.save(crop);
-        return modelMapper.map(savedCrop, CropDTO.class);
+        return modelMapper.map(savedCrop, CropRequestDTO.class);
     }
 
     @Override
-    public CropDTO update(Integer id, CropDTO cropDTO) {
+    public CropRequestDTO update(Integer id, CropRequestDTO cropRequestDTO) {
         Crop crop = cropRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundByFieldException("Cultivo", "id", id.toString()));
 
-        modelMapper.map(cropDTO, crop);
+        modelMapper.map(cropRequestDTO, crop);
         Crop savedCrop = cropRepository.save(crop);
-        return modelMapper.map(savedCrop, CropDTO.class);
+        return modelMapper.map(savedCrop, CropRequestDTO.class);
     }
 
     @Override

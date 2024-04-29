@@ -18,7 +18,7 @@ public class ExpenseDTO {
 
     private Integer id;
 
-    private CropDTO crop;
+    private CropRequestDTO crop;
 
     @DecimalMin(value = "0.000001", message = "El valor debe ser mayor que cero")
     private float expenseValue;

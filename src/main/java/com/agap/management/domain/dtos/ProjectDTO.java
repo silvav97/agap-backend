@@ -20,7 +20,7 @@ public class ProjectDTO {
 
     private Integer id;
 
-    private CropTypeDTO cropType;
+    private CropTypeRequestDTO cropType;
 
     @NotBlank(message = "El campo Proyecto es obligatorio")
     @Size(max = 100, message = "El campo Proyecto no puede tener más de {max} caracteres")
@@ -35,7 +35,7 @@ public class ProjectDTO {
     @Size(max = 100, message = "El campo Municipio no puede tener más de {max} caracteres")
     private String municipality;
 
-    private List<CropDTO> cropList;
+    private List<CropRequestDTO> cropList;
 
     @DecimalMin(value = "0.000001", message = "El valor debe ser mayor que cero")
     private float totalBudget;

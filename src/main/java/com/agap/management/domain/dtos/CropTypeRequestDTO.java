@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CropTypeDTO {
+public class CropTypeRequestDTO {
 
     @Size(max = 100, message = "El campo Clima no puede tener más de {max} caracteres.")
     @Column(name = "weather", length = 100)

@@ -3,7 +3,6 @@ package com.agap.management.domain.entities;
 import com.agap.management.domain.enums.ProcessStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -25,17 +24,9 @@ public class Crop {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotBlank(message = "El campo Usuario ID es obligatorio")
-    @Column(name = "user_id", nullable = false)
-    private String userId;
-
     @ManyToOne
     @JoinColumn(name = "user_id", insertable = false, updatable = false)
     private User user;
-
-    @Min(value = 1, message = "El valor debe ser mayor que cero")
-    @Column(name = "project_id", nullable = false)
-    private Integer projectId;
 
     @ManyToOne
     @JoinColumn(name = "project_id", insertable = false, updatable = false)
