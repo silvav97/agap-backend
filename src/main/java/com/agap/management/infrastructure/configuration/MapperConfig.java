@@ -1,7 +1,5 @@
 package com.agap.management.infrastructure.configuration;
 
-import com.agap.management.domain.dtos.request.CropTypeRequestDTO;
-import com.agap.management.domain.entities.CropType;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.context.annotation.Bean;
