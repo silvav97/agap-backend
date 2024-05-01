@@ -3,7 +3,7 @@ package com.agap.management.application.services;
 import com.agap.management.application.ports.IEmailService;
 import com.agap.management.application.ports.ITokenService;
 import com.agap.management.application.ports.IUserService;
-import com.agap.management.domain.dtos.ResetPasswordRequestDTO;
+import com.agap.management.domain.dtos.request.ResetPasswordRequestDTO;
 import com.agap.management.domain.entities.Token;
 import com.agap.management.domain.entities.User;
 import com.agap.management.domain.enums.TokenType;
@@ -11,7 +11,7 @@ import com.agap.management.exceptions.personalizedException.ChangePasswordExcept
 import com.agap.management.exceptions.personalizedException.EntityNotFoundByFieldException;
 import com.agap.management.exceptions.personalizedException.InvalidTokenException;
 import com.agap.management.infrastructure.adapters.persistence.IUserRepository;
-import com.agap.management.domain.dtos.ChangePasswordRequestDTO;
+import com.agap.management.domain.dtos.request.ChangePasswordRequestDTO;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

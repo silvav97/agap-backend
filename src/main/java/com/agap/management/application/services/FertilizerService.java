@@ -12,7 +12,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -36,9 +35,8 @@ public class FertilizerService implements IFertilizerService {
     }
 
     @Override
-    public Optional<FertilizerDTO> findById(Integer id) {
-        Optional<Fertilizer> optionalFertilizer = fertilizerRepository.findById(id);
-        return optionalFertilizer.map(fertilizer -> modelMapper.map(fertilizer, FertilizerDTO.class));
+    public FertilizerDTO findById(Integer id) {
+        return modelMapper.map(getFertilizerById(id), FertilizerDTO.class);
     }
 
     @Override
@@ -50,8 +48,7 @@ public class FertilizerService implements IFertilizerService {
 
     @Override
     public FertilizerDTO update(Integer id, FertilizerDTO fertilizerDTO) {
-        Fertilizer fertilizer = fertilizerRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundByFieldException("Fertilizante", "id", id.toString()));
+        Fertilizer fertilizer = getFertilizerById(id);
 
         modelMapper.map(fertilizerDTO, fertilizer);    // Actualiza fertilizer con los campos de fertilizerDTO sin perder el id u otros campos no incluidos en el DTO
         Fertilizer savedFertilizer = fertilizerRepository.save(fertilizer);
@@ -67,6 +64,12 @@ public class FertilizerService implements IFertilizerService {
         catch (Exception e) {
             return false;
         }
+    }
+
+    @Override
+    public Fertilizer getFertilizerById(Integer id) {
+        return fertilizerRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundByFieldException("Fertilizante", "id", id.toString()));
     }
 
 }

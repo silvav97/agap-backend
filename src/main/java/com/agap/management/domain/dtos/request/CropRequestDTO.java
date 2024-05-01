@@ -1,5 +1,7 @@
-package com.agap.management.domain.dtos;
+package com.agap.management.domain.dtos.request;
 
+import com.agap.management.domain.dtos.ProjectDTO;
+import com.agap.management.domain.dtos.UserDTO;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

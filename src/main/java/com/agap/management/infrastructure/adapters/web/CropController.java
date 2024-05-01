@@ -1,7 +1,7 @@
 package com.agap.management.infrastructure.adapters.web;
 
 import com.agap.management.application.ports.ICropService;
-import com.agap.management.domain.dtos.CropRequestDTO;
+import com.agap.management.domain.dtos.request.CropRequestDTO;
 import com.agap.management.exceptions.personalizedException.EntityNotFoundByFieldException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

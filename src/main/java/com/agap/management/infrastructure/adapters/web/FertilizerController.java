@@ -2,7 +2,6 @@ package com.agap.management.infrastructure.adapters.web;
 
 import com.agap.management.application.ports.IFertilizerService;
 import com.agap.management.domain.dtos.FertilizerDTO;
-import com.agap.management.exceptions.personalizedException.EntityNotFoundByFieldException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -34,8 +33,7 @@ public class FertilizerController {
 
     @GetMapping("/{id}")
     public FertilizerDTO getFertilizerById(@PathVariable Integer id) {
-        return fertilizerService.findById(id).orElseThrow(
-                () -> new EntityNotFoundByFieldException("Fertilizante", "id", id.toString()));
+        return fertilizerService.findById(id);
     }
 
     @PostMapping()

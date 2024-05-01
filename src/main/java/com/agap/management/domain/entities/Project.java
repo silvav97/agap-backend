@@ -24,11 +24,11 @@ public class Project {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "crop_type_id", nullable = false)
-    private Integer cropTypeId;
+    //@Column(name = "crop_type_id", nullable = false)
+    //private Integer cropTypeId;
 
     @ManyToOne
-    @JoinColumn(name = "crop_type_id", insertable = false, updatable = false)
+    @JoinColumn(name = "crop_type_id", nullable = true)  //, insertable = false, updatable = false)
     private CropType cropType;
 
     @NotBlank(message = "El campo Proyecto es obligatorio")

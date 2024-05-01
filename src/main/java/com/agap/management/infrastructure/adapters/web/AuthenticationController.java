@@ -2,10 +2,10 @@ package com.agap.management.infrastructure.adapters.web;
 
 import com.agap.management.application.ports.IAuthenticationService;
 import com.agap.management.application.ports.IRegistrationService;
-import com.agap.management.domain.dtos.LoginRequestDTO;
-import com.agap.management.domain.dtos.LoginResponseDTO;
-import com.agap.management.domain.dtos.RegisterRequestDTO;
-import com.agap.management.domain.dtos.RegisterResponseDTO;
+import com.agap.management.domain.dtos.request.LoginRequestDTO;
+import com.agap.management.domain.dtos.response.LoginResponseDTO;
+import com.agap.management.domain.dtos.request.RegisterRequestDTO;
+import com.agap.management.domain.dtos.response.RegisterResponseDTO;
 import io.jsonwebtoken.io.IOException;
 import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
