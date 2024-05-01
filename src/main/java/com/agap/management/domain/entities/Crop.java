@@ -32,6 +32,10 @@ public class Crop {
     @JoinColumn(name = "project_id")  //, insertable = false, updatable = false)
     private Project project;
 
+    @OneToOne
+    @JoinColumn(name = "project_application_id")
+    private ProjectApplication projectApplication;
+
     @NotBlank(message = "El campo Cultivo es obligatorio")
     @Size(max = 100, message = "El campo Cultivo no puede tener más de {max} caracteres")
     @Column(name = "name", nullable = false, length = 100)

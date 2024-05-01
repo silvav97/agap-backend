@@ -24,8 +24,8 @@ public class Project {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    //@Column(name = "crop_type_id", nullable = false)
-    //private Integer cropTypeId;
+    @OneToMany(mappedBy = "project")
+    private List<ProjectApplication> projectApplications;
 
     @ManyToOne
     @JoinColumn(name = "crop_type_id", nullable = true)  //, insertable = false, updatable = false)
