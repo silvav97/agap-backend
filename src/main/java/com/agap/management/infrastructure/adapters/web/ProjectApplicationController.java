@@ -52,7 +52,7 @@ public class ProjectApplicationController {
         System.out.println("\nPROJECT_APPLICATION CONTROLLER, saveProjectApplication was called ");
         System.out.println("\nPROJECT_APPLICATION CONTROLLER, projectApplicationRequestDTO: " + projectApplicationRequestDTO);
         ProjectApplicationResponseDTO cropTypeResponseDTO = projectApplicationService.save(projectApplicationRequestDTO);
-        System.out.println("\nCROP_TYPE CONTROLLER, cropTypeResponseDTO: " + cropTypeResponseDTO);
+        System.out.println("\nPROJECT_APPLICATION CONTROLLER, cropTypeResponseDTO: " + cropTypeResponseDTO);
         return cropTypeResponseDTO;
     }
 

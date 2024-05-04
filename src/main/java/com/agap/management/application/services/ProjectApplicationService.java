@@ -64,33 +64,36 @@ public class ProjectApplicationService implements IProjectApplicationService {
         ProjectApplication projectApplication = modelMapper.map(projectApplicationRequestDTO, ProjectApplication.class);
         System.out.println("\nPROJECT_APPLICATION SERVICE, projectApplication despues del primer mapeo: " + projectApplication);
 
-
-        Project project = projectRepository.findById(projectApplicationRequestDTO.getProjectId())
-                .orElseThrow(() -> new EntityNotFoundByFieldException("Project", "id", projectApplicationRequestDTO.getProjectId().toString()));
-        System.out.println("\nPROJECT_APPLICATION SERVICE, project id: " + project.getId());
-
-        User applicant = userRepository.findById(projectApplicationRequestDTO.getApplicantId())
-                .orElseThrow(() -> new EntityNotFoundByFieldException("User", "id", projectApplicationRequestDTO.getApplicantId().toString()));
-        System.out.println("\nPROJECT_APPLICATION SERVICE, applicant id: " + applicant.getId());
+        Project project = projectRepository.findById(projectApplicationRequestDTO.getProjectId()).orElseThrow(() -> new EntityNotFoundByFieldException("Project", "id", projectApplicationRequestDTO.getProjectId().toString()));
+        User applicant = userRepository.findById(projectApplicationRequestDTO.getApplicantId()).orElseThrow(() -> new EntityNotFoundByFieldException("User", "id", projectApplicationRequestDTO.getApplicantId().toString()));
 
         projectApplication.setProject(project);
-        System.out.println("\nPROJECT_APPLICATION SERVICE, seteé Project ");
-
         projectApplication.setApplicant(applicant);
-        System.out.println("\nPROJECT_APPLICATION SERVICE, seteé Applicant ");
-
         projectApplication.setApplicationStatus(ApplicationStatus.PENDING);
-        System.out.println("\nPROJECT_APPLICATION SERVICE, seteé ApplicationStatus.PENDING ");
         projectApplication.setApplicationDate(LocalDate.now());
-        System.out.println("\nPROJECT_APPLICATION SERVICE, seteé ApplicationDate ");
 
-
-        System.out.println("\nPROJECT_APPLICATION SERVICE, projectApplication: " + projectApplication);
-
+        System.out.println(String.format("\n" +
+                        "PROJECT_APPLICATION SERVICE, Valores de projectApplication importantes: " +
+                        "ProjectApplication.Project.id: %s,  ProjectApplication.Applicant.id: %s,  " +
+                        "ProjectApplication.ApplicationStatus: %s,  ProjectApplication.ApplicationDate: %s",
+                projectApplication.getProject().getId(), projectApplication.getApplicant().getId(), projectApplication.getApplicationStatus(), projectApplication.getApplicationDate()));
 
         ProjectApplication savedProjectApplication = projectApplicationRepository.save(projectApplication);
-        System.out.println("\nPROJECT_APPLICATION SERVICE, savedProjectApplication: " + savedProjectApplication);
+        System.out.println(String.format("\n" +
+                        "PROJECT_APPLICATION SERVICE, Valores de projectApplication importantes: " +
+                        "ProjectApplication.Project.id: %s,  ProjectApplication.Applicant.id: %s,  " +
+                        "ProjectApplication.ApplicationStatus: %s,  ProjectApplication.ApplicationDate: %s",
+                savedProjectApplication.getProject().getId(), savedProjectApplication.getApplicant().getId(), savedProjectApplication.getApplicationStatus(), savedProjectApplication.getApplicationDate()));
+
+
         ProjectApplicationResponseDTO projectApplicationResponseDTO = modelMapper.map(savedProjectApplication, ProjectApplicationResponseDTO.class);
+        System.out.println(String.format("\n" +
+                        "PROJECT_APPLICATION SERVICE, Valores de projectApplication importantes: " +
+                        "ProjectApplication.Project.id: %s,  ProjectApplication.Applicant.id: %s,  " +
+                        "ProjectApplication.ApplicationStatus: %s,  ProjectApplication.ApplicationDate: %s",
+                projectApplicationResponseDTO.getProject().getId(), projectApplicationResponseDTO.getApplicant().getId(), projectApplicationResponseDTO.getApplicationStatus(), projectApplicationResponseDTO.getApplicationDate()));
+
+
         System.out.println("\nPROJECT_APPLICATION SERVICE, projectApplicationResponseDTO: " + projectApplicationResponseDTO);
         System.out.println("\nPROJECT_APPLICATION SERVICE finished?: ");
 
