@@ -84,13 +84,14 @@ public class ProjectApplicationService implements IProjectApplicationService {
         projectApplication.setApplicationDate(LocalDate.now());
         System.out.println("\nPROJECT_APPLICATION SERVICE, seteé ApplicationDate ");
 
-        //System.out.println("\nPROJECT_APPLICATION SERVICE, projectApplication: " + projectApplication);
+
+        System.out.println("\nPROJECT_APPLICATION SERVICE, projectApplication: " + projectApplication);
 
 
         ProjectApplication savedProjectApplication = projectApplicationRepository.save(projectApplication);
-        //System.out.println("\nPROJECT_APPLICATION SERVICE, savedProjectApplication: " + savedProjectApplication);
+        System.out.println("\nPROJECT_APPLICATION SERVICE, savedProjectApplication: " + savedProjectApplication);
         ProjectApplicationResponseDTO projectApplicationResponseDTO = modelMapper.map(savedProjectApplication, ProjectApplicationResponseDTO.class);
-        //System.out.println("\nPROJECT_APPLICATION SERVICE, projectApplicationResponseDTO: " + projectApplicationResponseDTO);
+        System.out.println("\nPROJECT_APPLICATION SERVICE, projectApplicationResponseDTO: " + projectApplicationResponseDTO);
         System.out.println("\nPROJECT_APPLICATION SERVICE finished?: ");
 
         return projectApplicationResponseDTO;

@@ -24,8 +24,8 @@ public class Project {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @OneToMany(mappedBy = "project")
-    private List<ProjectApplication> projectApplications;
+    //@OneToMany(mappedBy = "project")
+    //private List<ProjectApplication> projectApplications;   // mejor dejo que solo el ProjectApplication referencie al Project y no al contrario.
 
     @ManyToOne
     @JoinColumn(name = "crop_type_id", nullable = true)  //, insertable = false, updatable = false)
@@ -51,7 +51,7 @@ public class Project {
     private String municipality;
 
     @OneToMany(mappedBy = "project")
-    private List<Crop> cropList;
+    private List<Crop> cropList;        // Tal vez debamos borrar esto y dejar que solo el Crop referencie al Project?
 
     @DecimalMin(value = "0.000001", message = "El valor debe ser mayor que cero")
     @Column(name = "total_budget", nullable = false)

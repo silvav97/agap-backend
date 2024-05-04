@@ -32,8 +32,8 @@ public class ProjectApplication {
     @JoinColumn(name = "applicant_id")
     private User applicant;
 
-    @OneToOne(mappedBy = "projectApplication")
-    private Crop crop;
+    //@OneToOne(mappedBy = "projectApplication")
+    //private Crop crop;                         // Mejor solo dejo que el crop mapee al ProjectApplication
 
     @Enumerated(EnumType.STRING)
     @Column(name = "application_status", nullable = false)
