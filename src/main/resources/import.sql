@@ -1,28 +1,30 @@
 
 
 
----------------------------------  ROLE  ---------------------------------
+----------------------------------  ROLE  ----------------------------------
 INSERT INTO role (id, name) VALUES (1, 'ADMIN');
 INSERT INTO role (id, name) VALUES (2, 'FARMER');
 
 
 
----------------------------------  USER  ---------------------------------
-INSERT INTO user (id, first_name, last_name, email, password, enabled) VALUES (1, 'admin',     'admin', 'admin@yopmail.com',   '$2a$10$1kQmZRmgjO8RdhbekEicj.VY7XpIuvWKzIi4MMvoJaODFwbGQXA0i', true);
-INSERT INTO user (id, first_name, last_name, email, password, enabled) VALUES (2, 'sebastian', 'silva', 'sesilvavi@gmail.com', '$2a$10$1kQmZRmgjO8RdhbekEicj.VY7XpIuvWKzIi4MMvoJaODFwbGQXA0i', true);
-INSERT INTO user (id, first_name, last_name, email, password, enabled) VALUES (3, 'sebastian', 'silva', 'sebas@yopmail.com',   '$2a$10$1kQmZRmgjO8RdhbekEicj.VY7XpIuvWKzIi4MMvoJaODFwbGQXA0i', true);
+----------------------------------  USER  ----------------------------------
+INSERT INTO user (id, first_name, last_name, email, password, enabled) VALUES (1, 'admin',     'admin',     'admin@yopmail.com',       '$2a$10$1kQmZRmgjO8RdhbekEicj.VY7XpIuvWKzIi4MMvoJaODFwbGQXA0i', true);
+INSERT INTO user (id, first_name, last_name, email, password, enabled) VALUES (2, 'sebastian', 'silva',     'sesilvavi@gmail.com',     '$2a$10$1kQmZRmgjO8RdhbekEicj.VY7XpIuvWKzIi4MMvoJaODFwbGQXA0i', true);
+INSERT INTO user (id, first_name, last_name, email, password, enabled) VALUES (3, 'sebastian', 'silva',     'sebas@yopmail.com',       '$2a$10$1kQmZRmgjO8RdhbekEicj.VY7XpIuvWKzIi4MMvoJaODFwbGQXA0i', true);
+INSERT INTO user (id, first_name, last_name, email, password, enabled) VALUES (4, 'soloadmin', 'soloadmin', 'soloadmin@yopmail.com',   '$2a$10$1kQmZRmgjO8RdhbekEicj.VY7XpIuvWKzIi4MMvoJaODFwbGQXA0i', true);
 
 
 
----------------------------------  USER_ROLE  ---------------------------------
+--------------------------------  USER_ROLE  --------------------------------
 INSERT INTO user_roles (user_id, role_id) VALUES (1, 1);
 INSERT INTO user_roles (user_id, role_id) VALUES (1, 2);
 INSERT INTO user_roles (user_id, role_id) VALUES (2, 2);
 INSERT INTO user_roles (user_id, role_id) VALUES (3, 2);
+INSERT INTO user_roles (user_id, role_id) VALUES (4, 1);
 
 
 
----------------------------------  FERTILIZER  ---------------------------------
+--------------------------------  FERTILIZER  --------------------------------
 INSERT INTO fertilizer (id, name, brand, price_per_gram) VALUES (1, 'fertilizer1', 'fertilizer1', 34.5);
 INSERT INTO fertilizer (id, name, brand, price_per_gram) VALUES (2, 'fertilizer2', 'fertilizer2', 34.5);
 INSERT INTO fertilizer (id, name, brand, price_per_gram) VALUES (3, 'fertilizer3', 'fertilizer3', 34.5);
@@ -86,7 +88,7 @@ INSERT INTO fertilizer (id, name, brand, price_per_gram) VALUES (60, 'fertilizer
 
 
 
----------------------------------  PESTICIDE  ---------------------------------
+--------------------------------  PESTICIDE  --------------------------------
 INSERT INTO pesticide (id, name, brand, price_per_gram) VALUES (1, 'pesticide1', 'pesticide1', 34.5);
 INSERT INTO pesticide (id, name, brand, price_per_gram) VALUES (2, 'pesticide2', 'pesticide2', 34.5);
 INSERT INTO pesticide (id, name, brand, price_per_gram) VALUES (3, 'pesticide3', 'pesticide3', 34.5);
@@ -150,7 +152,7 @@ INSERT INTO pesticide (id, name, brand, price_per_gram) VALUES (60, 'pesticide60
 
 
 
----------------------------------  CROP_TYPE  ---------------------------------
+--------------------------------  CROP_TYPE  --------------------------------
 INSERT INTO crop_type (id, weather, name, plant_quantity_per_square_meter, harvest_time, fertilizer_quantity_per_plant, fertilizer_frequency, pesticide_quantity_per_plant, pesticide_frequency, fertilizer_id, pesticide_id) VALUES (1,  'TEMPLADO',     'Trigo',     100, 120, 2, 30, 1, 45, 1,  1);
 INSERT INTO crop_type (id, weather, name, plant_quantity_per_square_meter, harvest_time, fertilizer_quantity_per_plant, fertilizer_frequency, pesticide_quantity_per_plant, pesticide_frequency, fertilizer_id, pesticide_id) VALUES (2,  'TEMPLADO',     'Manzana',   100, 120, 2, 30, 1, 45, 1,  1);
 INSERT INTO crop_type (id, weather, name, plant_quantity_per_square_meter, harvest_time, fertilizer_quantity_per_plant, fertilizer_frequency, pesticide_quantity_per_plant, pesticide_frequency, fertilizer_id, pesticide_id) VALUES (3,  'TEMPLADO',     'Avena',     100, 120, 2, 30, 1, 45, 2,  1);
@@ -175,22 +177,29 @@ INSERT INTO crop_type (id, weather, name, plant_quantity_per_square_meter, harve
 
 
 ---------------------------------  PROJECT  ---------------------------------
-INSERT INTO project (crop_type_id, name, status, start_date, end_date, municipality, total_budget) VALUES(1,  'Proyecto 1',   'CREATED', '2023-01-01', '2023-12-31', 'Municipio 1',  10000);
-INSERT INTO project (crop_type_id, name, status, start_date, end_date, municipality, total_budget) VALUES(2,  'Proyecto 2',   'CREATED', '2023-01-01', '2023-12-31', 'Municipio 2',  10000);
-INSERT INTO project (crop_type_id, name, status, start_date, end_date, municipality, total_budget) VALUES(3,  'Proyecto 3',   'CREATED', '2023-01-01', '2023-12-31', 'Municipio 3',  10000);
-INSERT INTO project (crop_type_id, name, status, start_date, end_date, municipality, total_budget) VALUES(4,  'Proyecto 4',   'CREATED', '2023-01-01', '2023-12-31', 'Municipio 4',  10000);
-INSERT INTO project (crop_type_id, name, status, start_date, end_date, municipality, total_budget) VALUES(1,  'Proyecto 5',   'CREATED', '2023-01-01', '2023-12-31', 'Municipio 5',  10000);
-INSERT INTO project (crop_type_id, name, status, start_date, end_date, municipality, total_budget) VALUES(1,  'Proyecto 6',   'CREATED', '2023-01-01', '2023-12-31', 'Municipio 6',  10000);
-INSERT INTO project (crop_type_id, name, status, start_date, end_date, municipality, total_budget) VALUES(1,  'Proyecto 7',   'CREATED', '2023-01-01', '2023-12-31', 'Municipio 7',  10000);
-INSERT INTO project (crop_type_id, name, status, start_date, end_date, municipality, total_budget) VALUES(8,  'Proyecto 8',   'CREATED', '2023-01-01', '2023-12-31', 'Municipio 8',  10000);
-INSERT INTO project (crop_type_id, name, status, start_date, end_date, municipality, total_budget) VALUES(2,  'Proyecto 9',   'CLOSED',  '2023-01-01', '2023-12-31', 'Municipio 9',  10000);
-INSERT INTO project (crop_type_id, name, status, start_date, end_date, municipality, total_budget) VALUES(10, 'Proyecto 10',  'CREATED', '2023-01-01', '2023-12-31', 'Municipio 10', 10000);
+INSERT INTO project (id, crop_type_id, name, status, start_date, end_date, municipality, total_budget, image_url) VALUES(1,  1,  'Proyecto 1',  'CREATED', '2023-01-01', '2023-12-31', 'Municipio 1',  10000, 'assets/images/bg-01.jpg');
+INSERT INTO project (id, crop_type_id, name, status, start_date, end_date, municipality, total_budget, image_url) VALUES(2,  2,  'Proyecto 2',  'CREATED', '2023-01-01', '2023-12-31', 'Municipio 2',  10000, 'assets/images/info.jpg');
+INSERT INTO project (id, crop_type_id, name, status, start_date, end_date, municipality, total_budget, image_url) VALUES(3,  3,  'Proyecto 3',  'CREATED', '2023-01-01', '2023-12-31', 'Municipio 3',  10000, 'assets/images/bg-verde-01.avif');
+INSERT INTO project (id, crop_type_id, name, status, start_date, end_date, municipality, total_budget, image_url) VALUES(4,  4,  'Proyecto 4',  'CREATED', '2023-01-01', '2023-12-31', 'Municipio 4',  10000, 'assets/images/bg-verde-02.avif');
+INSERT INTO project (id, crop_type_id, name, status, start_date, end_date, municipality, total_budget, image_url) VALUES(5,  1,  'Proyecto 5',  'CREATED', '2023-01-01', '2023-12-31', 'Municipio 5',  10000, 'assets/images/bg-verde-03.jpg');
+INSERT INTO project (id, crop_type_id, name, status, start_date, end_date, municipality, total_budget, image_url) VALUES(6,  1,  'Proyecto 6',  'CREATED', '2023-01-01', '2023-12-31', 'Municipio 6',  10000, 'assets/images/bg-verde-04.jpg');
+INSERT INTO project (id, crop_type_id, name, status, start_date, end_date, municipality, total_budget, image_url) VALUES(7,  1,  'Proyecto 7',  'CREATED', '2023-01-01', '2023-12-31', 'Municipio 7',  10000, 'assets/images/bg-verde-05.jpg');
+INSERT INTO project (id, crop_type_id, name, status, start_date, end_date, municipality, total_budget, image_url) VALUES(8,  8,  'Proyecto 8',  'CREATED', '2023-01-01', '2023-12-31', 'Municipio 8',  10000, 'assets/images/bg-verde-06.avif');
+INSERT INTO project (id, crop_type_id, name, status, start_date, end_date, municipality, total_budget, image_url) VALUES(9,  2,  'Proyecto 9',  'CLOSED',  '2023-01-01', '2023-12-31', 'Municipio 9',  10000, 'assets/images/bg-verde-07.jpg');
+INSERT INTO project (id, crop_type_id, name, status, start_date, end_date, municipality, total_budget, image_url) VALUES(10, 10, 'Proyecto 10', 'CREATED', '2023-01-01', '2023-12-31', 'Municipio 10', 10000, 'assets/images/bg-verde-08.jpg');
 
 
 
----------------------------------  CROP ---------------------------------
-INSERT INTO crop (user_id, project_id, name, status, start_date, end_date, expected_expense, assigned_budget, sale_value, area) VALUES (1, 1, 'Cultivo de Trigo',     'CREATED', '2023-01-01', '2023-06-01', 500.00, 1000.00, 1200.00, 100);
-INSERT INTO crop (user_id, project_id, name, status, start_date, end_date, expected_expense, assigned_budget, sale_value, area) VALUES (1, 2, 'Cultivo de Maíz',      'CLOSED',  '2023-02-01', '2023-07-20', 300.00, 900.00, 950.00, 200);
+---------------------------  PROJECT_APPLICATION ---------------------------
+INSERT INTO project_application (id, project_id, applicant_id, application_status, application_date, review_date, admin_comment) VALUES (1, 1, 2, 'ACCEPTED', '2023-01-02', '2023-03-03', 'Aprobado');
+INSERT INTO project_application (id, project_id, applicant_id, application_status, application_date, review_date, admin_comment) VALUES (2, 1, 2, 'ACCEPTED', '2023-01-02', '2023-03-03', 'Aprobado');
+INSERT INTO project_application (id, project_id, applicant_id, application_status, application_date, review_date, admin_comment) VALUES (3, 1, 2, 'REJECTED', '2023-01-02', NULL,         'Revisión pendiente');
+INSERT INTO project_application (id, project_id, applicant_id, application_status, application_date, review_date, admin_comment) VALUES (4, 1, 2, 'PENDING',  '2023-01-02', NULL,         'Rechazado');
+
+
+----------------------------------  CROP ----------------------------------
+INSERT INTO crop (id, user_id, project_id, project_application_id, name, status, start_date, end_date, expected_expense, assigned_budget, sale_value, area) VALUES (1, 2, 1, 1, 'Finca la quinciañera', 'CREATED', '2023-01-01', '2023-06-01', 500.00, 1000.00, 1200.00, 100);
+INSERT INTO crop (id, user_id, project_id, project_application_id, name, status, start_date, end_date, expected_expense, assigned_budget, sale_value, area) VALUES (2, 2, 1, 2, 'Finca la veterana',     'CLOSED', '2023-02-01', '2023-07-20', 300.00, 900.00,  950.00,  200);
 --INSERT INTO crop (user_id, project_id, name, status, start_date, end_date, expected_expense, assigned_budget, sale_value, area) VALUES (3, 3, 'Cultivo de Cebada',    'CREATED', '2023-03-01', NULL,         200.00, 800.00, 850.00, 150);
 --INSERT INTO crop (user_id, project_id, name, status, start_date, end_date, expected_expense, assigned_budget, sale_value, area) VALUES (1, 1, 'Cultivo de Soya',      'CLOSED',  '2023-01-15', '2023-08-10', 400.00, 1100.00, 1300.00, 180);
 --INSERT INTO crop (user_id, project_id, name, status, start_date, end_date, expected_expense, assigned_budget, sale_value, area) VALUES (2, 2, 'Cultivo de Arroz',     'CREATED', '2023-01-20', '2023-09-30', 600.00, 1200.00, 1250.00, 160);

@@ -1,6 +1,7 @@
 package com.agap.management.domain.entities;
 
 import com.agap.management.domain.enums.ApplicationStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -24,13 +25,14 @@ public class ProjectApplication {
 
     @ManyToOne
     @JoinColumn(name = "project_id")
+    @JsonIgnore
     private Project project;
 
     @ManyToOne
     @JoinColumn(name = "applicant_id")
     private User applicant;
 
-    @OneToOne(mappedBy = "application")
+    @OneToOne(mappedBy = "projectApplication")
     private Crop crop;
 
     @Enumerated(EnumType.STRING)
@@ -46,5 +48,8 @@ public class ProjectApplication {
     @Size(max = 500, message = "El comentario no puede tener más de {max} caracteres")
     @Column(name = "admin_comment", length = 500)
     private String adminComment;
+
+
+    // faltan las entidades necesarias para luego crear un crop
 
 }

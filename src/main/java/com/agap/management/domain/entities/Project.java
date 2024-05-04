@@ -56,4 +56,7 @@ public class Project {
     @DecimalMin(value = "0.000001", message = "El valor debe ser mayor que cero")
     @Column(name = "total_budget", nullable = false)
     private float totalBudget;
+
+    @Column(name = "image_url")
+    private String imageUrl;
 }

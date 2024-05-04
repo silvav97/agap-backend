@@ -65,8 +65,10 @@ public class CropTypeService implements ICropTypeService {
 
         cropType.setFertilizer(fertilizerService.getFertilizerById(cropTypeRequestDTO.getFertilizerId()));
         cropType.setPesticide(pesticideService.getPesticideById(cropTypeRequestDTO.getPesticideId()));
-
         System.out.println("\nCROP_TYPE SERVICE, cropType: " + cropType);
+
+
+
 
         CropType savedCropType = cropTypeRepository.save(cropType);
         System.out.println("\nCROP_TYPE SERVICE, savedCropType: " + savedCropType);

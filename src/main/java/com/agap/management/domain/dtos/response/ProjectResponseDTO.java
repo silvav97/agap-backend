@@ -1,6 +1,5 @@
-package com.agap.management.domain.dtos;
+package com.agap.management.domain.dtos.response;
 
-import com.agap.management.domain.dtos.request.CropRequestDTO;
 import com.agap.management.domain.dtos.request.CropTypeRequestDTO;
 import com.agap.management.domain.enums.ProcessStatus;
 import jakarta.validation.constraints.DecimalMin;
@@ -12,17 +11,16 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProjectDTO {
+public class ProjectResponseDTO {
 
     private Integer id;
 
-    private CropTypeRequestDTO cropType;
+    private CropTypeResponseDTO cropType;
 
     @NotBlank(message = "El campo Proyecto es obligatorio")
     @Size(max = 100, message = "El campo Proyecto no puede tener más de {max} caracteres")
@@ -37,11 +35,8 @@ public class ProjectDTO {
     @Size(max = 100, message = "El campo Municipio no puede tener más de {max} caracteres")
     private String municipality;
 
-    //private List<CropRequestDTO> cropList;
-
     @DecimalMin(value = "0.000001", message = "El valor debe ser mayor que cero")
     private float totalBudget;
 
     private String imageUrl;
-
 }
