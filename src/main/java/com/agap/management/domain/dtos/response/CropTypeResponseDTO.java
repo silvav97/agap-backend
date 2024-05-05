@@ -14,6 +14,8 @@ import lombok.*;
 @NoArgsConstructor
 public class CropTypeResponseDTO {
 
+    private Integer id;
+
     @NonNull
     private WeatherType weather;
 

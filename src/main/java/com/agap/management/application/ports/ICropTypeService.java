@@ -1,5 +1,6 @@
 package com.agap.management.application.ports;
 
+import com.agap.management.domain.dtos.ProjectDTO;
 import com.agap.management.domain.dtos.request.CropTypeRequestDTO;
 import com.agap.management.domain.dtos.response.CropTypeResponseDTO;
 import org.springframework.data.domain.Page;
@@ -15,4 +16,6 @@ public interface ICropTypeService {
     CropTypeResponseDTO save(CropTypeRequestDTO cropTypeRequestDTO);
     CropTypeResponseDTO update(Integer id, CropTypeRequestDTO cropTypeRequestDTO);
     Boolean delete(Integer id);
+
+    List<String> findRelatedProjects(Integer id);
 }

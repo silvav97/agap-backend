@@ -20,6 +20,7 @@ public class AgapManagementApplication {
 		SpringApplication.run(AgapManagementApplication.class, args);
 	}
 
+	/*
 	@Bean
 	public CommandLineRunner commandLineRunner(IUserRepository userRepository, IRoleRepository roleRepository, PasswordEncoder passwordEncoder) {
 		return args -> {
@@ -27,35 +28,25 @@ public class AgapManagementApplication {
 			Role roleAdmin = Role.builder().name(RoleType.ADMIN).build();
 			roleRepository.saveAll(List.of( roleFarmer, roleAdmin ));
 
-			User sebas = User.builder()
-					.firstName("sebastian")
-					.lastName("silva")
-					.email("sebas@yopmail.com")
+			User sebas = User.builder().firstName("sebastian")
+					.lastName("silva").email("sebas2@yopmail.com")
 					.password(passwordEncoder.encode("password"))
-					.roles(List.of(roleFarmer))
-					.enabled(true)
-					.build();
+					.roles(List.of(roleFarmer)).enabled(true).build();
 
-			User sebas2 = User.builder()
-					.firstName("sebastian")
-					.lastName("silva")
-					.email("sesilvavi@gmail.com")
+			User sebas2 = User.builder().firstName("sebastian")
+					.lastName("silva").email("sesilvavi2@gmail.com")
 					.password(passwordEncoder.encode("password"))
-					.roles(List.of(roleFarmer))
-					.enabled(true)
-					.build();
+					.roles(List.of(roleFarmer)).enabled(true).build();
 
-			User admin = User.builder()
-					.firstName("admin")
-					.lastName("admin")
-					.email("admin@yopmail.com")
+			User admin = User.builder().firstName("admin")
+					.lastName("admin").email("admin2@yopmail.com")
 					.password(passwordEncoder.encode("password"))
-					.roles(List.of(roleAdmin, roleFarmer))
-					.enabled(true)
-					.build();
+					.roles(List.of(roleAdmin, roleFarmer)).enabled(true).build();
+
 			userRepository.saveAll(List.of( sebas, sebas2, admin ));
 			System.out.println("Roles roleFarmer and roleAdmin loaded into the database");
 			System.out.println("Users sebas, sebas2 and Admin loaded into the database");
 		};
 	}
+	 */
 }

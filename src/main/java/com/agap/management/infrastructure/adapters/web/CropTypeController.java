@@ -1,6 +1,7 @@
 package com.agap.management.infrastructure.adapters.web;
 
 import com.agap.management.application.ports.ICropTypeService;
+import com.agap.management.domain.dtos.ProjectDTO;
 import com.agap.management.domain.dtos.request.CropTypeRequestDTO;
 import com.agap.management.domain.dtos.response.CropTypeResponseDTO;
 import com.agap.management.exceptions.personalizedException.EntityNotFoundByFieldException;
@@ -41,18 +42,35 @@ public class CropTypeController {
 
     @PostMapping()
     public CropTypeResponseDTO saveCropType(@RequestBody @Valid CropTypeRequestDTO cropTypeRequestDTO) {
-        return cropTypeService.save(cropTypeRequestDTO);
+        System.out.println("\nCROP_TYPE CONTROLLER, saveCropType was called ");
+        System.out.println("\nCROP_TYPE CONTROLLER, cropTypeRequestDTO: " + cropTypeRequestDTO);
+        CropTypeResponseDTO cropTypeResponseDTO = cropTypeService.save(cropTypeRequestDTO);
+        System.out.println("\nCROP_TYPE CONTROLLER, cropTypeResponseDTO: " + cropTypeResponseDTO);
+        return cropTypeResponseDTO;
     }
 
     @PutMapping("/{id}")
     public CropTypeResponseDTO updateCropType(@RequestBody @Valid CropTypeRequestDTO cropTypeRequestDTO,
                                               @PathVariable Integer id) {
-        return cropTypeService.update(id, cropTypeRequestDTO);
+        System.out.println("updateCropType was called: " + id);
+        System.out.println("cropTypeRequestDTO: " + cropTypeRequestDTO);
+        CropTypeResponseDTO cropTypeResponseDTO = cropTypeService.update(id, cropTypeRequestDTO);
+        System.out.println("cropTypeResponseDTO: " + cropTypeResponseDTO);
+        return cropTypeResponseDTO;
     }
 
     @DeleteMapping("/{id}")
     public boolean deleteCropType(@PathVariable Integer id) {
+        System.out.println("deleteCropType was called: " + id);
         return cropTypeService.delete(id);
+    }
+
+    @GetMapping("/{id}/relatedProjects")
+    public List<String> getRelatedProjectsByCropTypeId(@PathVariable Integer id) {
+        System.out.println("getRelatedProjectsByCropTypeId was called: " + id);
+        List<String> relatedProjects = cropTypeService.findRelatedProjects(id);
+        System.out.println("Related Projects: " + relatedProjects);
+        return relatedProjects;
     }
 
 }

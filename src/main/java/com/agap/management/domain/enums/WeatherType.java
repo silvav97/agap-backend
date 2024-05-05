@@ -6,9 +6,10 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum WeatherType {
-    HOT("Caliente"),
-    COLD("Frio"),
-    MILD("Templado");
+    CALIDO("Cálido"),
+    FRIO("Frío"),
+    TROPICAL("Tropical"),
+    TEMPLADO("Templado");
 
     private final String displayValue;
 }

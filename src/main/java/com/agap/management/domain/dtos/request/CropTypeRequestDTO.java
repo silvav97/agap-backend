@@ -37,8 +37,8 @@ public class CropTypeRequestDTO {
     @Min(value = 1, message = "El valor debe ser mayor que cero")
     private int pesticideFrequency;
 
-    private int fertilizerId;
+    private Integer fertilizerId;
 
-    private int pesticideId;
+    private Integer pesticideId;
 
 }

@@ -34,16 +34,19 @@ public class PesticideController {
 
     @GetMapping("/{id}")
     public PesticideDTO getPesticideById(@PathVariable Integer id) {
+        System.out.println("getPesticideById was called: "+ id);
         return pesticideService.findById(id);
     }
 
     @PostMapping()
     public PesticideDTO savePesticide(@RequestBody PesticideDTO pesticide) {
+        System.out.println("savePesticide was called: "+ pesticide.toString());
         return pesticideService.save(pesticide);
     }
 
     @PutMapping("/{id}")
     public PesticideDTO updatePesticide(@RequestBody @Valid PesticideDTO pesticideDTO, @PathVariable Integer id) {
+        System.out.println("updatePesticide was called: "+ pesticideDTO.toString());
         return pesticideService.update(id, pesticideDTO);
     }
 

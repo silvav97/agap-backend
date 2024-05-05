@@ -24,11 +24,11 @@ public class Project {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "crop_type_id", nullable = false)
-    private Integer cropTypeId;
+    //@OneToMany(mappedBy = "project")
+    //private List<ProjectApplication> projectApplications;   // mejor dejo que solo el ProjectApplication referencie al Project y no al contrario.
 
     @ManyToOne
-    @JoinColumn(name = "crop_type_id", insertable = false, updatable = false)
+    @JoinColumn(name = "crop_type_id", nullable = true)  //, insertable = false, updatable = false)
     private CropType cropType;
 
     @NotBlank(message = "El campo Proyecto es obligatorio")
@@ -51,9 +51,12 @@ public class Project {
     private String municipality;
 
     @OneToMany(mappedBy = "project")
-    private List<Crop> cropList;
+    private List<Crop> cropList;        // Tal vez debamos borrar esto y dejar que solo el Crop referencie al Project?
 
     @DecimalMin(value = "0.000001", message = "El valor debe ser mayor que cero")
     @Column(name = "total_budget", nullable = false)
     private float totalBudget;
+
+    @Column(name = "image_url")
+    private String imageUrl;
 }
