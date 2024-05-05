@@ -2,8 +2,11 @@ package com.agap.management.application.services;
 
 import com.agap.management.application.ports.IFertilizerService;
 import com.agap.management.domain.dtos.FertilizerDTO;
+import com.agap.management.domain.entities.CropType;
 import com.agap.management.domain.entities.Fertilizer;
+import com.agap.management.domain.entities.Project;
 import com.agap.management.exceptions.personalizedException.EntityNotFoundByFieldException;
+import com.agap.management.infrastructure.adapters.persistence.ICropTypeRepository;
 import com.agap.management.infrastructure.adapters.persistence.IFertilizerRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -19,6 +22,7 @@ import java.util.stream.Collectors;
 public class FertilizerService implements IFertilizerService {
 
     private final IFertilizerRepository fertilizerRepository;
+    private final ICropTypeRepository   cropTypeRepository;
     private final ModelMapper modelMapper;
 
     @Override
@@ -56,9 +60,12 @@ public class FertilizerService implements IFertilizerService {
     }
 
     @Override
-    public Boolean delete(Integer id) {
+    public Boolean delete(Integer fertilizerId) {
         try {
-            fertilizerRepository.deleteById(id);
+            List<CropType> cropTypes = cropTypeRepository.findByFertilizer_Id(fertilizerId);
+            cropTypes.forEach(cropType -> cropType.setFertilizer(null));
+            cropTypeRepository.saveAll(cropTypes);
+            fertilizerRepository.deleteById(fertilizerId);
             return true;
         }
         catch (Exception e) {
@@ -70,6 +77,15 @@ public class FertilizerService implements IFertilizerService {
     public Fertilizer getFertilizerById(Integer id) {
         return fertilizerRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundByFieldException("Fertilizante", "id", id.toString()));
+    }
+
+    @Override
+    public List<String> findRelatedCropTypes(Integer fertilizerId) {
+        List<String> relatedCropTypes = cropTypeRepository.findByFertilizer_Id(fertilizerId).stream()
+                .map(CropType::getName)
+                .collect(Collectors.toList());
+        System.out.println("findRelatedCropTypes: " + relatedCropTypes);
+        return relatedCropTypes;
     }
 
 }
