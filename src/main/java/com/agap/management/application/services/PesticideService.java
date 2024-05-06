@@ -2,8 +2,10 @@ package com.agap.management.application.services;
 
 import com.agap.management.application.ports.IPesticideService;
 import com.agap.management.domain.dtos.PesticideDTO;
+import com.agap.management.domain.entities.CropType;
 import com.agap.management.domain.entities.Pesticide;
 import com.agap.management.exceptions.personalizedException.EntityNotFoundByFieldException;
+import com.agap.management.infrastructure.adapters.persistence.ICropTypeRepository;
 import com.agap.management.infrastructure.adapters.persistence.IPesticideRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -20,6 +22,7 @@ import java.util.stream.Collectors;
 public class PesticideService implements IPesticideService {
 
     private final IPesticideRepository pesticideRepository;
+    private final ICropTypeRepository  cropTypeRepository;
     private final ModelMapper modelMapper;
 
     @Override
@@ -57,9 +60,12 @@ public class PesticideService implements IPesticideService {
     }
 
     @Override
-    public Boolean delete(Integer id) {
+    public Boolean delete(Integer pesticideId) {
         try {
-            pesticideRepository.deleteById(id);
+            List<CropType> cropTypes = cropTypeRepository.findByPesticide_Id(pesticideId);
+            cropTypes.forEach(cropType -> cropType.setPesticide(null));
+            cropTypeRepository.saveAll(cropTypes);
+            pesticideRepository.deleteById(pesticideId);
             return true;
         }
         catch (Exception e) {
@@ -71,6 +77,15 @@ public class PesticideService implements IPesticideService {
     public Pesticide getPesticideById(Integer id) {
         return pesticideRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundByFieldException("Pesticida", "id", id.toString()));
+    }
+
+    @Override
+    public List<String> findRelatedCropTypes(Integer pesticideId) {
+        List<String> relatedCropTypes = cropTypeRepository.findByPesticide_Id(pesticideId).stream()
+                .map(CropType::getName)
+                .collect(Collectors.toList());
+        System.out.println("findRelatedCropTypes: " + relatedCropTypes);
+        return relatedCropTypes;
     }
 
 }

@@ -54,4 +54,12 @@ public class PesticideController {
     public boolean deletePesticide(@PathVariable Integer id) {
         return pesticideService.delete(id);
     }
+
+    @GetMapping("/{id}/relatedCropTypes")
+    public List<String> getRelatedCropTypesByPesticideId(@PathVariable Integer id) {
+        System.out.println("getRelatedCropTypesByPesticideId was called: " + id);
+        List<String> relatedCropTypes = pesticideService.findRelatedCropTypes(id);
+        System.out.println("Related CropTypes: " + relatedCropTypes);
+        return relatedCropTypes;
+    }
 }

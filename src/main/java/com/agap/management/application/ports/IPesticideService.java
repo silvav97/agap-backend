@@ -15,4 +15,6 @@ public interface IPesticideService {
     PesticideDTO update(Integer id, PesticideDTO pesticideDTO);
     Boolean delete(Integer id);
     Pesticide getPesticideById(Integer id);
+    List<String> findRelatedCropTypes(Integer pesticideId);
+
 }

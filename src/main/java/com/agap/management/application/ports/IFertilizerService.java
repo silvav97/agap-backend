@@ -15,4 +15,6 @@ public interface IFertilizerService {
     FertilizerDTO update(Integer id, FertilizerDTO fertilizerDTO);
     Boolean delete(Integer id);
     Fertilizer getFertilizerById(Integer id);
+    List<String> findRelatedCropTypes(Integer fertilizerId);
+
 }

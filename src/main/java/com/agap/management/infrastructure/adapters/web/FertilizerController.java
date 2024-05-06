@@ -52,4 +52,11 @@ public class FertilizerController {
         return fertilizerService.delete(id);
     }
 
+    @GetMapping("/{id}/relatedCropTypes")
+    public List<String> getRelatedCropTypesByFertilizerId(@PathVariable Integer id) {
+        System.out.println("getRelatedCropTypesByFertilizerId was called: " + id);
+        List<String> relatedCropTypes = fertilizerService.findRelatedCropTypes(id);
+        System.out.println("Related CropTypes: " + relatedCropTypes);
+        return relatedCropTypes;
+    }
 }
