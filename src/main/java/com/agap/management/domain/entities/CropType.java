@@ -55,10 +55,10 @@ public class CropType {
     private int pesticideFrequency;
 
     @ManyToOne
-    @JoinColumn(name = "fertilizer_id") //, insertable = false, updatable = false)
+    @JoinColumn(name = "fertilizer_id")
     private Fertilizer fertilizer;
 
     @ManyToOne
-    @JoinColumn(name = "pesticide_id") //, insertable = false, updatable = false)
+    @JoinColumn(name = "pesticide_id")
     private Pesticide pesticide;
 }

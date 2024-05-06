@@ -69,4 +69,10 @@ public class CropService implements ICropService {
         }
     }
 
+    @Override
+    public Crop getCropById(Integer id) {
+        return cropRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundByFieldException("Cultivo", "id", id.toString()));
+    }
+
 }

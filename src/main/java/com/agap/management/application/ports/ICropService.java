@@ -1,6 +1,7 @@
 package com.agap.management.application.ports;
 
 import com.agap.management.domain.dtos.request.CropRequestDTO;
+import com.agap.management.domain.entities.Crop;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -14,4 +15,5 @@ public interface ICropService {
     CropRequestDTO save(CropRequestDTO cropRequestDTO);
     CropRequestDTO update(Integer id, CropRequestDTO cropRequestDTO);
     Boolean delete(Integer id);
+    Crop getCropById(Integer id);
 }

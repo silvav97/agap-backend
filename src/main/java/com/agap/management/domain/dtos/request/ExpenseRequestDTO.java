@@ -1,6 +1,5 @@
-package com.agap.management.domain.dtos;
+package com.agap.management.domain.dtos.request;
 
-import com.agap.management.domain.dtos.request.CropRequestDTO;
 import com.agap.management.domain.enums.ExpenseType;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
@@ -15,11 +14,11 @@ import java.time.LocalDate;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ExpenseDTO {
+public class ExpenseRequestDTO {
 
     private Integer id;
 
-    private CropRequestDTO crop;
+    private Integer cropId;
 
     @DecimalMin(value = "0.000001", message = "El valor debe ser mayor que cero")
     private float expenseValue;
