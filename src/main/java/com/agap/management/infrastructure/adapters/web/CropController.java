@@ -1,7 +1,7 @@
 package com.agap.management.infrastructure.adapters.web;
 
 import com.agap.management.application.ports.ICropService;
-import com.agap.management.domain.dtos.request.CropRequestDTO;
+import com.agap.management.domain.dtos.response.CropResponseDTO;
 import com.agap.management.exceptions.personalizedException.EntityNotFoundByFieldException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -22,30 +22,30 @@ public class CropController {
     private final ICropService cropService;
 
     @GetMapping
-    public List<CropRequestDTO> getCrops() {
+    public List<CropResponseDTO> getCrops() {
         return cropService.findAll();
     }
 
     @GetMapping("/page")
-    public Page<CropRequestDTO> getCropsPage(@RequestParam Integer pageNumber, @RequestParam Integer pageSize) {
+    public Page<CropResponseDTO> getCropsPage(@RequestParam Integer pageNumber, @RequestParam Integer pageSize) {
         Pageable pageable = PageRequest.of(pageNumber, pageSize);
         return cropService.findAll(pageable);
     }
 
     @GetMapping("/{id}")
-    public CropRequestDTO getCropTypeById(@PathVariable Integer id) {
+    public CropResponseDTO getCropTypeById(@PathVariable Integer id) {
         return cropService.findById(id).orElseThrow(
                 () -> new EntityNotFoundByFieldException("Cultivo", "id", id.toString()));
     }
 
     @PostMapping()
-    public CropRequestDTO saveCropType(@RequestBody @Valid CropRequestDTO cropRequestDTO) {
-        return cropService.save(cropRequestDTO);
+    public CropResponseDTO saveCropType(@RequestBody @Valid CropResponseDTO cropResponseDTO) {
+        return cropService.save(cropResponseDTO);
     }
 
     @PutMapping("/{id}")
-    public CropRequestDTO updateCropType(@RequestBody @Valid CropRequestDTO cropRequestDTO, @PathVariable Integer id) {
-        return cropService.update(id, cropRequestDTO);
+    public CropResponseDTO updateCropType(@RequestBody @Valid CropResponseDTO cropResponseDTO, @PathVariable Integer id) {
+        return cropService.update(id, cropResponseDTO);
     }
 
     @DeleteMapping("/{id}")

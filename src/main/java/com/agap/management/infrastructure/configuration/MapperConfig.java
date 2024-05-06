@@ -1,9 +1,7 @@
 package com.agap.management.infrastructure.configuration;
 
 import com.agap.management.domain.dtos.request.ProjectApplicationRequestDTO;
-import com.agap.management.domain.dtos.response.ExpenseResponseDTO;
 import com.agap.management.domain.dtos.response.ProjectApplicationResponseDTO;
-import com.agap.management.domain.entities.Expense;
 import com.agap.management.domain.entities.ProjectApplication;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
