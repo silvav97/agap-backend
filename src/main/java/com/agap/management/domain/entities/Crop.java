@@ -25,11 +25,11 @@ public class Crop {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")  //, insertable = false, updatable = false)
+    @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "project_id")  //, insertable = false, updatable = false)
+    @JoinColumn(name = "project_id")
     private Project project;
 
     @OneToOne

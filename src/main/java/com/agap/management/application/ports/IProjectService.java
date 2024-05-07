@@ -13,4 +13,5 @@ public interface IProjectService {
 
     List<ProjectResponseDTO> findAll();
     Page<ProjectResponseDTO> findAll(Pageable pageable);
+    Project getProjectById(Integer id);
 }

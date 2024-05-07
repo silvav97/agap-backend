@@ -2,7 +2,9 @@ package com.agap.management.application.services;
 
 import com.agap.management.application.ports.IProjectService;
 import com.agap.management.domain.dtos.response.ProjectResponseDTO;
+import com.agap.management.domain.entities.Crop;
 import com.agap.management.domain.entities.Project;
+import com.agap.management.exceptions.personalizedException.EntityNotFoundByFieldException;
 import com.agap.management.infrastructure.adapters.persistence.IProjectRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -33,5 +35,10 @@ public class ProjectService implements IProjectService {
         return page.map(project -> modelMapper.map(project, ProjectResponseDTO.class));
     }
 
+    @Override
+    public Project getProjectById(Integer id) {
+        return projectRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundByFieldException("Proyecto", "id", id.toString()));
+    }
 
 }

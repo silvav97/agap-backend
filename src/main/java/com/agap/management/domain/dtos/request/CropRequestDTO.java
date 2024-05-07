@@ -1,9 +1,5 @@
-package com.agap.management.domain.dtos.response;
+package com.agap.management.domain.dtos.request;
 
-import com.agap.management.domain.dtos.ProjectDTO;
-import com.agap.management.domain.dtos.UserDTO;
-import com.agap.management.domain.entities.Expense;
-import com.agap.management.domain.entities.ProjectApplication;
 import com.agap.management.domain.enums.ProcessStatus;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
@@ -14,21 +10,20 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CropResponseDTO {
+public class CropRequestDTO {
 
     private Integer id;
 
-    private UserDTO user;
+    private Integer userId;
 
-    private ProjectDTO project;
+    private Integer projectId;
 
-    private ProjectApplication projectApplication;
+    private Integer projectApplicationId;
 
     @NotBlank(message = "El campo Cultivo es obligatorio")
     @Size(max = 100, message = "El campo Cultivo no puede tener más de {max} caracteres")
@@ -46,7 +41,7 @@ public class CropResponseDTO {
     @DecimalMin(value = "0.000001", message = "El valor debe ser mayor que cero")
     private float assignedBudget;
 
-    private List<ExpenseResponseDTO> expenseList;
+    //private List<ExpenseResponseDTO> expenseList;
 
     private Float saleValue;
 
