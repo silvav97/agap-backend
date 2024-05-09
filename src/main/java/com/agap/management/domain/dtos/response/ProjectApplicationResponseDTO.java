@@ -24,6 +24,9 @@ public class ProjectApplicationResponseDTO {
     private ApplicationStatus applicationStatus;
     private LocalDate applicationDate;
     private LocalDate reviewDate;
-    private String adminComment;
+    private String farmName;
+    private int area;
+    private String municipality;
+    private String weather;
 
 }

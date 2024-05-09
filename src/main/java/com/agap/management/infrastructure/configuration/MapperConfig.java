@@ -33,7 +33,7 @@ public class MapperConfig {
                 .addMappings(mapper -> {
                     mapper.skip(ProjectApplication::setProject); // Asignar manualmente en el servicio
                     mapper.skip(ProjectApplication::setApplicant); // Asignar manualmente en el servicio
-                    mapper.map(ProjectApplicationRequestDTO::getAdminComment, ProjectApplication::setAdminComment); // Mapeo directo para adminComment
+                    //mapper.map(ProjectApplicationRequestDTO::getAdminComment, ProjectApplication::setAdminComment); // Mapeo directo para adminComment
                 });
 
         // Asegúrate de no mapear las listas que pueden causar recursividad en otras entidades
@@ -66,7 +66,7 @@ public class MapperConfig {
                 map().setApplicationStatus(source.getApplicationStatus());
                 map().setApplicationDate(source.getApplicationDate());
                 map().setReviewDate(source.getReviewDate());
-                map().setAdminComment(source.getAdminComment());
+                ///map().setAdminComment(source.getAdminComment());
             }
         });
 

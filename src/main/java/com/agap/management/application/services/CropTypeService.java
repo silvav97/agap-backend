@@ -30,13 +30,13 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class CropTypeService implements ICropTypeService {
 
-    private final ICropTypeRepository cropTypeRepository;
-    private final IProjectRepository projectRepository;   // tal vez sea mejor usar el service en lugar del repo
-    private final IFertilizerService fertilizerService;
-    private final IPesticideService pesticideService;
+    private final ICropTypeRepository   cropTypeRepository;
+    private final IProjectRepository    projectRepository;   // tal vez sea mejor usar el service en lugar del repo
+    private final IFertilizerService    fertilizerService;
+    private final IPesticideService     pesticideService;
     private final IFertilizerRepository fertilizerRepository;
-    private final IPesticideRepository pesticideRepository;
-    private final ModelMapper modelMapper;
+    private final IPesticideRepository  pesticideRepository;
+    private final ModelMapper           modelMapper;
 
     @Override
     public List<CropTypeResponseDTO> findAll() {

@@ -19,10 +19,12 @@ public class ProjectApplicationRequestDTO {
     private Integer id;
     private Integer projectId;
     private Integer applicantId;
-    //private Integer cropId;
-    private ApplicationStatus applicationStatus;
-    private LocalDate applicationDate;
-    private LocalDate reviewDate;
-    private String adminComment;
+    //private ApplicationStatus applicationStatus;
+    //private LocalDate applicationDate;
+    //private LocalDate reviewDate;
+    private String farmName;
+    private int area;
+    private String municipality;
+    private String weather;
 
 }

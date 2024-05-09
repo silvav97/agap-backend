@@ -1,22 +1,21 @@
 package com.agap.management.infrastructure.adapters.web;
 
 import com.agap.management.application.ports.IProjectApplicationService;
-import com.agap.management.application.ports.IProjectService;
-import com.agap.management.domain.dtos.request.CropTypeRequestDTO;
 import com.agap.management.domain.dtos.request.ProjectApplicationRequestDTO;
-import com.agap.management.domain.dtos.response.CropTypeResponseDTO;
 import com.agap.management.domain.dtos.response.ProjectApplicationResponseDTO;
-import com.agap.management.domain.dtos.response.ProjectResponseDTO;
-import com.agap.management.domain.entities.ProjectApplication;
-import com.agap.management.infrastructure.adapters.persistence.IProjectApplicationRepository;
+import com.agap.management.domain.entities.User;
+import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -26,34 +25,61 @@ public class ProjectApplicationController {
 
     private final IProjectApplicationService projectApplicationService;
 
-
     @GetMapping
     public List<ProjectApplicationResponseDTO> getProjectApplications() {
-        System.out.println("getProjects was called: ");
-        List<ProjectApplicationResponseDTO> projectApplicationList = projectApplicationService.findAll();
-        System.out.println("projectApplicationList: " + projectApplicationList);
-        return projectApplicationList;
+        return projectApplicationService.findAll();
     }
 
+    // Endpoint para administradores
     @GetMapping("/page")
-    public Page<ProjectApplicationResponseDTO> getProjectApplicationsPage(@RequestParam Integer pageNumber, @RequestParam Integer pageSize) {
+    @PreAuthorize("hasRole('ADMIN')")
+    public Page<ProjectApplicationResponseDTO> getAdminProjectApplications(
+            @RequestParam Integer pageNumber, @RequestParam Integer pageSize, @RequestParam(required = false) Integer projectId) {
+
         Pageable pageable = PageRequest.of(pageNumber, pageSize);
-        return projectApplicationService.findAll(pageable);
+        Page<ProjectApplicationResponseDTO> projectApplicationResponseDTO;
+
+        if (projectId != null) projectApplicationResponseDTO = projectApplicationService.findAllByProjectId(pageable, projectId);
+        else projectApplicationResponseDTO = projectApplicationService.findAll(pageable);
+
+        return projectApplicationResponseDTO;
+    }
+
+    // Endpoint para agricultores
+    @GetMapping("/mine/page")
+    @PreAuthorize("hasRole('FARMER')")
+    public Page<ProjectApplicationResponseDTO> getFarmerProjectApplications(
+            @RequestParam Integer pageNumber, @RequestParam Integer pageSize, Authentication authentication) {
+
+        User user = (User) authentication.getPrincipal();
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        return projectApplicationService.findAllByUserId(pageable, user.getId());
     }
 
     @GetMapping("/{id}")
     public ProjectApplicationResponseDTO getProjectApplicationById(@PathVariable Integer id) {
-        ProjectApplicationResponseDTO projectApplicationResponseDTO = projectApplicationService.findById(id);
-        return projectApplicationResponseDTO;
+        return projectApplicationService.findById(id);
     }
 
     @PostMapping()
     public ProjectApplicationResponseDTO saveProjectApplication(@RequestBody @Valid ProjectApplicationRequestDTO projectApplicationRequestDTO) {
-        System.out.println("\nPROJECT_APPLICATION CONTROLLER, saveProjectApplication was called ");
-        System.out.println("\nPROJECT_APPLICATION CONTROLLER, projectApplicationRequestDTO: " + projectApplicationRequestDTO);
-        ProjectApplicationResponseDTO cropTypeResponseDTO = projectApplicationService.save(projectApplicationRequestDTO);
-        System.out.println("\nPROJECT_APPLICATION CONTROLLER, cropTypeResponseDTO: " + cropTypeResponseDTO);
-        return cropTypeResponseDTO;
+        return projectApplicationService.save(projectApplicationRequestDTO);
+    }
+
+    @PutMapping("/{id}")
+    public ProjectApplicationResponseDTO updateProjectApplication(@RequestBody @Valid ProjectApplicationRequestDTO projectApplicationRequestDTO,
+                                              @PathVariable Integer id) {
+        return projectApplicationService.update(id, projectApplicationRequestDTO);
+    }
+
+    @DeleteMapping("/{id}")
+    public boolean deleteProjectApplication(@PathVariable Integer id) {
+        return projectApplicationService.delete(id);
+    }
+
+    @PostMapping("/{id}/reject")
+    public Map<String, String> rejectProjectApplication(@PathVariable Integer id) throws MessagingException {
+        return projectApplicationService.reject(id);
     }
 
 }

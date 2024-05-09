@@ -38,8 +38,8 @@ public class Crop {
 
     @NotBlank(message = "El campo Cultivo es obligatorio")
     @Size(max = 100, message = "El campo Cultivo no puede tener más de {max} caracteres")
-    @Column(name = "name", nullable = false, length = 100)
-    private String name;
+    @Column(name = "farm_name", nullable = false, length = 100)
+    private String farmName;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
