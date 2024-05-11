@@ -1,6 +1,5 @@
 package com.agap.management.domain.dtos.request;
 
-import com.agap.management.domain.enums.ProcessStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,15 +11,16 @@ import java.time.LocalDate;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CropRequestDTO {
+public class ProjectRequestDTO {
 
-    private Integer id;
-    private Integer projectApplicationId;
-
+    private Integer   id;
+    private Integer   cropTypeId;
+    private String    name;
     private LocalDate startDate;
     private LocalDate endDate;
+    private String    municipality;
+    private float     totalBudget;
+    private String    imageUrl;
 
-    private float expectedExpense;
-    private float assignedBudget;
 
 }

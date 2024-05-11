@@ -65,7 +65,10 @@
     </div>
     <div class="email-body">
         <p th:text="${bodyMessage}">BodyMessage Placeholder</p>
-        <a href="#" th:href="${url}" class="email-button"><p th:text="${buttonMessage}">ButtonMessage Placeholder</p></a>
+
+        <div th:if="${url} != null and ${buttonMessage} != null">
+            <a href="#" th:href="${url}" class="email-button"><p th:text="${buttonMessage}">ButtonMessage Placeholder</p></a>
+        </div>
     </div>
     <div class="email-footer">
         Gracias por ayudarnos a mejorar la gestión de cultivos.<br>
