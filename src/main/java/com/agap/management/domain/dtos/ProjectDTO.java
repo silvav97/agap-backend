@@ -1,6 +1,5 @@
 package com.agap.management.domain.dtos;
 
-import com.agap.management.domain.dtos.request.CropRequestDTO;
 import com.agap.management.domain.dtos.request.CropTypeRequestDTO;
 import com.agap.management.domain.enums.ProcessStatus;
 import jakarta.validation.constraints.DecimalMin;
@@ -12,7 +11,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Data
 @Builder

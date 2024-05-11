@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface ICropRepository extends JpaRepository<Crop, Integer> {
 
-    List<Crop> findByProject_Id(Integer projectId);
+    //List<Crop> findByProject_Id(Integer projectId);
 
 }

@@ -4,9 +4,7 @@ import com.agap.management.application.ports.IEmailService;
 import com.agap.management.application.ports.IProjectApplicationService;
 import com.agap.management.application.ports.IProjectService;
 import com.agap.management.domain.dtos.request.ProjectApplicationRequestDTO;
-import com.agap.management.domain.dtos.response.CropTypeResponseDTO;
 import com.agap.management.domain.dtos.response.ProjectApplicationResponseDTO;
-import com.agap.management.domain.dtos.response.ProjectResponseDTO;
 import com.agap.management.domain.entities.*;
 import com.agap.management.domain.enums.ApplicationStatus;
 import com.agap.management.exceptions.personalizedException.EntityNotFoundByFieldException;
@@ -65,9 +63,7 @@ public class ProjectApplicationService implements IProjectApplicationService {
     public ProjectApplicationResponseDTO findById(Integer id) {
         ProjectApplication projectApplication = projectApplicationRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundByFieldException("ProjectApplication", "id", id.toString()));
-
-        ProjectApplicationResponseDTO projectApplicationResponseDTO = modelMapper.map(projectApplication, ProjectApplicationResponseDTO.class);
-        return projectApplicationResponseDTO;
+        return modelMapper.map(projectApplication, ProjectApplicationResponseDTO.class);
     }
 
     @Override
@@ -76,18 +72,20 @@ public class ProjectApplicationService implements IProjectApplicationService {
         ProjectApplication projectApplication = modelMapper.map(projectApplicationRequestDTO, ProjectApplication.class);
         Project project = projectRepository.findById(projectApplicationRequestDTO.getProjectId()).orElseThrow(() -> new EntityNotFoundByFieldException("Project", "id", projectApplicationRequestDTO.getProjectId().toString()));
         User applicant = userRepository.findById(projectApplicationRequestDTO.getApplicantId()).orElseThrow(() -> new EntityNotFoundByFieldException("User", "id", projectApplicationRequestDTO.getApplicantId().toString()));
+        if (!projectApplicationRequestDTO.getMunicipality().equals(project.getMunicipality())) {
+            throw new RuntimeException("Tu Municipio no coincide con el municipio del proyecto al que quieres aplicar");
+        }
 
         projectApplication.setProject(project);
         projectApplication.setApplicant(applicant);
-        projectApplication.setApplicationStatus(ApplicationStatus.PENDING);
+        projectApplication.setApplicationStatus(ApplicationStatus.PENDIENTE);
         projectApplication.setApplicationDate(LocalDate.now());
 
         ProjectApplication savedProjectApplication = projectApplicationRepository.save(projectApplication);
-        ProjectApplicationResponseDTO projectApplicationResponseDTO = modelMapper.map(savedProjectApplication, ProjectApplicationResponseDTO.class);
-
-        return projectApplicationResponseDTO;
+        return modelMapper.map(savedProjectApplication, ProjectApplicationResponseDTO.class);
     }
 
+    // Falta el update de ProjectApplication
     @Override
     public ProjectApplicationResponseDTO update(Integer id, ProjectApplicationRequestDTO projectApplicationRequestDTO) {
         ProjectApplication projectApplication = projectApplicationRepository.findById(id)
@@ -95,28 +93,24 @@ public class ProjectApplicationService implements IProjectApplicationService {
 
         modelMapper.map(projectApplicationRequestDTO, projectApplication);
 
+        Project project = projectRepository.findById(projectApplicationRequestDTO.getProjectId()).orElseThrow(() -> new EntityNotFoundByFieldException("Project", "id", projectApplicationRequestDTO.getProjectId().toString()));
 
-        /*// Asignar manualmente las entidades de Fertilizer y Pesticide basadas en los IDs
-        if (cropTypeRequestDTO.getFertilizerId() != null) {
-            Fertilizer fertilizer = fertilizerRepository.findById(cropTypeRequestDTO.getFertilizerId())
-                    .orElseThrow(() -> new EntityNotFoundByFieldException("Fertilizante", "id", cropTypeRequestDTO.getFertilizerId().toString()));
-            cropType.setFertilizer(fertilizer);
+        if (!projectApplicationRequestDTO.getMunicipality().equals(project.getMunicipality())) {
+            throw new RuntimeException("Tu Municipio no coincide con el municipio del proyecto al que quieres aplicar");
         }
-        if (cropTypeRequestDTO.getPesticideId() != null) {
-            Pesticide pesticide = pesticideRepository.findById(cropTypeRequestDTO.getPesticideId())
-                    .orElseThrow(() -> new EntityNotFoundByFieldException("Pesticida", "id", cropTypeRequestDTO.getPesticideId().toString()));
-            cropType.setPesticide(pesticide);
-        }*/
-
         ProjectApplication savedProjectApplication = projectApplicationRepository.save(projectApplication);
-        //System.out.println("savedProjectApplication: " + savedProjectApplication);
-
-        return null;
+        return modelMapper.map(savedProjectApplication, ProjectApplicationResponseDTO.class);
     }
 
     @Override
     public Boolean delete(Integer id) {
-        return null;
+        try {
+            projectApplicationRepository.deleteById(id);
+            return true;
+        }
+        catch (Exception e) {
+            return false;
+        }
     }
 
     @Override
@@ -124,10 +118,11 @@ public class ProjectApplicationService implements IProjectApplicationService {
         ProjectApplication projectApplication = projectApplicationRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundByFieldException("ProjectApplication", "id", id.toString()));
 
-        projectApplication.setApplicationStatus(ApplicationStatus.REJECTED);
+        projectApplication.setApplicationStatus(ApplicationStatus.RECHAZADO);
         projectApplicationRepository.save(projectApplication);
 
-        emailService.sendEmail(projectApplication.getApplicant().getEmail(), "Aplicación Rechazada", "Su aplicación fue rechazada", "myURL", "Some message?");
+        String content = String.format("Su aplicación al proyecto %s fue rechazada", projectApplication.getProject().getName());
+        emailService.sendEmail(projectApplication.getApplicant().getEmail(), "Aplicación Rechazada", content, null, null);
 
         Map<String, String> response = new HashMap<>();
         response.put("message", "Rejected Successfully");

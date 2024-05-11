@@ -34,8 +34,6 @@ public class ProjectApplication {
     @JoinColumn(name = "applicant_id")
     private User applicant;
 
-
-
     @Enumerated(EnumType.STRING)
     @Column(name = "application_status", nullable = false)
     private ApplicationStatus applicationStatus;
@@ -46,10 +44,6 @@ public class ProjectApplication {
     @Column(name = "review_date")
     private LocalDate reviewDate;
 
-
-
-
-    // faltan las entidades necesarias para luego crear un crop
     @NotBlank(message = "El campo Nombre de Finca es obligatorio")
     @Size(max = 100, message = "El campo Nombre de Finca no puede tener más de {max} caracteres")
     @Column(name = "farm_name", nullable = false, length = 100)
@@ -58,14 +52,5 @@ public class ProjectApplication {
     @DecimalMin(value = "0.000001", message = "El valor debe ser mayor que cero")
     @Column(name = "area", nullable = false)
     private int area;
-
-    @NotBlank(message = "El campo Municipio es obligatorio")
-    @Size(max = 100, message = "El campo Municipio no puede tener más de {max} caracteres")
-    @Column(name = "municipality", nullable = false, length = 100)
-    private String municipality;
-
-    @Size(max = 100, message = "El campo Clima no puede tener más de {max} caracteres.")
-    @Column(name = "weather", length = 100)
-    private String weather;
 
 }

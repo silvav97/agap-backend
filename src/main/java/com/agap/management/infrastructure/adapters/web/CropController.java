@@ -2,7 +2,8 @@ package com.agap.management.infrastructure.adapters.web;
 
 import com.agap.management.application.ports.ICropService;
 import com.agap.management.domain.dtos.request.CropRequestDTO;
-import com.agap.management.exceptions.personalizedException.EntityNotFoundByFieldException;
+import com.agap.management.domain.dtos.response.CropResponseDTO;
+import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -22,29 +23,28 @@ public class CropController {
     private final ICropService cropService;
 
     @GetMapping
-    public List<CropRequestDTO> getCrops() {
+    public List<CropResponseDTO> getCrops() {
         return cropService.findAll();
     }
 
     @GetMapping("/page")
-    public Page<CropRequestDTO> getCropsPage(@RequestParam Integer pageNumber, @RequestParam Integer pageSize) {
+    public Page<CropResponseDTO> getCropsPage(@RequestParam Integer pageNumber, @RequestParam Integer pageSize) {
         Pageable pageable = PageRequest.of(pageNumber, pageSize);
         return cropService.findAll(pageable);
     }
 
     @GetMapping("/{id}")
-    public CropRequestDTO getCropTypeById(@PathVariable Integer id) {
-        return cropService.findById(id).orElseThrow(
-                () -> new EntityNotFoundByFieldException("Cultivo", "id", id.toString()));
+    public CropResponseDTO getCropById(@PathVariable Integer id) {
+        return cropService.findById(id);
     }
 
     @PostMapping()
-    public CropRequestDTO saveCropType(@RequestBody @Valid CropRequestDTO cropRequestDTO) {
+    public CropResponseDTO saveCrop(@RequestBody @Valid CropRequestDTO cropRequestDTO) throws MessagingException {
         return cropService.save(cropRequestDTO);
     }
 
     @PutMapping("/{id}")
-    public CropRequestDTO updateCropType(@RequestBody @Valid CropRequestDTO cropRequestDTO, @PathVariable Integer id) {
+    public CropResponseDTO updateCrop(@RequestBody @Valid CropRequestDTO cropRequestDTO, @PathVariable Integer id) {
         return cropService.update(id, cropRequestDTO);
     }
 

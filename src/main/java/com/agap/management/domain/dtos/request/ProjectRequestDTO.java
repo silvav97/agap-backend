@@ -13,14 +13,14 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class ProjectRequestDTO {
 
-    private Integer id;
-    private Integer cropTypeId;
-    private String name;
+    private Integer   id;
+    private Integer   cropTypeId;
+    private String    name;
     private LocalDate startDate;
     private LocalDate endDate;
-    private String municipality;
-    private float totalBudget;
-    private String imageUrl;
+    private String    municipality;
+    private float     totalBudget;
+    private String    imageUrl;
 
 
 }

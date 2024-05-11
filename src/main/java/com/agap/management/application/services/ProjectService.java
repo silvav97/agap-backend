@@ -2,7 +2,6 @@ package com.agap.management.application.services;
 
 import com.agap.management.application.ports.IProjectService;
 import com.agap.management.domain.dtos.request.ProjectRequestDTO;
-import com.agap.management.domain.dtos.response.ProjectApplicationResponseDTO;
 import com.agap.management.domain.dtos.response.ProjectResponseDTO;
 import com.agap.management.domain.entities.*;
 import com.agap.management.domain.enums.ProcessStatus;
@@ -58,7 +57,7 @@ public class ProjectService implements IProjectService {
                 .orElseThrow(() -> new EntityNotFoundByFieldException("CropType", "id", projectRequestDTO.getCropTypeId().toString()));
 
         project.setCropType(cropType);
-        project.setStatus(ProcessStatus.CREATED);
+        project.setStatus(ProcessStatus.CREADO);
 
         Project savedProject = projectRepository.save(project);
         return modelMapper.map(savedProject, ProjectResponseDTO.class);
@@ -89,9 +88,9 @@ public class ProjectService implements IProjectService {
             projectApplicationRepository.saveAll(projectApplications);
 
 
-            List<Crop> crops = cropRepository.findByProject_Id(projectId);
-            crops.forEach(crop -> crop.setProject(null));
-            cropRepository.saveAll(crops);
+            //List<Crop> crops = cropRepository.findByProject_Id(projectId);
+            //crops.forEach(crop -> crop.setProject(null));
+            //cropRepository.saveAll(crops);
 
 
             projectRepository.deleteById(projectId);

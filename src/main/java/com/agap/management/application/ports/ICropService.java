@@ -1,6 +1,8 @@
 package com.agap.management.application.ports;
 
 import com.agap.management.domain.dtos.request.CropRequestDTO;
+import com.agap.management.domain.dtos.response.CropResponseDTO;
+import jakarta.mail.MessagingException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -8,10 +10,10 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ICropService {
-    List<CropRequestDTO> findAll();
-    Page<CropRequestDTO> findAll(Pageable pageable);
-    Optional<CropRequestDTO> findById(Integer id);
-    CropRequestDTO save(CropRequestDTO cropRequestDTO);
-    CropRequestDTO update(Integer id, CropRequestDTO cropRequestDTO);
+    List<CropResponseDTO> findAll();
+    Page<CropResponseDTO> findAll(Pageable pageable);
+    CropResponseDTO findById(Integer id);
+    CropResponseDTO save(CropRequestDTO cropRequestDTO) throws MessagingException;
+    CropResponseDTO update(Integer id, CropRequestDTO cropRequestDTO);
     Boolean delete(Integer id);
 }

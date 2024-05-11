@@ -19,12 +19,9 @@ public class ProjectApplicationRequestDTO {
     private Integer id;
     private Integer projectId;
     private Integer applicantId;
-    //private ApplicationStatus applicationStatus;
-    //private LocalDate applicationDate;
-    //private LocalDate reviewDate;
-    private String farmName;
-    private int area;
-    private String municipality;
-    private String weather;
+    private String  farmName;
+    private int     area;
+    private String  municipality;  // se usa para comparar con el municipality de project en el metodo
+                                   // save de ProjectApplicationService y si no coinciden lanza error.
 
 }
