@@ -48,7 +48,7 @@ public class ProjectApplicationController {
     // Endpoint para agricultores
     @GetMapping("/mine/page")
     @PreAuthorize("hasRole('FARMER')")
-    public Page<ProjectApplicationResponseDTO> getFarmerProjectApplications(
+    public Page<ProjectApplicationResponseDTO> getMyProjectApplications(
             @RequestParam Integer pageNumber, @RequestParam Integer pageSize, Authentication authentication) {
 
         User user = (User) authentication.getPrincipal();

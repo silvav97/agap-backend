@@ -3,6 +3,8 @@ package com.agap.management.infrastructure.adapters.web;
 import com.agap.management.application.ports.ICropService;
 import com.agap.management.domain.dtos.request.CropRequestDTO;
 import com.agap.management.domain.dtos.response.CropResponseDTO;
+import com.agap.management.domain.dtos.response.ProjectApplicationResponseDTO;
+import com.agap.management.domain.entities.User;
 import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,6 +34,16 @@ public class CropController {
     public Page<CropResponseDTO> getCropsPage(@RequestParam Integer pageNumber, @RequestParam Integer pageSize) {
         Pageable pageable = PageRequest.of(pageNumber, pageSize);
         return cropService.findAll(pageable);
+    }
+
+    @GetMapping("/mine/page")
+    //@PreAuthorize("hasRole('FARMER')")
+    public Page<CropResponseDTO> getMyCrops(
+            @RequestParam Integer pageNumber, @RequestParam Integer pageSize, Authentication authentication) {
+
+        User user = (User) authentication.getPrincipal();
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        return cropService.findAllByUserId(pageable, user.getId());
     }
 
     @GetMapping("/{id}")

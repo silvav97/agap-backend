@@ -4,6 +4,7 @@ import com.agap.management.application.ports.ICropService;
 import com.agap.management.application.ports.IEmailService;
 import com.agap.management.domain.dtos.request.CropRequestDTO;
 import com.agap.management.domain.dtos.response.CropResponseDTO;
+import com.agap.management.domain.dtos.response.ProjectApplicationResponseDTO;
 import com.agap.management.domain.entities.Crop;
 import com.agap.management.domain.entities.ProjectApplication;
 import com.agap.management.domain.enums.ApplicationStatus;
@@ -45,6 +46,12 @@ public class CropService implements ICropService {
         Page<CropResponseDTO> PageCropResponseDTO = page.map(crop -> modelMapper.map(crop, CropResponseDTO.class));
         System.out.println("CROP SERVICE, PageCropResponseDTO " + PageCropResponseDTO.getContent());
         return PageCropResponseDTO;
+    }
+
+    @Override
+    public Page<CropResponseDTO> findAllByUserId(Pageable pageable, Integer userId) {
+        Page<Crop> page = cropRepository.findByProjectApplication_Applicant_Id(pageable, userId);
+        return page.map(crop -> modelMapper.map(crop, CropResponseDTO.class));
     }
 
     @Override

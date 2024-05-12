@@ -2,6 +2,7 @@ package com.agap.management.application.ports;
 
 import com.agap.management.domain.dtos.request.CropRequestDTO;
 
+import com.agap.management.domain.dtos.response.ProjectApplicationResponseDTO;
 import com.agap.management.domain.entities.Crop;
 
 import com.agap.management.domain.dtos.response.CropResponseDTO;
@@ -17,6 +18,7 @@ import java.util.Optional;
 public interface ICropService {
     List<CropResponseDTO> findAll();
     Page<CropResponseDTO> findAll(Pageable pageable);
+    Page<CropResponseDTO> findAllByUserId(Pageable pageable, Integer userId);
     CropResponseDTO findById(Integer id);
     CropResponseDTO save(CropRequestDTO cropRequestDTO) throws MessagingException;
     CropResponseDTO update(Integer id, CropRequestDTO cropRequestDTO);
