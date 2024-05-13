@@ -4,7 +4,6 @@ import com.agap.management.application.ports.IFertilizerService;
 import com.agap.management.domain.dtos.FertilizerDTO;
 import com.agap.management.domain.entities.CropType;
 import com.agap.management.domain.entities.Fertilizer;
-import com.agap.management.domain.entities.Project;
 import com.agap.management.exceptions.personalizedException.EntityNotFoundByFieldException;
 import com.agap.management.infrastructure.adapters.persistence.ICropTypeRepository;
 import com.agap.management.infrastructure.adapters.persistence.IFertilizerRepository;
@@ -81,11 +80,9 @@ public class FertilizerService implements IFertilizerService {
 
     @Override
     public List<String> findRelatedCropTypes(Integer fertilizerId) {
-        List<String> relatedCropTypes = cropTypeRepository.findByFertilizer_Id(fertilizerId).stream()
+        return cropTypeRepository.findByFertilizer_Id(fertilizerId).stream()
                 .map(CropType::getName)
                 .collect(Collectors.toList());
-        System.out.println("findRelatedCropTypes: " + relatedCropTypes);
-        return relatedCropTypes;
     }
 
 }

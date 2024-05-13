@@ -15,7 +15,6 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/project")
-//@PreAuthorize("hasRole('ADMIN')")   El admin solo crea, pero el user ve
 public class ProjectController {
 
     private final IProjectService projectService;
@@ -33,52 +32,27 @@ public class ProjectController {
 
     @GetMapping("/{id}")
     public ProjectResponseDTO getProjectById(@PathVariable Integer id) {
-        //System.out.println("PROJECT_CONTROLLER. getProjectById was called: ");
-        ProjectResponseDTO projectResponseDTO = projectService.findById(id);
-        //System.out.println("projectResponseDTO: " + projectResponseDTO);
-        return projectResponseDTO;
+        return projectService.findById(id);
     }
-
-    /*
-    @PostMapping("/projects/{projectId}/image")
-    public ResponseEntity<?> uploadProjectImage(@PathVariable Integer projectId, @RequestParam("image") MultipartFile file) {
-        String imageUrl = imageStorageService.uploadImage(file);  // Lógica de carga de imágenes
-        Project project = projectService.findById(projectId);
-        project.setImageUrl(imageUrl);
-        projectService.save(project);
-        return ResponseEntity.ok(new MessageResponse("Imagen cargada exitosamente!"));
-    }
-    */
 
     @PostMapping()
     public ProjectResponseDTO saveProject(@RequestBody @Valid ProjectRequestDTO projectRequestDTO) {
-        System.out.println("\nPROJECT CONTROLLER, saveProject was called ");
-        ProjectResponseDTO projectResponseDTO = projectService.save(projectRequestDTO);
-        System.out.println("\nPROJECT CONTROLLER, projectResponseDTO: " + projectResponseDTO);
-        return projectResponseDTO;
+        return projectService.save(projectRequestDTO);
     }
 
     @PutMapping("/{id}")
     public ProjectResponseDTO updateProject(@RequestBody @Valid ProjectRequestDTO projectRequestDTO, @PathVariable Integer id) {
-        System.out.println("updateProject was called: " + id);
-        ProjectResponseDTO projectResponseDTO = projectService.update(id, projectRequestDTO);
-        return projectResponseDTO;
+        return projectService.update(id, projectRequestDTO);
     }
 
     @DeleteMapping("/{id}")
     public boolean deleteProject(@PathVariable Integer id) {
-        System.out.println("deleteProject was called: " + id);
         return projectService.delete(id);
     }
 
     @GetMapping("/{id}/relatedProjectApplications")
     public List<String> getRelatedProjectApplicationsByProjectId(@PathVariable Integer id) {
-        System.out.println("getRelatedProjectApplicationsByProjectId was called: " + id);
-        List<String> relatedProjectApplications = projectService.findRelatedProjectApplications(id);
-        System.out.println("Related ProjectApplications: " + relatedProjectApplications);
-        return relatedProjectApplications;
+        return projectService.findRelatedProjectApplications(id);
     }
-
-
 
 }

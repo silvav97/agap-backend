@@ -65,8 +65,8 @@ public class AuthenticationService implements IAuthenticationService {
             throw new InvalidTokenException("Refresh token invalido");
         }
 
-        var accessToken = jwtService.generateToken(user);   // tal vez deba cambiar
-        tokenService.revokeAllUserTokens(user);                          // de orden estas dos
+        var accessToken = jwtService.generateToken(user);
+        tokenService.revokeAllUserTokens(user);
         tokenService.saveUserToken(user, accessToken, TokenType.BEARER);
 
         return AuthenticationUtil.buildAuthenticationResponse(accessToken, refreshToken);

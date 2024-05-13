@@ -38,7 +38,6 @@ public class FertilizerController {
 
     @PostMapping()
     public FertilizerDTO saveFertilizer(@RequestBody @Valid FertilizerDTO fertilizerDTO) {
-        System.out.println("SaveFertilizer was called: "+ fertilizerDTO.toString());
         return fertilizerService.save(fertilizerDTO);
     }
 
@@ -54,9 +53,6 @@ public class FertilizerController {
 
     @GetMapping("/{id}/relatedCropTypes")
     public List<String> getRelatedCropTypesByFertilizerId(@PathVariable Integer id) {
-        System.out.println("getRelatedCropTypesByFertilizerId was called: " + id);
-        List<String> relatedCropTypes = fertilizerService.findRelatedCropTypes(id);
-        System.out.println("Related CropTypes: " + relatedCropTypes);
-        return relatedCropTypes;
+        return fertilizerService.findRelatedCropTypes(id);
     }
 }

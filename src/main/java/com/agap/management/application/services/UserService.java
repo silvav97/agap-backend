@@ -25,10 +25,10 @@ import java.security.Principal;
 public class UserService implements IUserService {
 
     private final IUserRepository userRepository;
-    private final ITokenService   tokenService;
-    private final IEmailService   emailService;
+    private final ITokenService tokenService;
+    private final IEmailService emailService;
     private final PasswordEncoder passwordEncoder;
-    private final JwtService      jwtService;
+    private final JwtService jwtService;
 
     @Override
     public String changePassword(ChangePasswordRequestDTO request, Principal connectedUser) {

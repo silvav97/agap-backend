@@ -81,11 +81,9 @@ public class PesticideService implements IPesticideService {
 
     @Override
     public List<String> findRelatedCropTypes(Integer pesticideId) {
-        List<String> relatedCropTypes = cropTypeRepository.findByPesticide_Id(pesticideId).stream()
+        return cropTypeRepository.findByPesticide_Id(pesticideId).stream()
                 .map(CropType::getName)
                 .collect(Collectors.toList());
-        System.out.println("findRelatedCropTypes: " + relatedCropTypes);
-        return relatedCropTypes;
     }
 
 }

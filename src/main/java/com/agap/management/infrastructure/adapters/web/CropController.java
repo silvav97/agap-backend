@@ -36,7 +36,6 @@ public class CropController {
     }
 
     @GetMapping("/mine/page")
-    //@PreAuthorize("hasRole('FARMER')")
     public Page<CropResponseDTO> getMyCrops(
             @RequestParam Integer pageNumber, @RequestParam Integer pageSize, Authentication authentication) {
 

@@ -35,10 +35,10 @@ public class RegistrationService implements IRegistrationService {
 
     private final IUserRepository userRepository;
     private final IRoleRepository roleRepository;
-    private final ITokenService   tokenService;
-    private final IEmailService   emailService;
+    private final ITokenService tokenService;
+    private final IEmailService emailService;
     private final PasswordEncoder passwordEncoder;
-    private final JwtService      jwtService;
+    private final JwtService jwtService;
 
     @Override
     public RegisterResponseDTO register(RegisterRequestDTO request) throws MessagingException {
@@ -60,7 +60,7 @@ public class RegistrationService implements IRegistrationService {
 
         sendVerificationEmail(savedUser);
 
-        return RegisterResponseDTO.builder().message("Verify your account by going to your email").build();
+        return RegisterResponseDTO.builder().message("Dirigete a tu email para verificar tu cuenta").build();
     }
 
     @Override
@@ -69,7 +69,7 @@ public class RegistrationService implements IRegistrationService {
             String email = jwtService.extractUsername(token);
 
             User user = userRepository.findByEmail(email)
-                    .orElseThrow(() -> new EntityNotFoundByFieldException("User", "email", email));
+                    .orElseThrow(() -> new EntityNotFoundByFieldException("Usuario", "email", email));
 
             Token verificationToken = tokenService.verifyToken(token);
 

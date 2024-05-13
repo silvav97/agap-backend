@@ -1,6 +1,5 @@
 package com.agap.management.application.services;
 
-
 import com.agap.management.application.ports.ITokenService;
 import com.agap.management.domain.entities.Token;
 import com.agap.management.domain.enums.TokenType;
