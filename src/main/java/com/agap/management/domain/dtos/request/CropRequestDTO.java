@@ -13,14 +13,11 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CropRequestDTO {
-
     private Integer id;
     private Integer projectApplicationId;
-
+    private ProcessStatus status;
     private LocalDate startDate;
     private LocalDate endDate;
-
     private float expectedExpense;
     private float assignedBudget;
-
 }

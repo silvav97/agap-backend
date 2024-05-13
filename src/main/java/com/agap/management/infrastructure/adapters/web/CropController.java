@@ -3,7 +3,6 @@ package com.agap.management.infrastructure.adapters.web;
 import com.agap.management.application.ports.ICropService;
 import com.agap.management.domain.dtos.request.CropRequestDTO;
 import com.agap.management.domain.dtos.response.CropResponseDTO;
-import com.agap.management.domain.dtos.response.ProjectApplicationResponseDTO;
 import com.agap.management.domain.entities.User;
 import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;

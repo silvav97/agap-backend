@@ -4,7 +4,6 @@ import com.agap.management.application.ports.ICropService;
 import com.agap.management.application.ports.IEmailService;
 import com.agap.management.domain.dtos.request.CropRequestDTO;
 import com.agap.management.domain.dtos.response.CropResponseDTO;
-import com.agap.management.domain.dtos.response.ProjectApplicationResponseDTO;
 import com.agap.management.domain.entities.Crop;
 import com.agap.management.domain.entities.ProjectApplication;
 import com.agap.management.domain.enums.ApplicationStatus;
@@ -42,10 +41,7 @@ public class CropService implements ICropService {
     @Override
     public Page<CropResponseDTO> findAll(Pageable pageable) {
         Page<Crop> page = cropRepository.findAll(pageable);
-
-        Page<CropResponseDTO> PageCropResponseDTO = page.map(crop -> modelMapper.map(crop, CropResponseDTO.class));
-        System.out.println("CROP SERVICE, PageCropResponseDTO " + PageCropResponseDTO.getContent());
-        return PageCropResponseDTO;
+        return page.map(crop -> modelMapper.map(crop, CropResponseDTO.class));
     }
 
     @Override
@@ -68,19 +64,11 @@ public class CropService implements ICropService {
 
         ProjectApplication projectApplication = projectApplicationRepository.findById(cropRequestDTO.getProjectApplicationId())
                         .orElseThrow(() -> new EntityNotFoundByFieldException("ProjectApplication", "id", cropRequestDTO.getProjectApplicationId().toString()));
-        System.out.println("CROP SERVICE. projectApplication: " + projectApplication.getId());
 
         projectApplication.setApplicationStatus(ApplicationStatus.APROBADO);
         projectApplicationRepository.save(projectApplication);
 
         crop.setProjectApplication(projectApplication);
-        //crop.setProject(projectApplication.getProject());
-        //crop.setUser(projectApplication.getApplicant());
-        //crop.setArea(projectApplication.getArea());
-        //crop.setFarmName(projectApplication.getFarmName());
-        //crop.setMunicipality(projectApplication.getMunicipality());
-        //crop.setWeather(projectApplication.getWeather());
-
         crop.setStatus(ProcessStatus.CREADO);
 
         Crop savedCrop = cropRepository.save(crop);

@@ -1,6 +1,5 @@
 package com.agap.management.domain.dtos.response;
 
-import com.agap.management.domain.dtos.response.CropResponseDTO;
 import com.agap.management.domain.enums.ExpenseType;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;

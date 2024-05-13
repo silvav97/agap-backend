@@ -3,8 +3,6 @@ package com.agap.management.domain.entities;
 import com.agap.management.domain.enums.ProcessStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

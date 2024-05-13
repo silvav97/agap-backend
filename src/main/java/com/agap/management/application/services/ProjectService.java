@@ -23,11 +23,10 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ProjectService implements IProjectService {
 
-    private final IProjectRepository            projectRepository;
+    private final IProjectRepository projectRepository;
     private final IProjectApplicationRepository projectApplicationRepository;
-    private final ICropTypeRepository           cropTypeRepository;
-    private final ICropRepository               cropRepository;
-    private final ModelMapper                   modelMapper;
+    private final ICropTypeRepository cropTypeRepository;
+    private final ModelMapper modelMapper;
 
     @Override
     public List<ProjectResponseDTO> findAll() {
@@ -45,7 +44,7 @@ public class ProjectService implements IProjectService {
     @Override
     public ProjectResponseDTO findById(Integer id) {
         Project project = projectRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundByFieldException("Project", "id", id.toString()));
+                .orElseThrow(() -> new EntityNotFoundByFieldException("Proyecto", "id", id.toString()));
 
         return modelMapper.map(project, ProjectResponseDTO.class);
     }
@@ -54,7 +53,7 @@ public class ProjectService implements IProjectService {
     public ProjectResponseDTO save(ProjectRequestDTO projectRequestDTO) {
         Project project = modelMapper.map(projectRequestDTO, Project.class);
         CropType cropType = cropTypeRepository.findById(projectRequestDTO.getCropTypeId())
-                .orElseThrow(() -> new EntityNotFoundByFieldException("CropType", "id", projectRequestDTO.getCropTypeId().toString()));
+                .orElseThrow(() -> new EntityNotFoundByFieldException("Tipo de cultivo", "id", projectRequestDTO.getCropTypeId().toString()));
 
         project.setCropType(cropType);
         project.setStatus(ProcessStatus.CREADO);
@@ -87,12 +86,6 @@ public class ProjectService implements IProjectService {
             projectApplications.forEach(projectApplication -> projectApplication.setProject(null));
             projectApplicationRepository.saveAll(projectApplications);
 
-
-            //List<Crop> crops = cropRepository.findByProject_Id(projectId);
-            //crops.forEach(crop -> crop.setProject(null));
-            //cropRepository.saveAll(crops);
-
-
             projectRepository.deleteById(projectId);
             return true;
 
@@ -110,5 +103,9 @@ public class ProjectService implements IProjectService {
         return relatedProjectApplications;
     }
 
-
+    @Override
+    public Project getProjectById(Integer id) {
+        return projectRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundByFieldException("Proyecto", "id", id.toString()));
+    }
 }

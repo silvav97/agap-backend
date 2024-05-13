@@ -129,5 +129,10 @@ public class ProjectApplicationService implements IProjectApplicationService {
         return response;
     }
 
+    @Override
+    public ProjectApplication getProjectApplicationById(Integer id) {
+        return projectApplicationRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundByFieldException("Aplicacion a proyecto", "id", id.toString()));
+    }
 
 }

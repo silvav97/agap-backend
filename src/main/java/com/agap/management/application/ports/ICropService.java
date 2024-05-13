@@ -1,19 +1,13 @@
 package com.agap.management.application.ports;
 
 import com.agap.management.domain.dtos.request.CropRequestDTO;
-
-import com.agap.management.domain.dtos.response.ProjectApplicationResponseDTO;
-import com.agap.management.domain.entities.Crop;
-
 import com.agap.management.domain.dtos.response.CropResponseDTO;
+import com.agap.management.domain.entities.Crop;
 import jakarta.mail.MessagingException;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-
 import java.util.List;
-import java.util.Optional;
 
 public interface ICropService {
     List<CropResponseDTO> findAll();
