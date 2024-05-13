@@ -4,7 +4,9 @@ import com.agap.management.application.ports.ICropService;
 import com.agap.management.application.ports.IExpenseService;
 import com.agap.management.domain.dtos.request.ExpenseRequestDTO;
 import com.agap.management.domain.dtos.response.ExpenseResponseDTO;
+import com.agap.management.domain.dtos.response.ProjectApplicationResponseDTO;
 import com.agap.management.domain.entities.Expense;
+import com.agap.management.domain.entities.ProjectApplication;
 import com.agap.management.exceptions.personalizedException.EntityNotFoundByFieldException;
 import com.agap.management.infrastructure.adapters.persistence.IExpenseRepository;
 import lombok.RequiredArgsConstructor;
@@ -34,6 +36,12 @@ public class ExpenseService implements IExpenseService {
     @Override
     public Page<ExpenseResponseDTO> findAll(Pageable pageable) {
         Page<Expense> page = expenseRepository.findAll(pageable);
+        return page.map(expense -> modelMapper.map(expense, ExpenseResponseDTO.class));
+    }
+
+    @Override
+    public Page<ExpenseResponseDTO> findAllByCropId(Pageable pageable, Integer cropId) {
+        Page<Expense> page = expenseRepository.findByCropId(pageable, cropId);
         return page.map(expense -> modelMapper.map(expense, ExpenseResponseDTO.class));
     }
 
