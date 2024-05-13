@@ -2,7 +2,6 @@ package com.agap.management.application.services;
 
 import com.agap.management.application.ports.ICropService;
 import com.agap.management.application.ports.ISupplyService;
-import com.agap.management.domain.dtos.request.CropTypeRequestDTO;
 import com.agap.management.domain.dtos.response.CropResponseDTO;
 import com.agap.management.domain.dtos.response.CropTypeResponseDTO;
 import lombok.RequiredArgsConstructor;
@@ -24,9 +23,11 @@ public class SupplyService implements ISupplyService {
         LocalDate today = LocalDate.now();
 
         cropList.parallelStream().forEach(crop -> {
-            CropTypeRequestDTO cropType = crop.getProject().getCropType();
-            int fertilizerFrequency = crop.getProject().getCropType().getFertilizerFrequency();
-            int pesticideFrequency = crop.getProject().getCropType().getPesticideFrequency();
+            CropTypeResponseDTO cropType = crop.getProjectApplication().getProject().getCropType();
+            int fertilizerFrequency = cropType.getFertilizerFrequency();
+            int pesticideFrequency = cropType.getPesticideFrequency();
+            int totalPlantAmount = cropType.getPlantQuantityPerSquareMeter()/
+                    crop.getProjectApplication().getArea();
 
             LocalDate startDate = crop.getStartDate();
             LocalDate endDate = crop.getEndDate();
@@ -36,14 +37,15 @@ public class SupplyService implements ISupplyService {
 
             if (today.isBefore(endDate) && daysBetweenTodayAndEnd >= fertilizerFrequency) {
                 if(daysBetweenStartAndToday % fertilizerFrequency == 0) {
-                    int totalPlantAmount = 1;
-                    System.out.println("Hay que aplicar fertilizante hoy");
+                    int fertilizerAmountToApply = totalPlantAmount*cropType.getFertilizerQuantityPerPlant();
+                    System.out.printf("Hay que aplicar %d gr de fertilizante hoy ", fertilizerAmountToApply);
                 }
             }
 
             if (today.isBefore(endDate) && daysBetweenTodayAndEnd >= pesticideFrequency) {
                 if(daysBetweenStartAndToday % pesticideFrequency == 0) {
-                    System.out.println("Hay que aplicar pesticida hoy");
+                    int pesticideAmountToApply = totalPlantAmount*cropType.getPesticideQuantityPerPlant();
+                    System.out.printf("Hay que aplicar %d gr de pesticida hoy ", pesticideAmountToApply);
                 }
             }
 
