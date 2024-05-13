@@ -196,7 +196,7 @@ INSERT INTO pesticide (id, name, brand, price_per_gram) VALUES (60, 'pesticide60
 
 --------------------------------------  CROP_TYPE  --------------------------------------
 INSERT INTO crop_type (id, weather, name, plant_quantity_per_square_meter, harvest_time, fertilizer_quantity_per_plant, fertilizer_frequency, pesticide_quantity_per_plant, pesticide_frequency, fertilizer_id, pesticide_id) VALUES (1,  'TEMPLADO', 'Trigo',     100, 120, 2, 30, 1, 45, 1,  1);
-INSERT INTO crop_type (id, weather, name, plant_quantity_per_square_meter, harvest_time, fertilizer_quantity_per_plant, fertilizer_frequency, pesticide_quantity_per_plant, pesticide_frequency, fertilizer_id, pesticide_id) VALUES (2,  'TEMPLADO', 'Manzana',   100, 120, 2, 30, 1, 45, 1,  1);
+INSERT INTO crop_type (id, weather, name, plant_quantity_per_square_meter, harvest_time, fertilizer_quantity_per_plant, fertilizer_frequency, pesticide_quantity_per_plant, pesticide_frequency, fertilizer_id, pesticide_id) VALUES (2,  'TEMPLADO', 'Manzana',   100, 120, 2, 1, 1, 1, 1,  1);
 INSERT INTO crop_type (id, weather, name, plant_quantity_per_square_meter, harvest_time, fertilizer_quantity_per_plant, fertilizer_frequency, pesticide_quantity_per_plant, pesticide_frequency, fertilizer_id, pesticide_id) VALUES (3,  'TEMPLADO', 'Avena',     100, 120, 2, 30, 1, 45, 2,  1);
 INSERT INTO crop_type (id, weather, name, plant_quantity_per_square_meter, harvest_time, fertilizer_quantity_per_plant, fertilizer_frequency, pesticide_quantity_per_plant, pesticide_frequency, fertilizer_id, pesticide_id) VALUES (4,  'TEMPLADO', 'Cebada',    100, 120, 2, 30, 1, 45, 3,  1);
 INSERT INTO crop_type (id, weather, name, plant_quantity_per_square_meter, harvest_time, fertilizer_quantity_per_plant, fertilizer_frequency, pesticide_quantity_per_plant, pesticide_frequency, fertilizer_id, pesticide_id) VALUES (5,  'TEMPLADO', 'Remolacha', 100, 120, 2, 30, 1, 45, 4,  2);
@@ -374,7 +374,6 @@ INSERT INTO crop (id, project_application_id, status, start_date, end_date, expe
 INSERT INTO project_application (id, project_id, applicant_id, application_status, application_date, review_date, farm_name, area) VALUES (70,  2,  3,  'APROBADO', '2023-01-02', '2023-03-03', 'Finca la Paz de Dios', 450);
 INSERT INTO crop (id, project_application_id, status, start_date, end_date, expected_expense, assigned_budget, sale_value) VALUES (70, 70, 'CREADO', '2023-03-03', '2023-06-01', 500.00, 1000.00, 1200.00);
 
-
 INSERT INTO project_application (id, project_id, applicant_id, application_status, application_date, review_date, farm_name, area) VALUES (71,  1,  3,  'PENDIENTE', '2023-01-02', '2023-03-03', 'Finca la Heterogénea', 450);
 INSERT INTO project_application (id, project_id, applicant_id, application_status, application_date, review_date, farm_name, area) VALUES (72,  1,  3,  'PENDIENTE', '2023-01-02', '2023-03-03', 'Finca la Homogénea', 450);
 INSERT INTO project_application (id, project_id, applicant_id, application_status, application_date, review_date, farm_name, area) VALUES (73,  2,  3,  'PENDIENTE', '2023-01-02', '2023-03-03', 'Finca la Ideal', 450);
@@ -385,6 +384,9 @@ INSERT INTO project_application (id, project_id, applicant_id, application_statu
 INSERT INTO project_application (id, project_id, applicant_id, application_status, application_date, review_date, farm_name, area) VALUES (78,  2,  3,  'PENDIENTE', '2023-01-02', '2023-03-03', 'Finca la Montura del Señor', 450);
 INSERT INTO project_application (id, project_id, applicant_id, application_status, application_date, review_date, farm_name, area) VALUES (79,  2,  3,  'PENDIENTE', '2023-01-02', '2023-03-03', 'Finca la Cola de Dragón', 450);
 INSERT INTO project_application (id, project_id, applicant_id, application_status, application_date, review_date, farm_name, area) VALUES (80,  2,  3,  'PENDIENTE', '2023-01-02', '2023-03-03', 'Finca la Odisea', 450);
+
+INSERT INTO project_application (id, project_id, applicant_id, application_status, application_date, review_date, farm_name, area) VALUES (81,  2,  3,  'APROBADO', '2023-01-02', '2023-03-03', 'Finca la Paz de Dios', 450);
+INSERT INTO crop (id, project_application_id, status, start_date, end_date, expected_expense, assigned_budget, sale_value) VALUES (81, 81, 'CREADO', '2024-05-12', '2025-06-01', 500.00, 1000.00, 1200.00);
 
 
 

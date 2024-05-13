@@ -24,11 +24,8 @@ public class Project {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    //@OneToMany(mappedBy = "project")
-    //private List<ProjectApplication> projectApplications;   // mejor dejo que solo el ProjectApplication referencie al Project y no al contrario.
-
     @ManyToOne
-    @JoinColumn(name = "crop_type_id", nullable = true)  //, insertable = false, updatable = false)
+    @JoinColumn(name = "crop_type_id", nullable = true)
     private CropType cropType;
 
     @NotBlank(message = "El campo Proyecto es obligatorio")

@@ -85,7 +85,6 @@ public class ProjectApplicationService implements IProjectApplicationService {
         return modelMapper.map(savedProjectApplication, ProjectApplicationResponseDTO.class);
     }
 
-    // Falta el update de ProjectApplication
     @Override
     public ProjectApplicationResponseDTO update(Integer id, ProjectApplicationRequestDTO projectApplicationRequestDTO) {
         ProjectApplication projectApplication = projectApplicationRepository.findById(id)

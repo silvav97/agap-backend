@@ -17,11 +17,11 @@ import java.nio.charset.StandardCharsets;
 @RequiredArgsConstructor
 public class EmailService implements IEmailService {
 
-    private final JavaMailSender       mailSender;
+    private final JavaMailSender mailSender;
     private final SpringTemplateEngine templateEngine;
 
-    @Override
     @Async
+    @Override
     public void sendEmail(String to, String subject, String bodyMessage, String url, String buttonMessage) throws MessagingException {
         MimeMessage mimeMessage = mailSender.createMimeMessage();
         MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED, StandardCharsets.UTF_8.name());
@@ -39,4 +39,5 @@ public class EmailService implements IEmailService {
         mimeMessageHelper.setText(html, true);
         mailSender.send(mimeMessage);
     }
+
 }

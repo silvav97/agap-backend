@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProjectApplicationRequestDTO {
-
     private Integer id;
     private Integer projectId;
     private Integer applicantId;
