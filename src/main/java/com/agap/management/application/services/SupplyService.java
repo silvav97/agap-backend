@@ -3,6 +3,7 @@ package com.agap.management.application.services;
 import com.agap.management.application.ports.ICropService;
 import com.agap.management.application.ports.IEmailService;
 import com.agap.management.application.ports.ISupplyService;
+import com.agap.management.domain.dtos.UserDTO;
 import com.agap.management.domain.dtos.response.CropResponseDTO;
 import com.agap.management.domain.dtos.response.CropTypeResponseDTO;
 import com.agap.management.domain.dtos.response.ProjectApplicationResponseDTO;
@@ -38,8 +39,8 @@ public class SupplyService implements ISupplyService {
     }
 
     private <T> void validateSupplyNecessity(CropResponseDTO crop, LocalDate today, Class<T> supplyClass) {
-        CropTypeResponseDTO cropType = crop.getProjectApplication().getProject().getCropType();
         ProjectApplicationResponseDTO projectApplication = crop.getProjectApplication();
+        CropTypeResponseDTO cropType = projectApplication.getProject().getCropType();
 
         float totalPlantAmount = (float) cropType.getPlantQuantityPerSquareMeter() /
                 projectApplication.getArea();
@@ -57,23 +58,29 @@ public class SupplyService implements ISupplyService {
         if (today.isBefore(endDate) && daysBetweenTodayAndEnd >= supplyFrequency) {
             if(daysBetweenStartAndToday % supplyFrequency == 0) {
                 float supplyAmountToApply = totalPlantAmount * supplyQuantityPerPlant;
-                sendSupplyNotification(projectApplication.getApplicant().getEmail(),
-                        supplyAmountToApply, (supplyClass.equals(Fertilizer.class) ? "fertilizante" : "pesticida"));
+                String supplyType = supplyClass.equals(Fertilizer.class) ? "fertilizante" : "pesticida";
+                String supplyName = supplyClass.equals(Fertilizer.class) ? cropType.getFertilizer().getName()
+                        : cropType.getPesticide().getName();
+
+                sendSupplyNotification(projectApplication.getApplicant(),
+                        supplyAmountToApply, supplyType, supplyName);
 
             }
         }
     }
 
-    private void sendSupplyNotification(String to, float supplyAmount, String supplyType) {
+    private void sendSupplyNotification(UserDTO user, float supplyAmount, String supplyType, String supplyName) {
         DecimalFormat df = new DecimalFormat("#.##");
         String formattedAmount = df.format(supplyAmount);
+        String userFullName = String.format("%s %s", user.getFirstName(), user.getLastName());
 
         String subject = "Recordatorio de Mantenimiento de Cultivo";
-        String bodyMessage = "Querido usuario de AGAP, recuerda que tu cultivo necesita recibir " +
-                formattedAmount + " gr de " + supplyType + " el día de hoy.";
+        String bodyMessage = String.format(
+                "Querido %s, recuerda que tu cultivo necesita recibir %s gr de %s %s el día de hoy.",
+                userFullName,formattedAmount, supplyType, supplyName);
 
         try {
-            emailService.sendEmail(to, subject, bodyMessage, null, null);
+            emailService.sendEmail(user.getEmail(), subject, bodyMessage, null, null);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
