@@ -6,7 +6,6 @@ import com.agap.management.domain.dtos.response.ProjectResponseDTO;
 import com.agap.management.domain.entities.*;
 import com.agap.management.domain.enums.ProcessStatus;
 import com.agap.management.exceptions.personalizedException.EntityNotFoundByFieldException;
-import com.agap.management.infrastructure.adapters.persistence.ICropRepository;
 import com.agap.management.infrastructure.adapters.persistence.ICropTypeRepository;
 import com.agap.management.infrastructure.adapters.persistence.IProjectApplicationRepository;
 import com.agap.management.infrastructure.adapters.persistence.IProjectRepository;
@@ -96,11 +95,9 @@ public class ProjectService implements IProjectService {
 
     @Override
     public List<String> findRelatedProjectApplications(Integer projectId) {
-        List<String> relatedProjectApplications = projectApplicationRepository.findByProject_Id(projectId).stream()
+        return projectApplicationRepository.findByProject_Id(projectId).stream()
                 .map(ProjectApplication::getFarmName)
                 .collect(Collectors.toList());
-        System.out.println("findRelatedProjectApplications: " + relatedProjectApplications);
-        return relatedProjectApplications;
     }
 
     @Override

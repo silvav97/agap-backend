@@ -34,7 +34,6 @@ public class AuthenticationController {
     @GetMapping("/verify/{token}")
     public ResponseEntity<LoginResponseDTO> verifyUser(@PathVariable String token) throws MessagingException {
         return ResponseEntity.ok(registrationService.verifyUser(token));
-        //throw new RuntimeException("LOCAL EXCEPTION");
     }
 
     @PostMapping("/login")

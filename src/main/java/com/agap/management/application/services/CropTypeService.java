@@ -3,7 +3,6 @@ package com.agap.management.application.services;
 import com.agap.management.application.ports.ICropTypeService;
 import com.agap.management.application.ports.IFertilizerService;
 import com.agap.management.application.ports.IPesticideService;
-import com.agap.management.domain.dtos.ProjectDTO;
 import com.agap.management.domain.dtos.request.CropTypeRequestDTO;
 import com.agap.management.domain.dtos.response.CropTypeResponseDTO;
 import com.agap.management.domain.entities.CropType;
@@ -30,13 +29,13 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class CropTypeService implements ICropTypeService {
 
-    private final ICropTypeRepository   cropTypeRepository;
-    private final IProjectRepository    projectRepository;   // tal vez sea mejor usar el service en lugar del repo
-    private final IFertilizerService    fertilizerService;
-    private final IPesticideService     pesticideService;
+    private final ICropTypeRepository cropTypeRepository;
+    private final IProjectRepository projectRepository;
+    private final IFertilizerService fertilizerService;
+    private final IPesticideService pesticideService;
     private final IFertilizerRepository fertilizerRepository;
-    private final IPesticideRepository  pesticideRepository;
-    private final ModelMapper           modelMapper;
+    private final IPesticideRepository pesticideRepository;
+    private final ModelMapper modelMapper;
 
     @Override
     public List<CropTypeResponseDTO> findAll() {
@@ -59,22 +58,13 @@ public class CropTypeService implements ICropTypeService {
 
     @Override
     public CropTypeResponseDTO save(CropTypeRequestDTO cropTypeRequestDTO) {
-        System.out.println("\nCROP_TYPE SERVICE, save was called ");
-        System.out.println("\nCROP_TYPE SERVICE, cropTypeRequestDTO: " + cropTypeRequestDTO);
         CropType cropType = modelMapper.map(cropTypeRequestDTO, CropType.class);
 
         cropType.setFertilizer(fertilizerService.getFertilizerById(cropTypeRequestDTO.getFertilizerId()));
         cropType.setPesticide(pesticideService.getPesticideById(cropTypeRequestDTO.getPesticideId()));
-        System.out.println("\nCROP_TYPE SERVICE, cropType: " + cropType);
-
-
-
 
         CropType savedCropType = cropTypeRepository.save(cropType);
-        System.out.println("\nCROP_TYPE SERVICE, savedCropType: " + savedCropType);
-        CropTypeResponseDTO cropTypeResponseDTO = modelMapper.map(savedCropType, CropTypeResponseDTO.class);
-        System.out.println("\nCROP_TYPE SERVICE, cropTypeResponseDTO: " + cropTypeResponseDTO);
-        return cropTypeResponseDTO;
+        return modelMapper.map(savedCropType, CropTypeResponseDTO.class);
     }
 
     @Override
@@ -87,12 +77,14 @@ public class CropTypeService implements ICropTypeService {
         // Asignar manualmente las entidades de Fertilizer y Pesticide basadas en los IDs
         if (cropTypeRequestDTO.getFertilizerId() != null) {
             Fertilizer fertilizer = fertilizerRepository.findById(cropTypeRequestDTO.getFertilizerId())
-                    .orElseThrow(() -> new EntityNotFoundByFieldException("Fertilizante", "id", cropTypeRequestDTO.getFertilizerId().toString()));
+                    .orElseThrow(() -> new EntityNotFoundByFieldException(
+                            "Fertilizante", "id", cropTypeRequestDTO.getFertilizerId().toString()));
             cropType.setFertilizer(fertilizer);
         }
         if (cropTypeRequestDTO.getPesticideId() != null) {
             Pesticide pesticide = pesticideRepository.findById(cropTypeRequestDTO.getPesticideId())
-                    .orElseThrow(() -> new EntityNotFoundByFieldException("Pesticida", "id", cropTypeRequestDTO.getPesticideId().toString()));
+                    .orElseThrow(() -> new EntityNotFoundByFieldException(
+                            "Pesticida", "id", cropTypeRequestDTO.getPesticideId().toString()));
             cropType.setPesticide(pesticide);
         }
         CropType savedCropType = cropTypeRepository.save(cropType);
@@ -116,11 +108,9 @@ public class CropTypeService implements ICropTypeService {
 
     @Override
     public List<String> findRelatedProjects(Integer cropTypeId) {
-        List<String> relatedProjects = projectRepository.findByCropType_Id(cropTypeId).stream()
+        return projectRepository.findByCropType_Id(cropTypeId).stream()
                 .map(Project::getName)
                 .collect(Collectors.toList());
-        System.out.println("findRelatedProjects: " + relatedProjects);
-        return relatedProjects;
     }
 
 }

@@ -14,7 +14,6 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProjectApplicationResponseDTO {
-
     private Integer id;
     private ProjectResponseDTO project;
     private UserDTO applicant;
@@ -23,5 +22,4 @@ public class ProjectApplicationResponseDTO {
     private LocalDate reviewDate;
     private String farmName;
     private int area;
-
 }

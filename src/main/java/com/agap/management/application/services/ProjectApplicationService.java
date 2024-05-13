@@ -2,7 +2,6 @@ package com.agap.management.application.services;
 
 import com.agap.management.application.ports.IEmailService;
 import com.agap.management.application.ports.IProjectApplicationService;
-import com.agap.management.application.ports.IProjectService;
 import com.agap.management.domain.dtos.request.ProjectApplicationRequestDTO;
 import com.agap.management.domain.dtos.response.ProjectApplicationResponseDTO;
 import com.agap.management.domain.entities.*;
@@ -28,7 +27,6 @@ public class ProjectApplicationService implements IProjectApplicationService {
 
     private final IProjectApplicationRepository projectApplicationRepository;
     private final IProjectRepository projectRepository;
-    private final IProjectService projectService;
     private final IUserRepository userRepository;
     private final ModelMapper modelMapper;
     private final IEmailService emailService;
@@ -62,7 +60,7 @@ public class ProjectApplicationService implements IProjectApplicationService {
     @Override
     public ProjectApplicationResponseDTO findById(Integer id) {
         ProjectApplication projectApplication = projectApplicationRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundByFieldException("ProjectApplication", "id", id.toString()));
+                .orElseThrow(() -> new EntityNotFoundByFieldException("Aplicación a proyecto", "id", id.toString()));
         return modelMapper.map(projectApplication, ProjectApplicationResponseDTO.class);
     }
 
@@ -115,7 +113,7 @@ public class ProjectApplicationService implements IProjectApplicationService {
     @Override
     public Map<String, String> reject(Integer id) throws MessagingException {
         ProjectApplication projectApplication = projectApplicationRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundByFieldException("ProjectApplication", "id", id.toString()));
+                .orElseThrow(() -> new EntityNotFoundByFieldException("Aplicación a proyecto", "id", id.toString()));
 
         projectApplication.setApplicationStatus(ApplicationStatus.RECHAZADO);
         projectApplicationRepository.save(projectApplication);
@@ -124,7 +122,7 @@ public class ProjectApplicationService implements IProjectApplicationService {
         emailService.sendEmail(projectApplication.getApplicant().getEmail(), "Aplicación Rechazada", content, null, null);
 
         Map<String, String> response = new HashMap<>();
-        response.put("message", "Rejected Successfully");
+        response.put("message", "Rechazado exitosamente");
         return response;
     }
 

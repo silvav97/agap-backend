@@ -16,5 +16,4 @@ public interface IPesticideService {
     Boolean delete(Integer id);
     Pesticide getPesticideById(Integer id);
     List<String> findRelatedCropTypes(Integer pesticideId);
-
 }

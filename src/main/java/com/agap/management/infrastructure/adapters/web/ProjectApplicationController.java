@@ -20,7 +20,6 @@ import java.util.Map;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/project-application")
-//@PreAuthorize("hasRole('ADMIN')")   El admin solo crea, pero el user ve
 public class ProjectApplicationController {
 
     private final IProjectApplicationService projectApplicationService;
