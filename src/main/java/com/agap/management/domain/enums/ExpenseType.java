@@ -6,9 +6,9 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum ExpenseType {
-    LABOR("Gasto de Mano de Obra"),
-    PESTICIDE("Gasto de Pesticida"),
-    FERTILIZER("Gasto de Fertilizante");
+    MANO_DE_OBRA("Gasto de Mano de Obra"),
+    PESTICIDA("Gasto de Pesticida"),
+    FERTILIZANTE("Gasto de Fertilizante");
 
     private final String displayValue;
 }

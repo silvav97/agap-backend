@@ -391,35 +391,35 @@ INSERT INTO project_application (id, project_id, applicant_id, application_statu
 
 
 
+---------------------------------------  EXPENSE  ---------------------------------------
+INSERT INTO expense (id, crop_id, expense_value, expense_description, expense_date) VALUES (1, 1,  131.1, 'MANO_DE_OBRA', '2023-03-03');
+INSERT INTO expense (id, crop_id, expense_value, expense_description, expense_date) VALUES (2, 1,  131.1, 'PESTICIDA',    '2023-03-03');
+INSERT INTO expense (id, crop_id, expense_value, expense_description, expense_date) VALUES (3, 1,  131.1, 'PESTICIDA',    '2023-03-03');
+INSERT INTO expense (id, crop_id, expense_value, expense_description, expense_date) VALUES (4, 1,  131.1, 'MANO_DE_OBRA', '2023-03-03');
+INSERT INTO expense (id, crop_id, expense_value, expense_description, expense_date) VALUES (5, 1,  131.1, 'FERTILIZANTE', '2023-03-03');
+INSERT INTO expense (id, crop_id, expense_value, expense_description, expense_date) VALUES (6, 1,  131.1, 'FERTILIZANTE', '2023-03-03');
+INSERT INTO expense (id, crop_id, expense_value, expense_description, expense_date) VALUES (7, 1,  131.1, 'FERTILIZANTE', '2023-03-03');
+INSERT INTO expense (id, crop_id, expense_value, expense_description, expense_date) VALUES (8, 1,  131.1, 'FERTILIZANTE', '2023-03-03');
+INSERT INTO expense (id, crop_id, expense_value, expense_description, expense_date) VALUES (9, 1,  131.1, 'PESTICIDA',    '2023-03-03');
+INSERT INTO expense (id, crop_id, expense_value, expense_description, expense_date) VALUES (10, 1, 131.1, 'MANO_DE_OBRA', '2023-03-03');
+INSERT INTO expense (id, crop_id, expense_value, expense_description, expense_date) VALUES (11, 1, 131.1, 'MANO_DE_OBRA', '2023-03-03');
+INSERT INTO expense (id, crop_id, expense_value, expense_description, expense_date) VALUES (12, 1, 131.1, 'FERTILIZANTE', '2023-03-03');
+INSERT INTO expense (id, crop_id, expense_value, expense_description, expense_date) VALUES (13, 1, 131.1, 'FERTILIZANTE', '2023-03-03');
+INSERT INTO expense (id, crop_id, expense_value, expense_description, expense_date) VALUES (14, 1, 131.1, 'FERTILIZANTE', '2023-03-03');
+INSERT INTO expense (id, crop_id, expense_value, expense_description, expense_date) VALUES (15, 1, 131.1, 'FERTILIZANTE', '2023-03-03');
 
-
---INSERT INTO project_application (id, project_id, applicant_id, application_status, application_date, review_date, farm_name, area, municipality, weather) VALUES (2,  1, 2, 'ACCEPTED', '2023-01-02', '2023-03-03', 'Finca la peña', 200, 'Medellin', 'TROPICAL');
---INSERT INTO project_application (id, project_id, applicant_id, application_status, application_date, review_date, farm_name, area, municipality, weather) VALUES (3,  1, 2, 'REJECTED', '2023-01-02', NULL,         'Finca la peña', 200, 'Medellin', 'TROPICAL');
---INSERT INTO project_application (id, project_id, applicant_id, application_status, application_date, review_date, farm_name, area, municipality, weather) VALUES (4,  1, 2, 'PENDING',  '2023-01-02', NULL,         'Finca la peña', 200, 'Medellin', 'TROPICAL');
---INSERT INTO project_application (id, project_id, applicant_id, application_status, application_date, review_date, farm_name, area, municipality, weather) VALUES (5,  1, 1, 'PENDING',  '2023-01-02', NULL,         'Finca la peña', 200, 'Medellin', 'TROPICAL');
---INSERT INTO project_application (id, project_id, applicant_id, application_status, application_date, review_date, farm_name, area, municipality, weather) VALUES (6,  1, 1, 'PENDING',  '2023-01-02', NULL,         'Finca la peña', 200, 'Medellin', 'TROPICAL');
---INSERT INTO project_application (id, project_id, applicant_id, application_status, application_date, review_date, farm_name, area, municipality, weather) VALUES (7,  2, 1, 'PENDING',  '2023-01-02', NULL,         'Finca la peña', 200, 'Medellin', 'TROPICAL');
---INSERT INTO project_application (id, project_id, applicant_id, application_status, application_date, review_date, farm_name, area, municipality, weather) VALUES (8,  2, 1, 'PENDING',  '2023-01-02', NULL,         'Finca la peña', 200, 'Medellin', 'TROPICAL');
---INSERT INTO project_application (id, project_id, applicant_id, application_status, application_date, review_date, farm_name, area, municipality, weather) VALUES (9,  2, 1, 'PENDING',  '2023-01-02', NULL,         'Finca la peña', 200, 'Medellin', 'TROPICAL');
---INSERT INTO project_application (id, project_id, applicant_id, application_status, application_date, review_date, farm_name, area, municipality, weather) VALUES (10, 2, 1, 'PENDING',  '2023-01-02', NULL,         'Finca la peña', 200, 'Medellin', 'TROPICAL');
---INSERT INTO project_application (id, project_id, applicant_id, application_status, application_date, review_date, farm_name, area, municipality, weather) VALUES (11, 2, 1, 'PENDING',  '2023-01-02', NULL,         'Finca la peña', 200, 'Medellin', 'TROPICAL');
---INSERT INTO project_application (id, project_id, applicant_id, application_status, application_date, review_date, farm_name, area, municipality, weather) VALUES (12, 2, 1, 'PENDING',  '2023-01-02', NULL,         'Finca la peña', 200, 'Medellin', 'TROPICAL');
---INSERT INTO project_application (id, project_id, applicant_id, application_status, application_date, review_date, farm_name, area, municipality, weather) VALUES (13, 2, 1, 'PENDING',  '2023-01-02', NULL,         'Finca la peña', 200, 'Medellin', 'TROPICAL');
---INSERT INTO project_application (id, project_id, applicant_id, application_status, application_date, review_date, farm_name, area, municipality, weather) VALUES (14, 2, 1, 'PENDING',  '2023-01-02', NULL,         'Finca la peña', 200, 'Medellin', 'TROPICAL');
---INSERT INTO project_application (id, project_id, applicant_id, application_status, application_date, review_date, farm_name, area, municipality, weather) VALUES (15, 2, 1, 'PENDING',  '2023-01-02', NULL,         'Finca la peña', 200, 'Medellin', 'TROPICAL');
---INSERT INTO project_application (id, project_id, applicant_id, application_status, application_date, review_date, farm_name, area, municipality, weather) VALUES (16, 2, 1, 'ACCEPTED', '2023-01-02', NULL,         'Finca la peña', 200, 'Medellin', 'TROPICAL');
---INSERT INTO project_application (id, project_id, applicant_id, application_status, application_date, review_date, farm_name, area, municipality, weather) VALUES (17, 2, 1, 'PENDING',  '2023-01-02', NULL,         'Finca la peña', 200, 'Medellin', 'TROPICAL');
-
-
-
-
-----------------------------------  CROP ----------------------------------
---INSERT INTO crop (id, user_id, project_id, project_application_id, farm_name, status, start_date, end_date, expected_expense, assigned_budget, sale_value, area) VALUES (2,  2, 1, 2,  'Finca la veterana',     'CLOSED', '2023-02-01', '2023-07-20', 300.00, 900.00,  950.00,  200);
---INSERT INTO crop (id, user_id, project_id, project_application_id, farm_name, status, start_date, end_date, expected_expense, assigned_budget, sale_value, area) VALUES (3,  2, 1, 3,  'Cultivo de Cebada',    'CREATED', '2023-03-01', NULL,         200.00, 800.00, 850.00, 150);
---INSERT INTO crop (id, user_id, project_id, project_application_id, farm_name, status, start_date, end_date, expected_expense, assigned_budget, sale_value, area) VALUES (4,  2, 1, 4,  'Cultivo de Soya',      'CLOSED',  '2023-01-15', '2023-08-10', 400.00, 1100.00, 1300.00, 180);
---INSERT INTO crop (id, user_id, project_id, project_application_id, farm_name, status, start_date, end_date, expected_expense, assigned_budget, sale_value, area) VALUES (5,  2, 1, 5,  'Cultivo de Arroz',     'CREATED', '2023-01-20', '2023-09-30', 600.00, 1200.00, 1250.00, 160);
---INSERT INTO crop (id, user_id, project_id, project_application_id, farm_name, status, start_date, end_date, expected_expense, assigned_budget, sale_value, area) VALUES (6,  2, 1, 6,  'Cultivo de Sorgo',     'CLOSED',  '2023-02-10', '2023-08-15', 350.00, 950.00, 1000.00, 190);
---INSERT INTO crop (id, user_id, project_id, project_application_id, farm_name, status, start_date, end_date, expected_expense, assigned_budget, sale_value, area) VALUES (7,  2, 1, 7,  'Cultivo de Alfalfa',   'CREATED', '2023-03-05', '2023-08-25', 250.00, 850.00, 900.00, 120);
---INSERT INTO crop (id, user_id, project_id, project_application_id, farm_name, status, start_date, end_date, expected_expense, assigned_budget, sale_value, area) VALUES (8,  2, 1, 8,  'Cultivo de Lentejas',  'CLOSED',  '2023-03-20', '2023-10-05', 450.00, 1050.00, 1150.00, 130);
---INSERT INTO crop (id, user_id, project_id, project_application_id, farm_name, status, start_date, end_date, expected_expense, assigned_budget, sale_value, area) VALUES (9,  2, 1, 9,  'Cultivo de Garbanzos', 'CREATED', '2023-04-01', NULL,         500.00, 1000.00, 1100.00, 140);
---INSERT INTO crop (id, user_id, project_id, project_application_id, farm_name, status, start_date, end_date, expected_expense, assigned_budget, sale_value, area) VALUES (10, 2, 1, 10, 'Cultivo de Papas',     'CLOSED',  '2023-05-01', '2023-10-20', 550.00, 1150.00, 1180.00, 170);
+INSERT INTO expense (id, crop_id, expense_value, expense_description, expense_date) VALUES (16, 51, 131.1, 'FERTILIZANTE', '2023-03-03');
+INSERT INTO expense (id, crop_id, expense_value, expense_description, expense_date) VALUES (17, 51, 131.1, 'PESTICIDA',    '2023-03-03');
+INSERT INTO expense (id, crop_id, expense_value, expense_description, expense_date) VALUES (18, 51, 131.1, 'PESTICIDA',    '2023-03-03');
+INSERT INTO expense (id, crop_id, expense_value, expense_description, expense_date) VALUES (19, 51, 131.1, 'MANO_DE_OBRA', '2023-03-03');
+INSERT INTO expense (id, crop_id, expense_value, expense_description, expense_date) VALUES (20, 51, 131.1, 'FERTILIZANTE', '2023-03-03');
+INSERT INTO expense (id, crop_id, expense_value, expense_description, expense_date) VALUES (21, 51, 131.1, 'MANO_DE_OBRA', '2023-03-03');
+INSERT INTO expense (id, crop_id, expense_value, expense_description, expense_date) VALUES (22, 51, 131.1, 'FERTILIZANTE', '2023-03-03');
+INSERT INTO expense (id, crop_id, expense_value, expense_description, expense_date) VALUES (23, 51, 131.1, 'PESTICIDA',    '2023-03-03');
+INSERT INTO expense (id, crop_id, expense_value, expense_description, expense_date) VALUES (24, 51, 131.1, 'PESTICIDA',    '2023-03-03');
+INSERT INTO expense (id, crop_id, expense_value, expense_description, expense_date) VALUES (25, 51, 131.1, 'MANO_DE_OBRA', '2023-03-03');
+INSERT INTO expense (id, crop_id, expense_value, expense_description, expense_date) VALUES (26, 51, 131.1, 'FERTILIZANTE', '2023-03-03');
+INSERT INTO expense (id, crop_id, expense_value, expense_description, expense_date) VALUES (27, 51, 131.1, 'FERTILIZANTE', '2023-03-03');
+INSERT INTO expense (id, crop_id, expense_value, expense_description, expense_date) VALUES (28, 51, 131.1, 'PESTICIDA',    '2023-03-03');
+INSERT INTO expense (id, crop_id, expense_value, expense_description, expense_date) VALUES (29, 51, 131.1, 'MANO_DE_OBRA', '2023-03-03');
+INSERT INTO expense (id, crop_id, expense_value, expense_description, expense_date) VALUES (30, 51, 131.1, 'MANO_DE_OBRA', '2023-03-03');

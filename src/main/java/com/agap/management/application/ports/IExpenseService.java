@@ -11,6 +11,9 @@ import java.util.List;
 public interface IExpenseService {
     List<ExpenseResponseDTO> findAll();
     Page<ExpenseResponseDTO> findAll(Pageable pageable);
+
+    Page<ExpenseResponseDTO> findAllByCropId(Pageable pageable, Integer cropId);
+
     ExpenseResponseDTO findById(Integer id);
     ExpenseResponseDTO save(ExpenseRequestDTO expenseRequestDTO);
     ExpenseResponseDTO update(Integer id, ExpenseRequestDTO expenseRequestDTO);
