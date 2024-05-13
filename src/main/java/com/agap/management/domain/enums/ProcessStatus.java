@@ -6,8 +6,8 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum ProcessStatus {
-    CREATED("Creado"),
-    CLOSED("Cerrado");
+    CREADO("CREADO"),
+    CERRADO("CERRADO");
 
     private final String displayValue;
 }

@@ -3,6 +3,8 @@ package com.agap.management.domain.entities;
 import com.agap.management.domain.enums.ApplicationStatus;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -32,9 +34,6 @@ public class ProjectApplication {
     @JoinColumn(name = "applicant_id")
     private User applicant;
 
-    //@OneToOne(mappedBy = "projectApplication")
-    //private Crop crop;                         // Mejor solo dejo que el crop mapee al ProjectApplication
-
     @Enumerated(EnumType.STRING)
     @Column(name = "application_status", nullable = false)
     private ApplicationStatus applicationStatus;
@@ -45,11 +44,13 @@ public class ProjectApplication {
     @Column(name = "review_date")
     private LocalDate reviewDate;
 
-    @Size(max = 500, message = "El comentario no puede tener más de {max} caracteres")
-    @Column(name = "admin_comment", length = 500)
-    private String adminComment;
+    @NotBlank(message = "El campo Nombre de Finca es obligatorio")
+    @Size(max = 100, message = "El campo Nombre de Finca no puede tener más de {max} caracteres")
+    @Column(name = "farm_name", nullable = false, length = 100)
+    private String farmName;
 
-
-    // faltan las entidades necesarias para luego crear un crop
+    @DecimalMin(value = "0.000001", message = "El valor debe ser mayor que cero")
+    @Column(name = "area", nullable = false)
+    private int area;
 
 }

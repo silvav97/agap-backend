@@ -1,17 +1,17 @@
 package com.agap.management.application.services;
 
+import com.agap.management.application.ports.IEmailService;
 import com.agap.management.application.ports.IProjectApplicationService;
 import com.agap.management.application.ports.IProjectService;
 import com.agap.management.domain.dtos.request.ProjectApplicationRequestDTO;
-import com.agap.management.domain.dtos.response.CropTypeResponseDTO;
 import com.agap.management.domain.dtos.response.ProjectApplicationResponseDTO;
-import com.agap.management.domain.dtos.response.ProjectResponseDTO;
 import com.agap.management.domain.entities.*;
 import com.agap.management.domain.enums.ApplicationStatus;
 import com.agap.management.exceptions.personalizedException.EntityNotFoundByFieldException;
 import com.agap.management.infrastructure.adapters.persistence.IProjectApplicationRepository;
 import com.agap.management.infrastructure.adapters.persistence.IProjectRepository;
 import com.agap.management.infrastructure.adapters.persistence.IUserRepository;
+import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -19,9 +19,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -33,6 +31,7 @@ public class ProjectApplicationService implements IProjectApplicationService {
     private final IProjectService projectService;
     private final IUserRepository userRepository;
     private final ModelMapper modelMapper;
+    private final IEmailService emailService;
 
 
     @Override
@@ -49,55 +48,85 @@ public class ProjectApplicationService implements IProjectApplicationService {
     }
 
     @Override
+    public Page<ProjectApplicationResponseDTO> findAllByUserId(Pageable pageable, Integer userId) {
+        Page<ProjectApplication> page = projectApplicationRepository.findByApplicantId(pageable, userId);
+        return page.map(projectApplication -> modelMapper.map(projectApplication, ProjectApplicationResponseDTO.class));
+    }
+
+    @Override
+    public Page<ProjectApplicationResponseDTO> findAllByProjectId(Pageable pageable, Integer projectId) {
+        Page<ProjectApplication> page = projectApplicationRepository.findByProjectId(pageable, projectId);
+        return page.map(projectApplication -> modelMapper.map(projectApplication, ProjectApplicationResponseDTO.class));
+    }
+
+    @Override
     public ProjectApplicationResponseDTO findById(Integer id) {
         ProjectApplication projectApplication = projectApplicationRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundByFieldException("ProjectApplication", "id", id.toString()));
-
-        ProjectApplicationResponseDTO projectApplicationResponseDTO = modelMapper.map(projectApplication, ProjectApplicationResponseDTO.class);
-        return projectApplicationResponseDTO;
+        return modelMapper.map(projectApplication, ProjectApplicationResponseDTO.class);
     }
 
     @Override
     public ProjectApplicationResponseDTO save(ProjectApplicationRequestDTO projectApplicationRequestDTO) {
-        System.out.println("\nPROJECT_APPLICATION SERVICE, save was called ");
-        System.out.println("\nPROJECT_APPLICATION SERVICE, projectApplicationRequestDTO: " + projectApplicationRequestDTO);
-        ProjectApplication projectApplication = modelMapper.map(projectApplicationRequestDTO, ProjectApplication.class);
-        System.out.println("\nPROJECT_APPLICATION SERVICE, projectApplication despues del primer mapeo: " + projectApplication);
 
+        ProjectApplication projectApplication = modelMapper.map(projectApplicationRequestDTO, ProjectApplication.class);
         Project project = projectRepository.findById(projectApplicationRequestDTO.getProjectId()).orElseThrow(() -> new EntityNotFoundByFieldException("Project", "id", projectApplicationRequestDTO.getProjectId().toString()));
         User applicant = userRepository.findById(projectApplicationRequestDTO.getApplicantId()).orElseThrow(() -> new EntityNotFoundByFieldException("User", "id", projectApplicationRequestDTO.getApplicantId().toString()));
+        if (!projectApplicationRequestDTO.getMunicipality().equals(project.getMunicipality())) {
+            throw new RuntimeException("Tu Municipio no coincide con el municipio del proyecto al que quieres aplicar");
+        }
 
         projectApplication.setProject(project);
         projectApplication.setApplicant(applicant);
-        projectApplication.setApplicationStatus(ApplicationStatus.PENDING);
+        projectApplication.setApplicationStatus(ApplicationStatus.PENDIENTE);
         projectApplication.setApplicationDate(LocalDate.now());
 
-        System.out.println(String.format("\n" +
-                        "PROJECT_APPLICATION SERVICE, Valores de projectApplication importantes: " +
-                        "ProjectApplication.Project.id: %s,  ProjectApplication.Applicant.id: %s,  " +
-                        "ProjectApplication.ApplicationStatus: %s,  ProjectApplication.ApplicationDate: %s",
-                projectApplication.getProject().getId(), projectApplication.getApplicant().getId(), projectApplication.getApplicationStatus(), projectApplication.getApplicationDate()));
-
         ProjectApplication savedProjectApplication = projectApplicationRepository.save(projectApplication);
-        System.out.println(String.format("\n" +
-                        "PROJECT_APPLICATION SERVICE, Valores de projectApplication importantes: " +
-                        "ProjectApplication.Project.id: %s,  ProjectApplication.Applicant.id: %s,  " +
-                        "ProjectApplication.ApplicationStatus: %s,  ProjectApplication.ApplicationDate: %s",
-                savedProjectApplication.getProject().getId(), savedProjectApplication.getApplicant().getId(), savedProjectApplication.getApplicationStatus(), savedProjectApplication.getApplicationDate()));
+        return modelMapper.map(savedProjectApplication, ProjectApplicationResponseDTO.class);
+    }
 
+    // Falta el update de ProjectApplication
+    @Override
+    public ProjectApplicationResponseDTO update(Integer id, ProjectApplicationRequestDTO projectApplicationRequestDTO) {
+        ProjectApplication projectApplication = projectApplicationRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundByFieldException("Aplicación a Project", "id", id.toString()));
 
-        ProjectApplicationResponseDTO projectApplicationResponseDTO = modelMapper.map(savedProjectApplication, ProjectApplicationResponseDTO.class);
-        System.out.println(String.format("\n" +
-                        "PROJECT_APPLICATION SERVICE, Valores de projectApplication importantes: " +
-                        "ProjectApplication.Project.id: %s,  ProjectApplication.Applicant.id: %s,  " +
-                        "ProjectApplication.ApplicationStatus: %s,  ProjectApplication.ApplicationDate: %s",
-                projectApplicationResponseDTO.getProject().getId(), projectApplicationResponseDTO.getApplicant().getId(), projectApplicationResponseDTO.getApplicationStatus(), projectApplicationResponseDTO.getApplicationDate()));
+        modelMapper.map(projectApplicationRequestDTO, projectApplication);
 
+        Project project = projectRepository.findById(projectApplicationRequestDTO.getProjectId()).orElseThrow(() -> new EntityNotFoundByFieldException("Project", "id", projectApplicationRequestDTO.getProjectId().toString()));
 
-        System.out.println("\nPROJECT_APPLICATION SERVICE, projectApplicationResponseDTO: " + projectApplicationResponseDTO);
-        System.out.println("\nPROJECT_APPLICATION SERVICE finished?: ");
+        if (!projectApplicationRequestDTO.getMunicipality().equals(project.getMunicipality())) {
+            throw new RuntimeException("Tu Municipio no coincide con el municipio del proyecto al que quieres aplicar");
+        }
+        ProjectApplication savedProjectApplication = projectApplicationRepository.save(projectApplication);
+        return modelMapper.map(savedProjectApplication, ProjectApplicationResponseDTO.class);
+    }
 
-        return projectApplicationResponseDTO;
+    @Override
+    public Boolean delete(Integer id) {
+        try {
+            projectApplicationRepository.deleteById(id);
+            return true;
+        }
+        catch (Exception e) {
+            return false;
+        }
+    }
+
+    @Override
+    public Map<String, String> reject(Integer id) throws MessagingException {
+        ProjectApplication projectApplication = projectApplicationRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundByFieldException("ProjectApplication", "id", id.toString()));
+
+        projectApplication.setApplicationStatus(ApplicationStatus.RECHAZADO);
+        projectApplicationRepository.save(projectApplication);
+
+        String content = String.format("Su aplicación al proyecto %s fue rechazada", projectApplication.getProject().getName());
+        emailService.sendEmail(projectApplication.getApplicant().getEmail(), "Aplicación Rechazada", content, null, null);
+
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Rejected Successfully");
+        return response;
     }
 
     @Override

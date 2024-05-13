@@ -1,7 +1,7 @@
 package com.agap.management.domain.enums;
 
 public enum ApplicationStatus {
-    ACCEPTED,
-    REJECTED,
-    PENDING
+    APROBADO,
+    RECHAZADO,
+    PENDIENTE
 }

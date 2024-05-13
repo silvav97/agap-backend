@@ -55,11 +55,7 @@ public class UserService implements IUserService {
 
         String subject = "Restablecer contraseña";
         String content = "Para cambiar la contraseña haga click en el siguiente botón.";
-
-        // TODO Aquí en realidad irá una url del frontend que le apuntará a la url de abajo,
-        //  el token se pasa porque el frontend lo necesita para acceder a la ruta
         String url = "http://localhost:4200/auth/reset-password/" + jwtToken;
-        //String url = "http://localhost:8080/api/v1/users/reset-password/" + jwtToken;
 
         String buttonMessage = "Cambiar contraseña";
         emailService.sendEmail(email, subject, content, url, buttonMessage);

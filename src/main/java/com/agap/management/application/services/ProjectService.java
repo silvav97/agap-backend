@@ -1,10 +1,14 @@
 package com.agap.management.application.services;
 
 import com.agap.management.application.ports.IProjectService;
+import com.agap.management.domain.dtos.request.ProjectRequestDTO;
 import com.agap.management.domain.dtos.response.ProjectResponseDTO;
-import com.agap.management.domain.entities.Crop;
-import com.agap.management.domain.entities.Project;
+import com.agap.management.domain.entities.*;
+import com.agap.management.domain.enums.ProcessStatus;
 import com.agap.management.exceptions.personalizedException.EntityNotFoundByFieldException;
+import com.agap.management.infrastructure.adapters.persistence.ICropRepository;
+import com.agap.management.infrastructure.adapters.persistence.ICropTypeRepository;
+import com.agap.management.infrastructure.adapters.persistence.IProjectApplicationRepository;
 import com.agap.management.infrastructure.adapters.persistence.IProjectRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -20,6 +24,8 @@ import java.util.stream.Collectors;
 public class ProjectService implements IProjectService {
 
     private final IProjectRepository projectRepository;
+    private final IProjectApplicationRepository projectApplicationRepository;
+    private final ICropTypeRepository cropTypeRepository;
     private final ModelMapper modelMapper;
 
     @Override
@@ -36,9 +42,70 @@ public class ProjectService implements IProjectService {
     }
 
     @Override
+    public ProjectResponseDTO findById(Integer id) {
+        Project project = projectRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundByFieldException("Proyecto", "id", id.toString()));
+
+        return modelMapper.map(project, ProjectResponseDTO.class);
+    }
+
+    @Override
+    public ProjectResponseDTO save(ProjectRequestDTO projectRequestDTO) {
+        Project project = modelMapper.map(projectRequestDTO, Project.class);
+        CropType cropType = cropTypeRepository.findById(projectRequestDTO.getCropTypeId())
+                .orElseThrow(() -> new EntityNotFoundByFieldException("Tipo de cultivo", "id", projectRequestDTO.getCropTypeId().toString()));
+
+        project.setCropType(cropType);
+        project.setStatus(ProcessStatus.CREADO);
+
+        Project savedProject = projectRepository.save(project);
+        return modelMapper.map(savedProject, ProjectResponseDTO.class);
+    }
+
+    @Override
+    public ProjectResponseDTO update(Integer id, ProjectRequestDTO projectRequestDTO) {
+
+        Project project = projectRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundByFieldException("Project", "id", id.toString()));
+
+        modelMapper.map(projectRequestDTO, project);
+        if (projectRequestDTO.getCropTypeId() != null) {
+            CropType cropType = cropTypeRepository.findById(projectRequestDTO.getCropTypeId())
+                    .orElseThrow(() -> new EntityNotFoundByFieldException("Fertilizante", "id", projectRequestDTO.getCropTypeId().toString()));
+            project.setCropType(cropType);
+        }
+
+        Project savedProject = projectRepository.save(project);
+        return modelMapper.map(savedProject, ProjectResponseDTO.class);
+    }
+
+    @Override
+    public Boolean delete(Integer projectId) {
+        try {
+            List<ProjectApplication> projectApplications = projectApplicationRepository.findByProject_Id(projectId);
+            projectApplications.forEach(projectApplication -> projectApplication.setProject(null));
+            projectApplicationRepository.saveAll(projectApplications);
+
+            projectRepository.deleteById(projectId);
+            return true;
+
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    @Override
+    public List<String> findRelatedProjectApplications(Integer projectId) {
+        List<String> relatedProjectApplications = projectApplicationRepository.findByProject_Id(projectId).stream()
+                .map(ProjectApplication::getFarmName)
+                .collect(Collectors.toList());
+        System.out.println("findRelatedProjectApplications: " + relatedProjectApplications);
+        return relatedProjectApplications;
+    }
+
+    @Override
     public Project getProjectById(Integer id) {
         return projectRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundByFieldException("Proyecto", "id", id.toString()));
     }
-
 }
