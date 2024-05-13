@@ -57,17 +57,18 @@ public class SupplyService implements ISupplyService {
         if (today.isBefore(endDate) && daysBetweenTodayAndEnd >= supplyFrequency) {
             if(daysBetweenStartAndToday % supplyFrequency == 0) {
                 float supplyAmountToApply = totalPlantAmount * supplyQuantityPerPlant;
-                sendSupplyNotification(projectApplication.getApplicant().getEmail(), "Recordatorio de Mantenimiento de Cultivo",
+                sendSupplyNotification(projectApplication.getApplicant().getEmail(),
                         supplyAmountToApply, (supplyClass.equals(Fertilizer.class) ? "fertilizante" : "pesticida"));
 
             }
         }
     }
 
-    private void sendSupplyNotification(String to, String subject, float supplyAmount, String supplyType) {
+    private void sendSupplyNotification(String to, float supplyAmount, String supplyType) {
         DecimalFormat df = new DecimalFormat("#.##");
         String formattedAmount = df.format(supplyAmount);
 
+        String subject = "Recordatorio de Mantenimiento de Cultivo";
         String bodyMessage = "Querido usuario de AGAP, recuerda que tu cultivo necesita recibir " +
                 formattedAmount + " gr de " + supplyType + " el día de hoy.";
 
