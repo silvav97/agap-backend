@@ -2,6 +2,7 @@ package com.agap.management.application.services;
 
 import com.agap.management.application.ports.ICropService;
 import com.agap.management.application.ports.IEmailService;
+import com.agap.management.application.ports.IReportService;
 import com.agap.management.domain.dtos.request.CropRequestDTO;
 import com.agap.management.domain.dtos.response.CropResponseDTO;
 import com.agap.management.domain.entities.Crop;
@@ -29,6 +30,7 @@ public class CropService implements ICropService {
     private final ICropRepository cropRepository;
     private final IProjectApplicationRepository projectApplicationRepository;
     private final IEmailService emailService;
+    private final IReportService reportService;
     private final ModelMapper modelMapper;
 
     @Override
@@ -83,6 +85,10 @@ public class CropService implements ICropService {
 
         modelMapper.map(cropRequestDTO, crop);
         Crop savedCrop = cropRepository.save(crop);
+
+        if (savedCrop.getStatus().equals(ProcessStatus.CERRADO)) {
+            reportService.generateCropReport(savedCrop);
+        }
         return modelMapper.map(savedCrop, CropResponseDTO.class);
     }
 
