@@ -1,6 +1,9 @@
-package com.agap.management.domain.entities;
+package com.agap.management.domain.dtos.response;
 
-import jakarta.persistence.*;
+import com.agap.management.domain.entities.Project;
+import jakarta.persistence.Column;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.DecimalMin;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,40 +14,28 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "project_report")
-public class ProjectReport {
+public class ProjectReportResponseDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name = "project_id")
-    private Project project;
+    private ProjectResponseDTO project;
 
     @DecimalMin(value = "0.000001", message = "El valor debe ser mayor que cero")
-    @Column(name = "total_sale", nullable = false)
     private float totalSale;
 
     @DecimalMin(value = "0.000001", message = "El valor debe ser mayor que cero")
-    @Column(name = "total_budget", nullable = false)
     private float totalBudget;
 
     @DecimalMin(value = "0.000001", message = "El valor debe ser mayor que cero")
-    @Column(name = "expected_expense", nullable = false)
     private float expectedExpense;
 
     @DecimalMin(value = "0.000001", message = "El valor debe ser mayor que cero")
-    @Column(name = "real_expense", nullable = false)
     private float realExpense;
 
     @DecimalMin(value = "0.000001", message = "El valor debe ser mayor que cero")
-    @Column(name = "profit", nullable = false)
     private float profit;
 
     @DecimalMin(value = "0.000001", message = "El valor debe ser mayor que cero")
-    @Column(name = "profitability", nullable = false)
     private float profitability;
 
 }

@@ -47,11 +47,6 @@ public class Project {
     @Column(name = "municipality", length = 100)
     private String municipality;
 
-
-
-    //@OneToMany(mappedBy = "project")
-    //private List<Crop> cropList;        // Tal vez debamos borrar esto y dejar que solo el Crop referencie al Project?
-
     @DecimalMin(value = "0.000001", message = "El valor debe ser mayor que cero")
     @Column(name = "total_budget", nullable = false)
     private float totalBudget;
@@ -59,11 +54,4 @@ public class Project {
     @Column(name = "image_url")
     private String imageUrl;
 
-
-    // El campo weather ya lo tiene CropType
-    /*
-    @Size(max = 100, message = "El campo Clima no puede tener más de {max} caracteres.")
-    @Column(name = "weather", length = 100)
-    private String weather;
-     */
 }
