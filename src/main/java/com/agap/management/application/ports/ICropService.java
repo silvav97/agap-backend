@@ -17,5 +17,6 @@ public interface ICropService {
     CropResponseDTO save(CropRequestDTO cropRequestDTO) throws MessagingException;
     CropResponseDTO update(Integer id, CropRequestDTO cropRequestDTO);
     Boolean delete(Integer id);
+    CropResponseDTO finish(Integer id, Float saleValue);
     Crop getCropById(Integer id);
 }
