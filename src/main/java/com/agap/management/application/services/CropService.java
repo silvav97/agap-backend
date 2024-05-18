@@ -2,6 +2,7 @@ package com.agap.management.application.services;
 
 import com.agap.management.application.ports.ICropService;
 import com.agap.management.application.ports.IEmailService;
+import com.agap.management.application.ports.IReportService;
 import com.agap.management.domain.dtos.request.CropRequestDTO;
 import com.agap.management.domain.dtos.response.CropResponseDTO;
 import com.agap.management.domain.entities.Crop;
@@ -29,6 +30,7 @@ public class CropService implements ICropService {
     private final ICropRepository cropRepository;
     private final IProjectApplicationRepository projectApplicationRepository;
     private final IEmailService emailService;
+    private final IReportService reportService;
     private final ModelMapper modelMapper;
 
     @Override
@@ -79,7 +81,8 @@ public class CropService implements ICropService {
     @Transactional
     @Override
     public CropResponseDTO update(Integer id, CropRequestDTO cropRequestDTO) {
-            Crop crop = cropRepository.findById(id).orElseThrow(() -> new EntityNotFoundByFieldException("Cultivo", "id", id.toString()));
+            Crop crop = cropRepository.findById(id).orElseThrow(() -> new EntityNotFoundByFieldException(
+                    "Cultivo", "id", id.toString()));
             modelMapper.map(cropRequestDTO, crop);
             Crop savedCrop = cropRepository.save(crop);
         return modelMapper.map(savedCrop, CropResponseDTO.class);
