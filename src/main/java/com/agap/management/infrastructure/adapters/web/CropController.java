@@ -57,11 +57,23 @@ public class CropController {
     @PutMapping("/{id}")
     public CropResponseDTO updateCrop(@RequestBody @Valid CropRequestDTO cropRequestDTO, @PathVariable Integer id) {
         return cropService.update(id, cropRequestDTO);
+
     }
 
     @DeleteMapping("/{id}")
     public boolean deleteCrop(@PathVariable Integer id) {
         return cropService.delete(id);
+    }
+
+    @PutMapping("/{id}/finish")
+    public CropResponseDTO finishCrop(@PathVariable Integer id, @RequestBody @Valid Float saleValue) {
+        System.out.println("CROP CONTROLLER, FINISH; saleValue: " + saleValue);
+
+        CropResponseDTO cropResponseDTO = cropService.finish(id, saleValue);
+        System.out.println("CROP CONTROLLER, FINISH; cropResponseDTO: " + cropResponseDTO);
+
+        return cropResponseDTO;
+
     }
 
 }

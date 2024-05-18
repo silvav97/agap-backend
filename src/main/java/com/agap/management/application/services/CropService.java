@@ -78,17 +78,13 @@ public class CropService implements ICropService {
         return modelMapper.map(savedCrop, CropResponseDTO.class);
     }
 
+    @Transactional
     @Override
     public CropResponseDTO update(Integer id, CropRequestDTO cropRequestDTO) {
-        Crop crop = cropRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundByFieldException("Cultivo", "id", id.toString()));
-
-        modelMapper.map(cropRequestDTO, crop);
-        Crop savedCrop = cropRepository.save(crop);
-
-        if (savedCrop.getStatus().equals(ProcessStatus.CERRADO)) {
-            reportService.generateCropReport(savedCrop);
-        }
+            Crop crop = cropRepository.findById(id).orElseThrow(() -> new EntityNotFoundByFieldException(
+                    "Cultivo", "id", id.toString()));
+            modelMapper.map(cropRequestDTO, crop);
+            Crop savedCrop = cropRepository.save(crop);
         return modelMapper.map(savedCrop, CropResponseDTO.class);
     }
 
@@ -101,6 +97,24 @@ public class CropService implements ICropService {
         catch (Exception e) {
             return false;
         }
+    }
+
+    @Override
+    public CropResponseDTO finish(Integer id, Float saleValue) {
+        Crop crop = cropRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundByFieldException("Cultivo", "id", id.toString()));
+
+        crop.setStatus(ProcessStatus.CERRADO);
+        crop.setSaleValue(saleValue);
+        System.out.println("CROP SERVICE, UPDATE; crop status: " + crop.getStatus());
+
+        Crop savedCrop = cropRepository.save(crop);
+        System.out.println("CROP SERVICE, UPDATE; savedCrop status: " + savedCrop.getStatus());
+
+        CropResponseDTO cropResponseDTO = modelMapper.map(savedCrop, CropResponseDTO.class);
+        System.out.println("CROP SERVICE, UPDATE; cropResponseDTO status: " + cropResponseDTO.getStatus());
+
+        return cropResponseDTO;
     }
 
     @Override

@@ -1,6 +1,5 @@
 package com.agap.management.domain.dtos.request;
 
-import com.agap.management.domain.enums.ProcessStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,7 +14,6 @@ import java.time.LocalDate;
 public class CropRequestDTO {
     private Integer id;
     private Integer projectApplicationId;
-    private ProcessStatus status;
     private LocalDate startDate;
     private LocalDate endDate;
     private float expectedExpense;
