@@ -20,12 +20,12 @@ public class ReportController {
 
     private final IReportService reportService;
 
-    @GetMapping("/crop/byProject/{id}")
+    @GetMapping("/crop/byProjectId/{id}")
     public List<CropReportResponseDTO> findAllCropReportsByProjectId(@PathVariable Integer id) {
         return reportService.findAllCropReportsByProjectId(id);
     }
 
-    @GetMapping("/crop/byProject/page/{id}")
+    @GetMapping("/crop/byProjectId/{id}/page")
     public Page<CropReportResponseDTO> findAllCropReportsByProjectIdPage(@RequestParam Integer pageNumber,
                                                                      @RequestParam Integer pageSize,
                                                                      @PathVariable Integer id) {
