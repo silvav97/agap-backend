@@ -425,3 +425,33 @@ INSERT INTO expense (id, crop_id, expense_value, expense_description, expense_da
 INSERT INTO expense (id, crop_id, expense_value, expense_description, expense_date) VALUES (28, 51, 131.1, 'PESTICIDA',    '2023-03-03');
 INSERT INTO expense (id, crop_id, expense_value, expense_description, expense_date) VALUES (29, 51, 131.1, 'MANO_DE_OBRA', '2023-03-03');
 INSERT INTO expense (id, crop_id, expense_value, expense_description, expense_date) VALUES (30, 51, 131.1, 'MANO_DE_OBRA', '2023-03-03');
+
+
+-------------------------------------------- CropReport ------------------------------------------------
+
+INSERT INTO crop_report (id, crop_id, total_sale, assigned_budget, expected_expense, real_expense, profit, profitability) VALUES (1, 1, 1200.00, 1000.00, 500.00, 450.00, 750.00, 0.625);
+INSERT INTO crop_report (id, crop_id, total_sale, assigned_budget, expected_expense, real_expense, profit, profitability) VALUES (2, 2, 1500.00, 1100.00, 600.00, 550.00, 950.00, 0.633);
+INSERT INTO crop_report (id, crop_id, total_sale, assigned_budget, expected_expense, real_expense, profit, profitability) VALUES (3, 3, 1300.00, 1050.00, 520.00, 480.00, 820.00, 0.631);
+INSERT INTO crop_report (id, crop_id, total_sale, assigned_budget, expected_expense, real_expense, profit, profitability) VALUES (4, 4, 1400.00, 1080.00, 550.00, 500.00, 900.00, 0.643);
+INSERT INTO crop_report (id, crop_id, total_sale, assigned_budget, expected_expense, real_expense, profit, profitability) VALUES (5, 5, 1250.00, 1020.00, 510.00, 460.00, 790.00, 0.632);
+INSERT INTO crop_report (id, crop_id, total_sale, assigned_budget, expected_expense, real_expense, profit, profitability) VALUES (6, 6, 1350.00, 1060.00, 530.00, 490.00, 860.00, 0.637);
+INSERT INTO crop_report (id, crop_id, total_sale, assigned_budget, expected_expense, real_expense, profit, profitability) VALUES (7, 7, 1450.00, 1090.00, 560.00, 510.00, 940.00, 0.648);
+INSERT INTO crop_report (id, crop_id, total_sale, assigned_budget, expected_expense, real_expense, profit, profitability) VALUES (8, 8, 1100.00, 1000.00, 500.00, 450.00, 650.00, 0.591);
+INSERT INTO crop_report (id, crop_id, total_sale, assigned_budget, expected_expense, real_expense, profit, profitability) VALUES (9, 9, 1600.00, 1150.00, 580.00, 540.00, 1060.00, 0.663);
+INSERT INTO crop_report (id, crop_id, total_sale, assigned_budget, expected_expense, real_expense, profit, profitability) VALUES (10, 10, 1700.00, 1180.00, 590.00, 550.00, 1150.00, 0.676);
+INSERT INTO crop_report (id, crop_id, total_sale, assigned_budget, expected_expense, real_expense, profit, profitability) VALUES (11, 11, 1550.00, 1120.00, 570.00, 530.00, 1020.00, 0.658);
+
+
+-------------------------------------------- ProjectReport ------------------------------------------------
+
+INSERT INTO project_report (id, project_id, total_sale, total_budget, expected_expense, real_expense, profit, profitability) VALUES (1, 1,  10000.00, 10000.00, 5000.00,  4500.00,  5500.00, 0.55);
+INSERT INTO project_report (id, project_id, total_sale, total_budget, expected_expense, real_expense, profit, profitability) VALUES (2, 2,  15000.00, 10000.00, 6000.00,  5500.00,  9500.00, 0.63);
+INSERT INTO project_report (id, project_id, total_sale, total_budget, expected_expense, real_expense, profit, profitability) VALUES (3, 3,  13000.00, 10000.00, 5200.00,  4800.00,  8200.00, 0.63);
+INSERT INTO project_report (id, project_id, total_sale, total_budget, expected_expense, real_expense, profit, profitability) VALUES (4, 4,  14000.00, 10000.00, 5500.00,  5000.00,  9000.00, 0.64);
+INSERT INTO project_report (id, project_id, total_sale, total_budget, expected_expense, real_expense, profit, profitability) VALUES (5, 5,  12500.00, 10000.00, 5100.00,  4600.00,  7900.00, 0.63);
+INSERT INTO project_report (id, project_id, total_sale, total_budget, expected_expense, real_expense, profit, profitability) VALUES (6, 6,  13500.00, 10000.00, 5300.00,  4900.00,  8600.00, 0.64);
+INSERT INTO project_report (id, project_id, total_sale, total_budget, expected_expense, real_expense, profit, profitability) VALUES (7, 7,  14500.00, 10000.00, 5600.00,  5100.00,  9400.00, 0.65);
+INSERT INTO project_report (id, project_id, total_sale, total_budget, expected_expense, real_expense, profit, profitability) VALUES (8, 8,  11000.00, 10000.00, 5000.00,  4500.00,  6500.00, 0.59);
+INSERT INTO project_report (id, project_id, total_sale, total_budget, expected_expense, real_expense, profit, profitability) VALUES (9, 9,  16000.00, 10000.00, 5800.00,  5400.00, 10600.00, 0.66);
+INSERT INTO project_report (id, project_id, total_sale, total_budget, expected_expense, real_expense, profit, profitability) VALUES (10, 10, 17000.00, 10000.00, 5900.00,  5500.00, 11500.00, 0.68);
+INSERT INTO project_report (id, project_id, total_sale, total_budget, expected_expense, real_expense, profit, profitability) VALUES (11, 2, 15500.00, 10000.00, 5700.00,  5300.00, 10200.00, 0.66);
