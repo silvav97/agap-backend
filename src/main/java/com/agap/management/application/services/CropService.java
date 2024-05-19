@@ -6,6 +6,7 @@ import com.agap.management.application.ports.IReportService;
 import com.agap.management.domain.dtos.request.CropRequestDTO;
 import com.agap.management.domain.dtos.response.CropResponseDTO;
 import com.agap.management.domain.entities.Crop;
+import com.agap.management.domain.entities.CropReport;
 import com.agap.management.domain.entities.ProjectApplication;
 import com.agap.management.domain.enums.ApplicationStatus;
 import com.agap.management.domain.enums.ProcessStatus;
@@ -99,6 +100,7 @@ public class CropService implements ICropService {
         }
     }
 
+    @Transactional
     @Override
     public CropResponseDTO finish(Integer id, Float saleValue) {
         Crop crop = cropRepository.findById(id)
@@ -109,7 +111,8 @@ public class CropService implements ICropService {
         System.out.println("CROP SERVICE, UPDATE; crop status: " + crop.getStatus());
 
         Crop savedCrop = cropRepository.save(crop);
-        System.out.println("CROP SERVICE, UPDATE; savedCrop status: " + savedCrop.getStatus());
+        CropReport cropReport = reportService.generateCropReport(savedCrop);
+        System.out.println("CROP SERVICE, UPDATE; cropReport Profitability: " + cropReport.getProfitability());
 
         CropResponseDTO cropResponseDTO = modelMapper.map(savedCrop, CropResponseDTO.class);
         System.out.println("CROP SERVICE, UPDATE; cropResponseDTO status: " + cropResponseDTO.getStatus());

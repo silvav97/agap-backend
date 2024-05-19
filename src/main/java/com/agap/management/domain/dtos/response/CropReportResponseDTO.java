@@ -9,8 +9,8 @@ import lombok.*;
 @AllArgsConstructor
 public class CropReportResponseDTO {
 
-/*    @NonNull
-    private Integer id;*/
+    @NonNull
+    private Integer id;
 
     @NonNull
     private CropResponseDTO crop;
