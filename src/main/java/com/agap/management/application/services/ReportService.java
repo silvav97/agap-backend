@@ -4,6 +4,7 @@ import com.agap.management.application.ports.IReportService;
 import com.agap.management.domain.dtos.response.CropReportResponseDTO;
 import com.agap.management.domain.dtos.response.ProjectReportResponseDTO;
 import com.agap.management.domain.entities.*;
+import com.agap.management.exceptions.personalizedException.EntityNotFoundByFieldException;
 import com.agap.management.infrastructure.adapters.persistence.ICropReportRepository;
 import com.agap.management.infrastructure.adapters.persistence.IProjectReportRepository;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -38,8 +40,13 @@ public class ReportService implements IReportService {
 
     @Override
     public CropReportResponseDTO findCropReportByCropId(Integer cropId) {
-        CropReport cropReport = cropReportRepository.findByCrop_Id(cropId);
-        return modelMapper.map(cropReport, CropReportResponseDTO.class);
+        Optional<CropReport> cropReport = Optional.ofNullable(cropReportRepository.findByCrop_Id(cropId));
+        
+        if (cropReport.isEmpty()) {
+            throw new EntityNotFoundByFieldException("Reporte de cultivo", "Id de cultivo", cropId.toString());
+        }
+
+        return modelMapper.map(cropReport.get(), CropReportResponseDTO.class);
     }
 
     @Override
@@ -77,7 +84,9 @@ public class ReportService implements IReportService {
 
     @Override
     public ProjectReportResponseDTO findProjectReportById(Integer projectId) {
-        return modelMapper.map(projectReportRepository.findById(projectId), ProjectReportResponseDTO.class);
+        ProjectReport projectReport = projectReportRepository.findById(projectId).orElseThrow(
+                () -> new EntityNotFoundByFieldException("Reporte de proyecto", "Id de proyecto", projectId.toString()));
+        return modelMapper.map(projectReport, ProjectReportResponseDTO.class);
     }
 
     @Override
