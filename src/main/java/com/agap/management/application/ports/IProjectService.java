@@ -1,6 +1,7 @@
 package com.agap.management.application.ports;
 
 import com.agap.management.domain.dtos.request.ProjectRequestDTO;
+import com.agap.management.domain.dtos.response.CropResponseDTO;
 import com.agap.management.domain.dtos.response.ProjectResponseDTO;
 import com.agap.management.domain.entities.Project;
 import org.springframework.data.domain.Page;
@@ -17,4 +18,6 @@ public interface IProjectService {
     Boolean delete(Integer id);
     Project getProjectById(Integer id);
     List<String> findRelatedProjectApplications(Integer id);
+    List<CropResponseDTO> findRelatedCrops(Integer id);
+
 }

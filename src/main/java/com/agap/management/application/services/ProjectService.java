@@ -2,10 +2,12 @@ package com.agap.management.application.services;
 
 import com.agap.management.application.ports.IProjectService;
 import com.agap.management.domain.dtos.request.ProjectRequestDTO;
+import com.agap.management.domain.dtos.response.CropResponseDTO;
 import com.agap.management.domain.dtos.response.ProjectResponseDTO;
 import com.agap.management.domain.entities.*;
 import com.agap.management.domain.enums.ProcessStatus;
 import com.agap.management.exceptions.personalizedException.EntityNotFoundByFieldException;
+import com.agap.management.infrastructure.adapters.persistence.ICropRepository;
 import com.agap.management.infrastructure.adapters.persistence.ICropTypeRepository;
 import com.agap.management.infrastructure.adapters.persistence.IProjectApplicationRepository;
 import com.agap.management.infrastructure.adapters.persistence.IProjectRepository;
@@ -23,6 +25,7 @@ import java.util.stream.Collectors;
 public class ProjectService implements IProjectService {
 
     private final IProjectRepository projectRepository;
+    private final ICropRepository cropRepository;
     private final IProjectApplicationRepository projectApplicationRepository;
     private final ICropTypeRepository cropTypeRepository;
     private final ModelMapper modelMapper;
@@ -98,6 +101,14 @@ public class ProjectService implements IProjectService {
         return projectApplicationRepository.findByProject_Id(projectId).stream()
                 .map(ProjectApplication::getFarmName)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<CropResponseDTO> findRelatedCrops(Integer projectId) {
+        return cropRepository.findByProjectApplication_Project_Id(projectId).stream()
+                .map(crop -> modelMapper.map(crop, CropResponseDTO .class))
+                .collect(Collectors.toList());
+
     }
 
     @Override

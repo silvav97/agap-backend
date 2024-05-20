@@ -2,6 +2,7 @@ package com.agap.management.infrastructure.adapters.web;
 
 import com.agap.management.application.ports.IProjectService;
 import com.agap.management.domain.dtos.request.ProjectRequestDTO;
+import com.agap.management.domain.dtos.response.CropResponseDTO;
 import com.agap.management.domain.dtos.response.ProjectResponseDTO;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -53,6 +54,11 @@ public class ProjectController {
     @GetMapping("/{id}/relatedProjectApplications")
     public List<String> getRelatedProjectApplicationsByProjectId(@PathVariable Integer id) {
         return projectService.findRelatedProjectApplications(id);
+    }
+
+    @GetMapping("/{id}/relatedCrops")
+    public List<CropResponseDTO> getRelatedCropsByProjectId(@PathVariable Integer id) {
+        return projectService.findRelatedCrops(id);
     }
 
 }
