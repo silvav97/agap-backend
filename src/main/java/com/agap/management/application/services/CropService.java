@@ -5,14 +5,13 @@ import com.agap.management.application.ports.IEmailService;
 import com.agap.management.application.ports.IReportService;
 import com.agap.management.domain.dtos.request.CropRequestDTO;
 import com.agap.management.domain.dtos.response.CropResponseDTO;
-import com.agap.management.domain.entities.Crop;
-import com.agap.management.domain.entities.CropReport;
-import com.agap.management.domain.entities.ProjectApplication;
+import com.agap.management.domain.entities.*;
 import com.agap.management.domain.enums.ApplicationStatus;
 import com.agap.management.domain.enums.ProcessStatus;
 import com.agap.management.exceptions.personalizedException.EntityNotFoundByFieldException;
 import com.agap.management.infrastructure.adapters.persistence.ICropRepository;
 import com.agap.management.infrastructure.adapters.persistence.IProjectApplicationRepository;
+import com.agap.management.infrastructure.adapters.persistence.IProjectRepository;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -29,6 +28,7 @@ import java.util.stream.Collectors;
 public class CropService implements ICropService {
 
     private final ICropRepository cropRepository;
+    private final IProjectRepository projectRepository;
     private final IProjectApplicationRepository projectApplicationRepository;
     private final IEmailService emailService;
     private final IReportService reportService;
@@ -108,16 +108,18 @@ public class CropService implements ICropService {
 
         crop.setStatus(ProcessStatus.CERRADO);
         crop.setSaleValue(saleValue);
-        System.out.println("CROP SERVICE, UPDATE; crop status: " + crop.getStatus());
-
         Crop savedCrop = cropRepository.save(crop);
-        CropReport cropReport = reportService.generateCropReport(savedCrop);
-        System.out.println("CROP SERVICE, UPDATE; cropReport Profitability: " + cropReport.getProfitability());
+        reportService.generateCropReport(savedCrop);
 
-        CropResponseDTO cropResponseDTO = modelMapper.map(savedCrop, CropResponseDTO.class);
-        System.out.println("CROP SERVICE, UPDATE; cropResponseDTO status: " + cropResponseDTO.getStatus());
-
-        return cropResponseDTO;
+        List<Crop> cropList = cropRepository.findByProjectApplication_Project_Id(crop.getProjectApplication().getProject().getId());
+        boolean allClosed = cropList.stream().allMatch(c -> c.getStatus() == ProcessStatus.CERRADO);
+        if (allClosed) {
+            reportService.generateProjectReport(crop.getProjectApplication().getProject());
+            Project project = crop.getProjectApplication().getProject();
+            project.setStatus(ProcessStatus.CERRADO);
+            projectRepository.save(project);
+        }
+        return modelMapper.map(savedCrop, CropResponseDTO.class);
     }
 
     @Override

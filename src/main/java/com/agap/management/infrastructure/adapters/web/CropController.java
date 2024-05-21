@@ -70,7 +70,7 @@ public class CropController {
         System.out.println("CROP CONTROLLER, FINISH; saleValue: " + saleValue);
 
         CropResponseDTO cropResponseDTO = cropService.finish(id, saleValue);
-        System.out.println("CROP CONTROLLER, FINISH; cropResponseDTO: " + cropResponseDTO);
+        System.out.println("CROP CONTROLLER, FINISH; cropResponseDTO: " + cropResponseDTO.getStatus());
 
         return cropResponseDTO;
 

@@ -391,6 +391,27 @@ INSERT INTO crop (id, project_application_id, status, start_date, end_date, expe
 
 
 
+-------------------------------  PROJECT_APPLICATION, CROP, CROP_REPORT  -------------------------------
+
+INSERT INTO project_application (id, project_id, applicant_id, application_status, application_date, review_date, farm_name, area) VALUES (100,  9,  1,  'APROBADO', '2023-01-02', '2023-03-03', 'Finca el Ovelisco', 450);
+INSERT INTO crop (id, project_application_id, status, start_date, end_date, expected_expense, assigned_budget, sale_value) VALUES (100, 100, 'CERRADO', '2023-03-03', '2023-06-01', 500.00, 1000.00, 1200.00);
+INSERT INTO crop_report (id, crop_id, total_sale, assigned_budget, expected_expense, real_expense, profit, profitability) VALUES (100, 100, 1200.00, 1000.00, 500.00, 450.00, 750.00, 0.625);
+
+INSERT INTO project_application (id, project_id, applicant_id, application_status, application_date, review_date, farm_name, area) VALUES (101,  9,  1,  'APROBADO', '2023-01-02', '2023-03-03', 'Finca el Ovelisco 2', 450);
+INSERT INTO crop (id, project_application_id, status, start_date, end_date, expected_expense, assigned_budget, sale_value) VALUES (101, 101, 'CERRADO', '2023-03-03', '2023-06-01', 500.00, 1000.00, 1200.00);
+INSERT INTO crop_report (id, crop_id, total_sale, assigned_budget, expected_expense, real_expense, profit, profitability) VALUES (101, 101, 1200.00, 1000.00, 500.00, 450.00, 750.00, 0.625);
+
+INSERT INTO project_application (id, project_id, applicant_id, application_status, application_date, review_date, farm_name, area) VALUES (102,  9,  1,  'APROBADO', '2023-01-02', '2023-03-03', 'Finca el Ovelisco 3', 450);
+INSERT INTO crop (id, project_application_id, status, start_date, end_date, expected_expense, assigned_budget, sale_value) VALUES (102, 102, 'CREADO', '2023-03-03', '2023-06-01', 500.00, 1000.00, 1200.00);
+INSERT INTO expense (id, crop_id, expense_value, expense_description, expense_date) VALUES (102, 102,  131.1, 'MANO_DE_OBRA', '2023-03-03');
+
+INSERT INTO project_application (id, project_id, applicant_id, application_status, application_date, review_date, farm_name, area) VALUES (103,  9,  1,  'APROBADO', '2023-01-02', '2023-03-03', 'Finca el Ovelisco 4', 450);
+INSERT INTO crop (id, project_application_id, status, start_date, end_date, expected_expense, assigned_budget, sale_value) VALUES (103, 103, 'CREADO', '2023-03-03', '2023-06-01', 500.00, 1000.00, 1200.00);
+INSERT INTO expense (id, crop_id, expense_value, expense_description, expense_date) VALUES (103, 103,  131.1, 'MANO_DE_OBRA', '2023-03-03');
+
+
+
+
 
 
 ---------------------------------------  EXPENSE  ---------------------------------------
@@ -448,10 +469,10 @@ INSERT INTO project_report (id, project_id, total_sale, total_budget, expected_e
 INSERT INTO project_report (id, project_id, total_sale, total_budget, expected_expense, real_expense, profit, profitability) VALUES (2, 2,  15000.00, 10000.00, 6000.00,  5500.00,  9500.00, 0.63);
 INSERT INTO project_report (id, project_id, total_sale, total_budget, expected_expense, real_expense, profit, profitability) VALUES (3, 3,  13000.00, 10000.00, 5200.00,  4800.00,  8200.00, 0.63);
 INSERT INTO project_report (id, project_id, total_sale, total_budget, expected_expense, real_expense, profit, profitability) VALUES (4, 4,  14000.00, 10000.00, 5500.00,  5000.00,  9000.00, 0.64);
-INSERT INTO project_report (id, project_id, total_sale, total_budget, expected_expense, real_expense, profit, profitability) VALUES (5, 5,  12500.00, 10000.00, 5100.00,  4600.00,  7900.00, 0.63);
-INSERT INTO project_report (id, project_id, total_sale, total_budget, expected_expense, real_expense, profit, profitability) VALUES (6, 6,  13500.00, 10000.00, 5300.00,  4900.00,  8600.00, 0.64);
-INSERT INTO project_report (id, project_id, total_sale, total_budget, expected_expense, real_expense, profit, profitability) VALUES (7, 7,  14500.00, 10000.00, 5600.00,  5100.00,  9400.00, 0.65);
-INSERT INTO project_report (id, project_id, total_sale, total_budget, expected_expense, real_expense, profit, profitability) VALUES (8, 8,  11000.00, 10000.00, 5000.00,  4500.00,  6500.00, 0.59);
-INSERT INTO project_report (id, project_id, total_sale, total_budget, expected_expense, real_expense, profit, profitability) VALUES (9, 9,  16000.00, 10000.00, 5800.00,  5400.00, 10600.00, 0.66);
-INSERT INTO project_report (id, project_id, total_sale, total_budget, expected_expense, real_expense, profit, profitability) VALUES (10, 10, 17000.00, 10000.00, 5900.00,  5500.00, 11500.00, 0.68);
-INSERT INTO project_report (id, project_id, total_sale, total_budget, expected_expense, real_expense, profit, profitability) VALUES (11, 2, 15500.00, 10000.00, 5700.00,  5300.00, 10200.00, 0.66);
+--INSERT INTO project_report (id, project_id, total_sale, total_budget, expected_expense, real_expense, profit, profitability) VALUES (5, 5,  12500.00, 10000.00, 5100.00,  4600.00,  7900.00, 0.63);
+--INSERT INTO project_report (id, project_id, total_sale, total_budget, expected_expense, real_expense, profit, profitability) VALUES (6, 6,  13500.00, 10000.00, 5300.00,  4900.00,  8600.00, 0.64);
+--INSERT INTO project_report (id, project_id, total_sale, total_budget, expected_expense, real_expense, profit, profitability) VALUES (7, 7,  14500.00, 10000.00, 5600.00,  5100.00,  9400.00, 0.65);
+--INSERT INTO project_report (id, project_id, total_sale, total_budget, expected_expense, real_expense, profit, profitability) VALUES (8, 8,  11000.00, 10000.00, 5000.00,  4500.00,  6500.00, 0.59);
+--INSERT INTO project_report (id, project_id, total_sale, total_budget, expected_expense, real_expense, profit, profitability) VALUES (9, 9,  16000.00, 10000.00, 5800.00,  5400.00, 10600.00, 0.66);
+--INSERT INTO project_report (id, project_id, total_sale, total_budget, expected_expense, real_expense, profit, profitability) VALUES (10, 10, 17000.00, 10000.00, 5900.00,  5500.00, 11500.00, 0.68);
+--INSERT INTO project_report (id, project_id, total_sale, total_budget, expected_expense, real_expense, profit, profitability) VALUES (11, 2, 15500.00, 10000.00, 5700.00,  5300.00, 10200.00, 0.66);
