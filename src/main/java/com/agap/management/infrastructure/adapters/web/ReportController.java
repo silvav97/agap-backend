@@ -1,8 +1,10 @@
 package com.agap.management.infrastructure.adapters.web;
 
 import com.agap.management.application.ports.IReportService;
+import com.agap.management.application.services.PDFGeneratorService;
 import com.agap.management.domain.dtos.response.CropReportResponseDTO;
 import com.agap.management.domain.dtos.response.ProjectReportResponseDTO;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -10,6 +12,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -19,6 +25,7 @@ import java.util.List;
 public class ReportController {
 
     private final IReportService reportService;
+    private final PDFGeneratorService pdfGeneratorService;
 
     @GetMapping("/crop/byProjectId/{id}")
     public List<CropReportResponseDTO> findAllCropReportsByProjectId(@PathVariable Integer id) {
@@ -53,6 +60,24 @@ public class ReportController {
     @GetMapping("/project/{id}")
     public ProjectReportResponseDTO findProjectReportById(@PathVariable Integer id) {
         return reportService.findProjectReportById(id);
+    }
+
+
+
+
+
+    @GetMapping("/pdf/generate/{id}")
+    public void generatePDF(@PathVariable Integer id, HttpServletResponse response) throws IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=pdf_" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        pdfGeneratorService.export(id, response);
+
     }
 
 }
