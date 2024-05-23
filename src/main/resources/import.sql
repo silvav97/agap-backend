@@ -219,16 +219,16 @@ INSERT INTO crop_type (id, weather, name, plant_quantity_per_square_meter, harve
 
 
 ---------------------------------------  PROJECT  ---------------------------------------
-INSERT INTO project (id, crop_type_id, name, status, start_date, end_date, municipality, total_budget, image_url) VALUES(1,  1,  'Proyecto Trigo',   'CREADO',  '2023-01-01', '2023-12-31', 'Vegachí',       10000, 'assets/images/bg-01.jpg');
-INSERT INTO project (id, crop_type_id, name, status, start_date, end_date, municipality, total_budget, image_url) VALUES(2,  2,  'Proyecto Manzana', 'CREADO',  '2023-01-01', '2023-12-31', 'Segovia',       10000, 'assets/images/info.jpg');
-INSERT INTO project (id, crop_type_id, name, status, start_date, end_date, municipality, total_budget, image_url) VALUES(3,  3,  'Proyecto Avena',   'CREADO',  '2023-01-01', '2023-12-31', 'Remedios',      10000, 'assets/images/bg-verde-01.avif');
-INSERT INTO project (id, crop_type_id, name, status, start_date, end_date, municipality, total_budget, image_url) VALUES(4,  4,  'Proyecto Cebada',  'CREADO',  '2023-01-01', '2023-12-31', 'Copacabana',    10000, 'assets/images/bg-verde-02.avif');
-INSERT INTO project (id, crop_type_id, name, status, start_date, end_date, municipality, total_budget, image_url) VALUES(5,  1,  'Proyecto Trigo',   'CREADO',  '2023-01-01', '2023-12-31', 'Barbosa',       10000, 'assets/images/bg-verde-03.jpg');
-INSERT INTO project (id, crop_type_id, name, status, start_date, end_date, municipality, total_budget, image_url) VALUES(6,  1,  'Proyecto Trigo',   'CREADO',  '2023-01-01', '2023-12-31', 'El Bagre',      10000, 'assets/images/bg-verde-04.jpg');
-INSERT INTO project (id, crop_type_id, name, status, start_date, end_date, municipality, total_budget, image_url) VALUES(7,  1,  'Proyecto Trigo',   'CREADO',  '2023-01-01', '2023-12-31', 'Zaragosa',      10000, 'assets/images/bg-verde-05.jpg');
-INSERT INTO project (id, crop_type_id, name, status, start_date, end_date, municipality, total_budget, image_url) VALUES(8,  8,  'Proyecto Mango',   'CREADO',  '2023-01-01', '2023-12-31', 'Itagüí',        10000, 'assets/images/bg-verde-06.avif');
-INSERT INTO project (id, crop_type_id, name, status, start_date, end_date, municipality, total_budget, image_url) VALUES(9,  2,  'Proyecto Manzana', 'CREADO',  '2023-01-01', '2023-12-31', 'Caucasia',      10000, 'assets/images/bg-verde-07.jpg');
-INSERT INTO project (id, crop_type_id, name, status, start_date, end_date, municipality, total_budget, image_url) VALUES(10, 10, 'Proyecto Coco',    'CERRADO', '2023-01-01', '2023-12-31', 'Puerto Berrío', 10000, 'assets/images/bg-verde-08.jpg');
+INSERT INTO project (id, crop_type_id, name, status, start_date, end_date, municipality, total_budget, image_url) VALUES(1,  1,  'Proyecto Trigo',   'CREADO',  '2023-01-01', '2023-12-31', 'Vegachí',       10000, 'bg-01.jpg');
+INSERT INTO project (id, crop_type_id, name, status, start_date, end_date, municipality, total_budget, image_url) VALUES(2,  2,  'Proyecto Manzana', 'CREADO',  '2023-01-01', '2023-12-31', 'Segovia',       10000, 'info.jpg');
+INSERT INTO project (id, crop_type_id, name, status, start_date, end_date, municipality, total_budget, image_url) VALUES(3,  3,  'Proyecto Avena',   'CREADO',  '2023-01-01', '2023-12-31', 'Remedios',      10000, 'bg-verde-03.jpg');
+INSERT INTO project (id, crop_type_id, name, status, start_date, end_date, municipality, total_budget, image_url) VALUES(4,  4,  'Proyecto Cebada',  'CREADO',  '2023-01-01', '2023-12-31', 'Copacabana',    10000, 'bg-verde-03.jpg');
+INSERT INTO project (id, crop_type_id, name, status, start_date, end_date, municipality, total_budget, image_url) VALUES(5,  1,  'Proyecto Trigo',   'CREADO',  '2023-01-01', '2023-12-31', 'Barbosa',       10000, 'bg-verde-03.jpg');
+INSERT INTO project (id, crop_type_id, name, status, start_date, end_date, municipality, total_budget, image_url) VALUES(6,  1,  'Proyecto Trigo',   'CREADO',  '2023-01-01', '2023-12-31', 'El Bagre',      10000, 'bg-verde-04.jpg');
+INSERT INTO project (id, crop_type_id, name, status, start_date, end_date, municipality, total_budget, image_url) VALUES(7,  1,  'Proyecto Trigo',   'CREADO',  '2023-01-01', '2023-12-31', 'Zaragosa',      10000, 'bg-verde-05.jpg');
+INSERT INTO project (id, crop_type_id, name, status, start_date, end_date, municipality, total_budget, image_url) VALUES(8,  8,  'Proyecto Mango',   'CREADO',  '2023-01-01', '2023-12-31', 'Itagüí',        10000, 'bg-verde-05.jpg');
+INSERT INTO project (id, crop_type_id, name, status, start_date, end_date, municipality, total_budget, image_url) VALUES(9,  2,  'Proyecto Manzana', 'CREADO',  '2023-01-01', '2023-12-31', 'Caucasia',      10000, 'bg-verde-07.jpg');
+INSERT INTO project (id, crop_type_id, name, status, start_date, end_date, municipality, total_budget, image_url) VALUES(10, 10, 'Proyecto Coco',    'CERRADO', '2023-01-01', '2023-12-31', 'Puerto Berrío', 10000, 'bg-verde-08.jpg');
 
 
 

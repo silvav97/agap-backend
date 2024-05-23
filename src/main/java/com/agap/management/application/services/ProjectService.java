@@ -16,7 +16,12 @@ import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,6 +34,8 @@ public class ProjectService implements IProjectService {
     private final IProjectApplicationRepository projectApplicationRepository;
     private final ICropTypeRepository cropTypeRepository;
     private final ModelMapper modelMapper;
+
+    private final Path rootLocation = Paths.get("upload-dir");
 
     @Override
     public List<ProjectResponseDTO> findAll() {
@@ -115,5 +122,18 @@ public class ProjectService implements IProjectService {
     public Project getProjectById(Integer id) {
         return projectRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundByFieldException("Proyecto", "id", id.toString()));
+    }
+
+    private String saveFile(MultipartFile file) {
+        if (file != null && !file.isEmpty()) {
+            try {
+                Files.createDirectories(rootLocation);
+                Files.copy(file.getInputStream(), this.rootLocation.resolve(file.getOriginalFilename()));
+                return this.rootLocation.resolve(file.getOriginalFilename()).toString();
+            } catch (IOException e) {
+                throw new RuntimeException("Failed to store file", e);
+            }
+        }
+        return null;
     }
 }
