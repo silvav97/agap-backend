@@ -72,7 +72,7 @@ public class ReportController {
         String headerValue = "attachment; filename=pdf_" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
 
-        pdfGeneratorService.export(id, response);
+        pdfGeneratorService.exportProjectReport(id, response);
 
     }
 
