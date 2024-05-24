@@ -1,8 +1,16 @@
 package com.agap.management.domain.dtos.response;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class ControllerResponseDTO {
-    String responseMessage;
+    @JsonProperty("message")
+    private String message;
 }

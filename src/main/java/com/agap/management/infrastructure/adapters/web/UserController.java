@@ -28,7 +28,9 @@ public class UserController {
 
     @PostMapping("/forgot-password")
     public ResponseEntity<ControllerResponseDTO> forgotPassword(@RequestBody @Valid ForgotPasswordDTO request) throws MessagingException {
+        System.out.println("User_CONTROLLER  forgotPassword");
         String message = userService.forgotPassword(request.getEmail());
+        System.out.println("User_CONTROLLER  message: " + message);
         return ResponseEntity.ok(new ControllerResponseDTO(message));
     }
 

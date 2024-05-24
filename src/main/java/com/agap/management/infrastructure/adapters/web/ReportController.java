@@ -62,10 +62,6 @@ public class ReportController {
         return reportService.findProjectReportById(id);
     }
 
-
-
-
-
     @GetMapping("/pdf/generate/{id}")
     public void generatePDF(@PathVariable Integer id, HttpServletResponse response) throws IOException {
         response.setContentType("application/pdf");
