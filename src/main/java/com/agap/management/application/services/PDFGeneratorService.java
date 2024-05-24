@@ -51,12 +51,6 @@ public class PDFGeneratorService {
         table.setSpacingBefore(10f);
         table.setSpacingAfter(10f);
 
-        // Table headers
-        //PdfPCell cell1 = new PdfPCell(new Paragraph("Attribute", fontParagraph));
-        //PdfPCell cell2 = new PdfPCell(new Paragraph("Value", fontParagraph));
-        //table.addCell(cell1);
-        //table.addCell(cell2);
-
         // Add project report attributes to table
         table.addCell("Ventas Totales");
         table.addCell(String.valueOf(projectReport.getTotalSale()));
@@ -72,7 +66,6 @@ public class PDFGeneratorService {
         table.addCell(String.valueOf(projectReport.getProfitability()));
 
         document.add(table);
-
 
         // Add crop reports table
         Paragraph cropReportsTitle = new Paragraph("Reporte de Cultivos", fontTitle);
@@ -106,7 +99,6 @@ public class PDFGeneratorService {
         }
 
         document.add(cropTable);
-
 
         document.close();
     }
