@@ -118,8 +118,10 @@ public class ProjectApplicationService implements IProjectApplicationService {
         projectApplication.setApplicationStatus(ApplicationStatus.RECHAZADO);
         projectApplicationRepository.save(projectApplication);
 
-        String content = String.format("Su aplicación al proyecto %s fue rechazada", projectApplication.getProject().getName());
-        emailService.sendEmail(projectApplication.getApplicant().getEmail(), "Aplicación Rechazada", content, null, null);
+        String email = projectApplication.getApplicant().getEmail();
+        String subject = "Aplicación a proyecto Rechazada";
+        String content = String.format("Hola %s, tu aplicación al proyecto '%s' fue rechazada", projectApplication.getApplicant().getFirstName(), projectApplication.getProject().getName());
+        emailService.sendEmail(email, subject, content, null, null);
 
         Map<String, String> response = new HashMap<>();
         response.put("message", "Rechazado exitosamente");

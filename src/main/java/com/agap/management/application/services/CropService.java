@@ -73,9 +73,13 @@ public class CropService implements ICropService {
 
         crop.setProjectApplication(projectApplication);
         crop.setStatus(ProcessStatus.CREADO);
-
         Crop savedCrop = cropRepository.save(crop);
-        emailService.sendEmail(crop.getProjectApplication().getApplicant().getEmail(),"Aplicación a proyecto aprobada", "La aplicación al proyecto fue aprobada","","");
+
+        String email = crop.getProjectApplication().getApplicant().getEmail();
+        String subject = "Aplicación a proyecto Aprobada";
+        String content = String.format("Hola %s, tu aplicación al proyecto '%s' fue aprobada", crop.getProjectApplication().getApplicant().getFirstName(), crop.getProjectApplication().getProject().getName());
+        emailService.sendEmail(email, subject, content,null,null);
+
         return modelMapper.map(savedCrop, CropResponseDTO.class);
     }
 
