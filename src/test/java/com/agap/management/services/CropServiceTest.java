@@ -27,7 +27,6 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -126,10 +125,9 @@ public class CropServiceTest {
         when(cropRepository.findById(anyInt())).thenReturn(Optional.of(crop));
 
         doAnswer(invocation -> {
-            CropRequestDTO request = invocation.getArgument(0);
+            invocation.getArgument(0);
             Crop entity = invocation.getArgument(1);
-            entity.setProjectApplication(projectApplication); // Asegurarse que el ProjectApplication esté seteado
-            // Mapear los campos necesarios desde request a entity
+            entity.setProjectApplication(projectApplication);
             return null;
         }).when(modelMapper).map(any(CropRequestDTO.class), any(Crop.class));
 
@@ -153,7 +151,7 @@ public class CropServiceTest {
         when(cropRepository.findById(anyInt())).thenReturn(Optional.of(crop));
         when(cropRepository.save(any(Crop.class))).thenReturn(crop);
         when(modelMapper.map(any(Crop.class), eq(CropResponseDTO.class))).thenReturn(cropResponseDTO);
-        when(cropRepository.findByProjectApplication_Project_Id(anyInt())).thenReturn(Arrays.asList(crop));
+        when(cropRepository.findByProjectApplication_Project_Id(anyInt())).thenReturn(Collections.singletonList(crop));
 
         CropResponseDTO result = cropService.finish(1, 100.0f);
         assertEquals(cropResponseDTO, result);
@@ -175,7 +173,6 @@ public class CropServiceTest {
     @Test
     void testGetCropById() {
         when(cropRepository.findById(anyInt())).thenReturn(Optional.of(crop));
-
         Crop result = cropService.getCropById(1);
         assertEquals(crop, result);
     }
