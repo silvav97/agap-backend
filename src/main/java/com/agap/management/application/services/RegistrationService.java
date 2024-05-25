@@ -22,6 +22,7 @@ import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +33,9 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class RegistrationService implements IRegistrationService {
+
+    @Value("${frontend.url}")
+    private String frontendUrl;
 
     private final IUserRepository userRepository;
     private final IRoleRepository roleRepository;
@@ -106,7 +110,7 @@ public class RegistrationService implements IRegistrationService {
 
         String subject = "Confirmar cuenta";
         String bodyContent = "Por favor, haz click en el botón de abajo para verificar tu cuenta.";
-        String url = "http://localhost:4200/auth/verify/" + jwtToken;
+        String url = frontendUrl + "/auth/verify/" + jwtToken;
         String buttonMessage = "Verificar cuenta";
         emailService.sendEmail(user.getEmail(), subject, bodyContent, url, buttonMessage);
     }

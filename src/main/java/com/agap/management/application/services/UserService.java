@@ -14,6 +14,7 @@ import com.agap.management.infrastructure.adapters.persistence.IUserRepository;
 import com.agap.management.domain.dtos.request.ChangePasswordRequestDTO;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,9 @@ import java.security.Principal;
 @Service
 @RequiredArgsConstructor
 public class UserService implements IUserService {
+
+    @Value("${frontend.url}")
+    private String frontendUrl;
 
     private final IUserRepository userRepository;
     private final ITokenService tokenService;
@@ -55,7 +59,7 @@ public class UserService implements IUserService {
 
         String subject = "Restablecer contraseña";
         String content = "Para cambiar la contraseña haga click en el siguiente botón.";
-        String url = "http://localhost:4200/auth/reset-password/" + jwtToken;
+        String url = frontendUrl + "/auth/reset-password/" + jwtToken;
 
         String buttonMessage = "Cambiar contraseña";
         emailService.sendEmail(email, subject, content, url, buttonMessage);
