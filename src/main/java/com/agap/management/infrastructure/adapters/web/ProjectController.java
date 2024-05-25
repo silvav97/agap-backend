@@ -79,10 +79,6 @@ public class ProjectController {
         return projectService.findRelatedCrops(id);
     }
 
-
-
-
-    /* FUNCIONA PERFECTO  */
     @PostMapping("/upload")
     public Map<String, String> uploadFile(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request) {
         String path = storageService.store(multipartFile);
@@ -103,25 +99,15 @@ public class ProjectController {
         return Map.of("url", url);
     }
 
-
-
-    /* FUNCIONA PERFECTO  */
     @GetMapping("/imagen/{filename:.+}")
     public ResponseEntity<Resource> getFile(@PathVariable String filename) throws IOException {
         Resource file = storageService.loadAsResource(filename);
         String contentType = Files.probeContentType(file.getFile().toPath());
-        System.out.println("Conten type: " + contentType);
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_TYPE, contentType)
                 .body(file);
     }
 
-
-
-
-
-
-    /* SI FUNCIONA  */
     @PostMapping(path = "/save-with-file", consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
     public ProjectResponseDTO saveProjectAndUploadFile(
             @RequestPart("project") String  projectJson,
@@ -138,26 +124,23 @@ public class ProjectController {
         projectRequestDTO.setImageUrl(imageUrl);
         return projectService.save(projectRequestDTO);
     }
-    /* NO FUNCIONA AUN (AAAAUUNNNN)  */
+
     @PutMapping(path = "/update-with-file/{id}", consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
     public ProjectResponseDTO updateProjectAndUploadFile(
             @RequestPart("project") String projectJson,
             @RequestPart("file") MultipartFile file,
             @PathVariable Integer id) {
-        System.out.println("Received JSON: " + projectJson);
         ProjectRequestDTO projectRequestDTO;
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.registerModule(new JavaTimeModule());
             projectRequestDTO = objectMapper.readValue(projectJson, ProjectRequestDTO.class);
         } catch (JsonProcessingException e) {
-            System.out.println("Invalid JSON format, " + e);
             throw new RuntimeException("Invalid JSON format", e);
         }
         String imageUrl = storageService.store(file);
         projectRequestDTO.setImageUrl(imageUrl);
         return projectService.update(id, projectRequestDTO);
     }
-
 
 }
