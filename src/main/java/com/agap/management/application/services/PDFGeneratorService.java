@@ -2,12 +2,10 @@ package com.agap.management.application.services;
 
 import com.agap.management.application.ports.IReportService;
 import com.agap.management.domain.dtos.response.CropReportResponseDTO;
-import com.agap.management.domain.entities.Crop;
 import com.agap.management.domain.entities.ProjectReport;
 import com.agap.management.exceptions.personalizedException.EntityNotFoundByFieldException;
 import com.agap.management.infrastructure.adapters.persistence.ICropRepository;
 import com.agap.management.infrastructure.adapters.persistence.IProjectReportRepository;
-import com.agap.management.infrastructure.adapters.persistence.IProjectRepository;
 import com.lowagie.text.*;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
@@ -18,7 +16,6 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -53,12 +50,6 @@ public class PDFGeneratorService {
         table.setWidthPercentage(100);
         table.setSpacingBefore(10f);
         table.setSpacingAfter(10f);
-
-        // Table headers
-        //PdfPCell cell1 = new PdfPCell(new Paragraph("Attribute", fontParagraph));
-        //PdfPCell cell2 = new PdfPCell(new Paragraph("Value", fontParagraph));
-        //table.addCell(cell1);
-        //table.addCell(cell2);
 
         // Add project report attributes to table
         table.addCell("Ventas Totales");
@@ -113,27 +104,4 @@ public class PDFGeneratorService {
 
         document.close();
     }
-
-
-
-
-
-
-
-
-
-
-
-    /*public void export2(HttpServletResponse response) throws IOException {
-        Document document = new Document(PageSize.A4);
-        PdfWriter.getInstance(document, response.getOutputStream());
-        document.open();
-
-        Font fontTitle = FontFactory.getFont(FontFactory.HELVETICA_BOLD);fontTitle.setSize(18);
-        Paragraph paragraph = new Paragraph("This is a title.", fontTitle);paragraph.setAlignment(Paragraph.ALIGN_CENTER);
-
-        Font fontParagraph = FontFactory.getFont(FontFactory.HELVETICA);fontParagraph.setSize(12);
-        Paragraph paragraph2 = new Paragraph("This is a paragraph.", fontParagraph);paragraph2.setAlignment(Paragraph.ALIGN_LEFT);
-        document.add(paragraph);document.add(paragraph2);document.close();
-    }*/
 }
