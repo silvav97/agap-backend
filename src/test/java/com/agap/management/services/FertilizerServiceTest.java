@@ -30,14 +30,10 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 public class FertilizerServiceTest {
 
-    @Mock
-    private IFertilizerRepository fertilizerRepository;
-    @Mock
-    private ICropTypeRepository cropTypeRepository;
-    @Mock
-    private ModelMapper modelMapper;
-    @InjectMocks
-    private FertilizerService fertilizerService;
+    @Mock private IFertilizerRepository fertilizerRepository;
+    @Mock private ICropTypeRepository cropTypeRepository;
+    @Mock private ModelMapper modelMapper;
+    @InjectMocks private FertilizerService fertilizerService;
 
     private Fertilizer fertilizer;
     private FertilizerDTO fertilizerDTO;
