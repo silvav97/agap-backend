@@ -71,8 +71,7 @@ public class ReportController {
         String headerKey = "Content-Disposition";
         String headerValue = "attachment; filename=pdf_" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
-
-        pdfGeneratorService.export(id, response);
+        pdfGeneratorService.exportProjectReport(id, response);
     }
 
 }

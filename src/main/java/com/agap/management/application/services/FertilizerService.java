@@ -53,7 +53,7 @@ public class FertilizerService implements IFertilizerService {
     public FertilizerDTO update(Integer id, FertilizerDTO fertilizerDTO) {
         Fertilizer fertilizer = getFertilizerById(id);
 
-        modelMapper.map(fertilizerDTO, fertilizer);    // Actualiza fertilizer con los campos de fertilizerDTO sin perder el id u otros campos no incluidos en el DTO
+        modelMapper.map(fertilizerDTO, fertilizer);
         Fertilizer savedFertilizer = fertilizerRepository.save(fertilizer);
         return modelMapper.map(savedFertilizer, FertilizerDTO.class);
     }
