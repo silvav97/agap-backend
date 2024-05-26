@@ -226,19 +226,6 @@ INSERT INTO crop_type (id, weather, name, plant_quantity_per_square_meter, harve
 
 
 ---------------------------------------  PROJECT  ---------------------------------------
---INSERT INTO project (id, crop_type_id, name, status, start_date, end_date, municipality, total_budget, image_url) VALUES(1,  1,  'Proyecto Trigo',   'CREADO',  '2023-01-01', '2023-12-31', 'Vegachí',       10000, 'trigo.jpg');
---INSERT INTO project (id, crop_type_id, name, status, start_date, end_date, municipality, total_budget, image_url) VALUES(2,  2,  'Proyecto Manzana', 'CREADO',  '2023-01-01', '2023-12-31', 'Segovia',       10000, 'manzana.jpg');
---INSERT INTO project (id, crop_type_id, name, status, start_date, end_date, municipality, total_budget, image_url) VALUES(3,  3,  'Proyecto Avena',   'CREADO',  '2023-01-01', '2023-12-31', 'Remedios',      10000, 'avena.jpg');
---INSERT INTO project (id, crop_type_id, name, status, start_date, end_date, municipality, total_budget, image_url) VALUES(4,  4,  'Proyecto Cebada',  'CREADO',  '2023-01-01', '2023-12-31', 'Copacabana',    10000, 'bg-verde-03.jpg');
---INSERT INTO project (id, crop_type_id, name, status, start_date, end_date, municipality, total_budget, image_url) VALUES(5,  1,  'Proyecto Trigo',   'CREADO',  '2023-01-01', '2023-12-31', 'Barbosa',       10000, 'bg-verde-03.jpg');
---INSERT INTO project (id, crop_type_id, name, status, start_date, end_date, municipality, total_budget, image_url) VALUES(6,  1,  'Proyecto Trigo',   'CREADO',  '2023-01-01', '2023-12-31', 'El Bagre',      10000, 'bg-verde-04.jpg');
---INSERT INTO project (id, crop_type_id, name, status, start_date, end_date, municipality, total_budget, image_url) VALUES(7,  1,  'Proyecto Trigo',   'CREADO',  '2023-01-01', '2023-12-31', 'Zaragosa',      10000, 'bg-verde-05.jpg');
---INSERT INTO project (id, crop_type_id, name, status, start_date, end_date, municipality, total_budget, image_url) VALUES(8,  8,  'Proyecto Mango',   'CREADO',  '2023-01-01', '2023-12-31', 'Itagüí',        10000, 'bg-verde-05.jpg');
---INSERT INTO project (id, crop_type_id, name, status, start_date, end_date, municipality, total_budget, image_url) VALUES(9,  2,  'Proyecto Manzana', 'CREADO',  '2023-01-01', '2023-12-31', 'Caucasia',      10000, 'bg-verde-07.jpg');
---INSERT INTO project (id, crop_type_id, name, status, start_date, end_date, municipality, total_budget, image_url) VALUES(10, 10, 'Proyecto Coco',    'CERRADO', '2023-01-01', '2023-12-31', 'Puerto Berrío', 10000, 'bg-verde-08.jpg');
-
-
---------------------------------------  PROJECT  --------------------------------------
 INSERT INTO project (id, crop_type_id, name, status, start_date, end_date, municipality, total_budget, image_url) VALUES (1,  1,  'Proyecto de Trigo',         'CREADO',  '2024-01-15',  '2024-05-15',  'Amagá',         15000000.00, 'trigo.jpg');
 INSERT INTO project (id, crop_type_id, name, status, start_date, end_date, municipality, total_budget, image_url) VALUES (2,  2,  'Cultivo de Manzanas',       'CREADO',  '2024-02-01',  '2024-07-01',  'Segovia',       20000000.00, 'manzana.jpg');
 INSERT INTO project (id, crop_type_id, name, status, start_date, end_date, municipality, total_budget, image_url) VALUES (3,  3,  'Producción de Avena',       'CREADO',  '2024-03-01',  '2024-06-30',  'Remedios',      18000000.00, 'avena.jpg');
@@ -271,7 +258,6 @@ INSERT INTO project (id, crop_type_id, name, status, start_date, end_date, munic
 ---------------------------------------------  PROJECT_APPLICATION  ------------  AND  ------------  CROP  ---------------------------------------------
 --------------------------------------------------------------------------------------------------------------------------------------------------------
 
------------- project 1, admin (1) ------------
 ------------ project 1, admin (1) ------------
 INSERT INTO project_application (id, project_id, applicant_id, application_status, application_date, review_date, farm_name, area) VALUES (1,  1,  1,  'APROBADO', '2023-01-02', '2023-03-03', 'Finca la Peña', 200);
 INSERT INTO crop (id, project_application_id, status, start_date, end_date, expected_expense, assigned_budget, sale_value) VALUES (1, 1, 'CREADO', '2023-03-03', '2023-06-01', 1500000.00, 3000000.00, 4000000.00);
