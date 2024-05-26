@@ -17,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.List;
 
 @Service
@@ -26,6 +27,9 @@ public class PDFGeneratorService {
     private final IProjectReportRepository projectReportRepository;
     private final IReportService reportService;
     private final IExpenseService expenseService;
+    private static final DecimalFormat decimalFormat = new DecimalFormat("#,###.00");
+    private static final DecimalFormat profitabilityFormat = new DecimalFormat("0.###");
+
 
     public void exportProjectReport(Integer projectReportId, HttpServletResponse response) throws IOException {
         ProjectReport projectReport = projectReportRepository.findById(projectReportId).orElseThrow(()-> new EntityNotFoundByFieldException("ProjectReport", "id", projectReportId.toString()));
@@ -53,17 +57,17 @@ public class PDFGeneratorService {
 
         // Add project report attributes to table
         table.addCell("Ventas Totales");
-        table.addCell(String.valueOf(projectReport.getTotalSale()));
+        table.addCell(decimalFormat.format(projectReport.getTotalSale()));
         table.addCell("Presupuesto Total");
-        table.addCell(String.valueOf(projectReport.getTotalBudget()));
+        table.addCell(decimalFormat.format(projectReport.getTotalBudget()));
         table.addCell("Gastos Esperados");
-        table.addCell(String.valueOf(projectReport.getExpectedExpense()));
+        table.addCell(decimalFormat.format(projectReport.getExpectedExpense()));
         table.addCell("Gastos Reales");
-        table.addCell(String.valueOf(projectReport.getRealExpense()));
+        table.addCell(decimalFormat.format(projectReport.getRealExpense()));
         table.addCell("Ganancias");
-        table.addCell(String.valueOf(projectReport.getProfit()));
+        table.addCell(decimalFormat.format(projectReport.getProfit()));
         table.addCell("Rentabilidad");
-        table.addCell(String.valueOf(projectReport.getProfitability()));
+        table.addCell(profitabilityFormat.format(projectReport.getProfitability()));
 
         document.add(table);
 
@@ -90,12 +94,12 @@ public class PDFGeneratorService {
         // Add crop report data to table
         for (CropReportResponseDTO cropReport : cropReportsByProject) {
             cropTable.addCell(cropReport.getCrop().getProjectApplication().getFarmName());
-            cropTable.addCell(String.valueOf(cropReport.getTotalSale()));
-            cropTable.addCell(String.valueOf(cropReport.getAssignedBudget()));
-            cropTable.addCell(String.valueOf(cropReport.getExpectedExpense()));
-            cropTable.addCell(String.valueOf(cropReport.getRealExpense()));
-            cropTable.addCell(String.valueOf(cropReport.getProfit()));
-            cropTable.addCell(String.valueOf(cropReport.getProfitability()));
+            cropTable.addCell(decimalFormat.format(cropReport.getTotalSale()));
+            cropTable.addCell(decimalFormat.format(cropReport.getAssignedBudget()));
+            cropTable.addCell(decimalFormat.format(cropReport.getExpectedExpense()));
+            cropTable.addCell(decimalFormat.format(cropReport.getRealExpense()));
+            cropTable.addCell(decimalFormat.format(cropReport.getProfit()));
+            cropTable.addCell(profitabilityFormat.format(cropReport.getProfitability()));
         }
 
         document.add(cropTable);
@@ -134,7 +138,7 @@ public class PDFGeneratorService {
         // Add expense report data to table
         for (ExpenseResponseDTO expense : expenseReportsByCrop) {
             table.addCell(expense.getExpenseDescription().toString());
-            table.addCell(String.valueOf(expense.getExpenseValue()));
+            table.addCell(decimalFormat.format(expense.getExpenseValue()));
             table.addCell(expense.getExpenseDate().toString());
         }
 
