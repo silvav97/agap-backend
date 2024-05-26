@@ -65,14 +65,17 @@ public class CropServiceTest {
 
         User applicant = new User();
         applicant.setEmail("test@example.com");
+        applicant.setFirstName("NombreEjemplo");
 
         projectApplication = new ProjectApplication();
         projectApplication.setId(1);
         projectApplication.setApplicationStatus(ApplicationStatus.PENDIENTE);
         projectApplication.setApplicant(applicant);
+        projectApplication.setFarmName("Finca Ejemplo");
 
         Project project = new Project();
         project.setId(1);
+        project.setName("Proyecto Ejemplo");
         projectApplication.setProject(project);
 
         crop.setProjectApplication(projectApplication);
@@ -117,8 +120,15 @@ public class CropServiceTest {
 
         CropResponseDTO result = cropService.save(cropRequestDTO);
         assertEquals(cropResponseDTO, result);
-        verify(emailService, times(1)).sendEmail(eq("test@example.com"), anyString(), anyString(), anyString(), anyString());
+        verify(emailService, times(1)).sendEmail(
+                eq("test@example.com"),
+                eq("Aplicación a proyecto Aprobada"),
+                eq("Hola NombreEjemplo, tu aplicación al proyecto 'Proyecto Ejemplo' fue aprobada"),
+                isNull(),
+                isNull()
+        );
     }
+
 
     @Test
     void testUpdate() {
